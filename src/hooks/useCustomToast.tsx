@@ -38,7 +38,7 @@ const useCustomToast = () => {
   const showSuccessToast = (text = '') => {
     toast.show({
       render: ({ id }) => {
-        return <Toast id={id} text={text} bgColor={colors.bgPrimary} />
+        return <Toast id={id} text={text} bgColor={colors.base} />
       },
     })
   }

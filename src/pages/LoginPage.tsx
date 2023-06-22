@@ -3,6 +3,8 @@ import { Stack, Text } from 'native-base'
 import { NavigationProp } from '@react-navigation/native'
 
 import StatusBar from '../components/StatusBar'
+import Container from '../components/Container'
+import colors from '../styled-components/colors'
 
 interface LoginPageProps {
   navigation?: NavigationProp<any>
@@ -10,17 +12,26 @@ interface LoginPageProps {
 
 const LoginPage: React.FC<LoginPageProps> = ({  }) => {
   return (
-    <Stack
-      justifyContent='center'
-      alignItems='center'
+    <Container
+      statusBarStyle = {'default'} 
+      statusBarColor = {colors.primary} 
+      hiddenStatusBar = {false}
+      hiddenNavBar = {false}
+      backgroundTopColor = {colors.primary}
+      backgroundBottomColor = {colors.base}
     >
-      <StatusBar />
-      <Text
-        fontSize='6xl'
+      <Stack
+        justifyContent='center'
+        alignItems='center'
       >
-        Wilder puta
-      </Text>
-    </Stack>
+        <StatusBar />
+        <Text
+          fontSize='6xl'
+        >
+          Wilder puta
+        </Text>
+      </Stack>
+    </Container>
   )
 }
 
