@@ -1,13 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import { View, Text, StyleSheet } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { NativeBaseProvider, extendTheme } from 'native-base'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 
-export default function App() {
+import StackNavigation from './src/navigation/StackNavigation'
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      <NativeBaseProvider>
+        <SafeAreaProvider>
+          <SafeAreaView style={{ flex: 1 }}>
+            <StackNavigation />
+          </SafeAreaView>
+        </SafeAreaProvider>
+      </NativeBaseProvider>
+    </NavigationContainer>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -17,4 +27,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
+
+export default App
