@@ -27,27 +27,49 @@ const NavBar = ({ hidden = false, logout = true}: INavBarProps) => {
                     minW={layout.width}
                 >
                     <Stack
-                        alignItems='flex-start'
+                        alignItems='center'
                         justifyContent='center'
-                        minW={layout.width * .3}
+                        minW={layout.width * .2}
                     >
-                        
+                        <Text>
+                            A
+                        </Text>
                     </Stack>
                     <Stack
-                        alignItems='flex-start'
+                        alignItems='center'
                         justifyContent='center'
-                        minW={layout.width * .3}
+                        minW={layout.width * .2}
                     >
-                        
+                        <Text>
+                            B
+                        </Text>
                     </Stack>
                     <Stack
-                        alignItems='flex-start'
+                        alignItems='center'
                         justifyContent='center'
-                        minW={layout.width * .3}
+                        minW={layout.width * .2}
                     >
-                        
+                        <Text>
+                            C
+                        </Text>
                     </Stack>
-
+                    <Stack
+                        alignItems='center'
+                        justifyContent='center'
+                        minW={layout.width * .2}
+                    >
+                        <Text>
+                            D
+                        </Text>
+                    </Stack><Stack
+                        alignItems='center'
+                        justifyContent='center'
+                        minW={layout.width * .2}
+                    >
+                        <Text>
+                            E
+                        </Text>
+                    </Stack>
                 </HStack>
             }
         </>
