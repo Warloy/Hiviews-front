@@ -10,21 +10,15 @@ interface TimelinePageProps {
   navigation?: NavigationProp<any>
 }
 
-const TimelinePage: React.FC<TimelinePageProps> = ({  }) => {
+const TimelinePage: React.FC<TimelinePageProps> = ({ }) => {
   return (
-    <Container
-      statusBarStyle = {'default'} 
-      statusBarColor = {colors.primary} 
-      hiddenStatusBar = {false}
-      hiddenNavBar = {false}
-      backgroundTopColor = {colors.primary}
-      backgroundBottomColor = {colors.base}
-    >
+    <Container>
       <Stack
         justifyContent='center'
         alignItems='center'
+        py={5}
+        h='100%'
       >
-        <StatusBar />
         <Text
           fontSize='6xl'
         >

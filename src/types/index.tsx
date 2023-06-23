@@ -1,4 +1,9 @@
-import { FC } from 'react'
+import { FC, ReactElement } from 'react'
+
+type TBottomIconProps = {
+  color: string
+  size: number
+}
 
 export type TStackRoutes = {
   name: string
@@ -8,4 +13,11 @@ export type TStackRoutes = {
     title?: string
     headerShown?: boolean
   }
+}[]
+
+export type TBottomRoutes = {
+  name: string
+  component: FC
+  Icon: ({ color, size }: TBottomIconProps) => ReactElement
+  options?: any
 }[]
