@@ -1,8 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import LoginPage from '../pages/LoginPage'
-
 import { TStackRoutes } from '../types'
+import { StackOptions } from './styled-components/styles'
+
+import LoginPage from '../pages/LoginPage'
+import BottomNavigation from './BottomNavigation'
 
 const Stack = createNativeStackNavigator()
 
@@ -14,6 +16,14 @@ const stackRoutes: TStackRoutes = [
     options: {
       headerShown: false
     }
+  },
+  {
+    name: 'SignIn',
+    component: BottomNavigation,
+    requireAuth: true,
+    options: {
+      headerShown: false
+    }
   }
 ]
 
@@ -21,16 +31,10 @@ const StackNavigation = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={stackRoutes[0].name}
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#F1F1F1'
-        },
-        headerTintColor: 'd85817'
-      }}
+      initialRouteName={stackRoutes[1].name}
+      screenOptions={StackOptions}
     >
       {stackRoutes
-        .filter(({ requireAuth }) => !requireAuth)
         .map(({ name, component, options }) => (
           <Stack.Screen
             key={name}
