@@ -24,7 +24,6 @@ const LoginPage: React.FC<LoginPageProps> = ({  }) => {
         justifyContent='center'
         alignItems='center'
       >
-        <StatusBar />
         <Text
           fontSize='6xl'
         >
