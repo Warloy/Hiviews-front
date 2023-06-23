@@ -18,7 +18,7 @@ const bottomRoutes: TBottomRoutes = [
     Icon: ({ color, size }) => (
       <FontAwesome5
         name={color === colors.primary ? 'user-alt' : 'user'}
-        color={color}
+        color={colors.tertiary}
         size={size}
       />
     )
@@ -29,7 +29,7 @@ const bottomRoutes: TBottomRoutes = [
     Icon: ({ color, size }) => (
       <Ionicons
         name={color === colors.primary ? 'home' : 'home-outline'}
-        color={color}
+        color={colors.tertiary}
         size={size}
       />
     )

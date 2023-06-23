@@ -22,7 +22,7 @@ const LoginPage: React.FC<LoginPageProps> = ({  }) => {
         <Text
           fontSize='6xl'
         >
-          Wilder puta
+          Perfil
         </Text>
       </Stack>
     </Container>
