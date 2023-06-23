@@ -12,17 +12,12 @@ interface LoginPageProps {
 
 const LoginPage: React.FC<LoginPageProps> = ({  }) => {
   return (
-    <Container
-      statusBarStyle = {'default'} 
-      statusBarColor = {colors.primary} 
-      hiddenStatusBar = {false}
-      hiddenNavBar = {false}
-      backgroundTopColor = {colors.primary}
-      backgroundBottomColor = {colors.base}
-    >
+    <Container>
       <Stack
         justifyContent='center'
         alignItems='center'
+        minH='100%'
+        maxH='100%'
       >
         <Text
           fontSize='6xl'

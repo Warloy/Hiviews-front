@@ -12,19 +12,12 @@ interface ProfilePageProps {
 
 const ProfilePage: React.FC<ProfilePageProps> = ({  }) => {
   return (
-    <Container
-      statusBarStyle = {'default'} 
-      statusBarColor = {colors.primary} 
-      hiddenStatusBar = {false}
-      hiddenNavBar = {false}
-      backgroundTopColor = {colors.primary}
-      backgroundBottomColor = {colors.base}
-    >
+    <Container>
       <Stack
         justifyContent='center'
         alignItems='center'
+        h='100%'
       >
-        <StatusBar />
         <Text
           fontSize='6xl'
         >
