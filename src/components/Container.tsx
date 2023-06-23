@@ -28,6 +28,9 @@ const Container = ({
         hidden={hiddenStatusBar}
         statusBarStyle={statusBarStyle}
       />
+      <NavBar 
+        hidden={hiddenNavBar}
+      />
       {children}
     </Background>
   )
