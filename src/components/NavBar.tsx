@@ -50,19 +50,19 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
             space={2}
           >
             <TouchableOpacity
-              onPress={() => console.log('Notification nav button')}
+              onPress={() => console.log('Search nav button')}
             >
               <Ionicons
-                name='notifications-outline'
+                name='search'
                 color={colors.white}
                 size={20}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => console.log('Search nav button')}
+              onPress={() => console.log('Notification nav button')}
             >
               <Ionicons
-                name='search'
+                name='notifications-outline'
                 color={colors.white}
                 size={20}
               />
