@@ -1,208 +1,338 @@
-import React, { useState, useRef } from 'react'
-import { ImageBackground, TouchableOpacity } from 'react-native'
+import React, { useRef, useState } from 'react'
 import {
-    View,
-    Box,
-    Text,
-    VStack,
-    Image,
-    Icon,
-    Checkbox,
-    Stack,
-    FormControl,
-    WarningOutlineIcon,
-    Button,
-    Divider,
-    HStack,
-    Input,
-    WarningTwoIcon,
-  } from 'native-base'
+  Text,
+  VStack,
+  Image,
+  Stack,
+  HStack,
+  FormControl,
+  Icon,
+  WarningOutlineIcon,
+  Button,
+} from 'native-base'
+
+import { NavigationProp } from '@react-navigation/native'
+
 import { Ionicons } from '@expo/vector-icons'
-import useAuthContext from '../../hooks/useAuthContext'
-import useCustomToast from '../../hooks/useCustomToast'
+
+import { Controller, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { loginDefaultValues, loginSchema } from '../../schemas/loginSchema'
+
 import colors from '../../styled-components/colors'
-import { IAuthContextType } from '../../interfaces/AuthContext.Interfaces'
 
-const image = {uri: 'https://img.freepik.com/free-vector/vector-background-seamless-retro-film_2065-725.jpg?w=826&t=st=1687964006~exp=1687964606~hmac=e4d104d3e14b27fb7ba29769ef7b8625a293fd6dcab748b8d66c6aaa76266a0e'}
+import Cinema from '../../assets/MovieNight-amico.svg'
+import CardContainer from '../CardContainer'
 
-const LoginForm = ({}) => {
-    const { showSuccessToast, showErrorToast } = useCustomToast()
-    const { dispatch }:IAuthContextType = useAuthContext()
+import useLoading from '../../hooks/useLoading'
+import useCustomToast from '../../hooks/useCustomToast'
+import StyledField from '../StyledField'
+import { TouchableOpacity } from 'react-native'
+import { emailValidator, passwordValidator } from '../../utils/validators'
+import useAuthContext from '../../hooks/useAuthContext'
+import { setSession } from '../../services/jwt'
 
-    return (
-        <ImageBackground source={image} resizeMode='repeat'>
-        <View
-            alignItems={'center'}
-            justifyContent={'flex-start'}
-            minW={'100%'}
-            maxH={'100%'}
-            minH={'100%'}
+interface ILoginForm {
+  navigation?: NavigationProp<any>
+}
+
+const BottomChildren = () => {
+  return (
+    <Stack
+      w='100%'
+      h='55%'
+      space={3}
+      alignItems='center'
+      justifyContent='center'
+    >
+      <Image
+        alt='HiViews Logo'
+        source={require('../../assets/logoPro.png')}
+        h='16'
+        w='16'
+      />
+      <HStack
+        w='100%'
+        justifyContent='center'
+        alignItems='center'
+        space={1}
+      >
+        <Text
+          fontSize='sm'
+          color={colors.gray4}
         >
-            <Box
-                minH={'80%'}
-                minW={'90%'}
-                alignItems={'center'}
-                justifyContent={'center'}
-                my={10}
-                backgroundColor={'rgba(255, 230, 189, 0.95)'}
-                rounded={15}
-                
+          ¿Eres nuevo?
+        </Text>
+        <Text
+          fontSize='sm'
+          color={colors.secondary}
+          onPress={() => console.log('Register')}
+        >
+          Regístrate aquí
+        </Text>
+      </HStack>
+    </Stack>
+  )
+}
+
+const LoginForm = ({ navigation }: ILoginForm) => {
+
+  const ref = useRef()
+
+  const [show, setShow] = useState(false)
+
+  const { dispatch } = useAuthContext()
+
+  const { isLoading, startLoading, stopLoading } = useLoading()
+  const { showSuccessToast, showErrorToast } = useCustomToast()
+
+  const emailVal = (value: string): string => {
+    if (!emailValidator(value) && value !== '') {
+      return colors.error.primary
+    } else if (emailValidator(value) && value !== '') {
+      return colors.primary
+    } else {
+      return colors.gray0
+    }
+  }
+
+  const passVal = (value: string): string => {
+    if (!passwordValidator(value) && value !== '') {
+      return colors.error.primary
+    } else if (passwordValidator(value) && value !== '') {
+      return colors.primary
+    } else {
+      return colors.gray0
+    }
+  }
+
+  const {
+    control,
+    handleSubmit,
+    formState: { isValid },
+    reset
+  } = useForm({
+    mode: 'onChange',
+    resolver: yupResolver(loginSchema),
+    defaultValues: loginDefaultValues
+  })
+
+  const onSubmit = async (value: any) => {
+    startLoading()
+    try {
+      showSuccessToast(`¡Bienvenido a Hiviews!`)
+      await setSession('1', 'token')
+      dispatch({
+        type: 'LOGIN',
+        payload: {
+          user: {
+            id: '1',
+            token: 'token',
+            user: 'user'
+          }
+        }
+      })
+      reset(loginDefaultValues)
+    } catch (error) {
+      showErrorToast(`Error: ${error}`)
+    }
+    stopLoading()
+  }
+
+  return (
+    <CardContainer
+      topChildren={
+        <Cinema
+          height='65%'
+          width='65%'
+        />
+      }
+      bottomChildren={
+        <BottomChildren />
+      }
+    >
+      <VStack
+        minH='100%'
+        maxH='100%'
+        w='100%'
+        space={1}
+      >
+        <Text
+          bold
+          fontSize='xl'
+          pb={5}
+        >
+          ¡BIENVENIDO!
+        </Text>
+
+        <Controller
+          name='email'
+          control={control}
+          render={({ field: { onChange, value = '' } }) => (
+            <FormControl
+              isInvalid={
+                !emailValidator(value) && value !== ''
+              }
+              h={75}
             >
-                <VStack
-                    alignItems={'center'}
-                    maxW={'90%'}
-                    pt={5}
-                    pb={2}
-                >
-                    <Image
-                    source={require('../../assets/logoPro.png')}
-                    alt='Hiviews logo'
-                    h={75}
-                    w={75}
+              <StyledField
+                ref={ref}
+                placeholder='Correo electrónico'
+                onChangeText={onChange}
+                borderColor={emailVal(value)}
+                InputLeftElement={
+                  <Stack
+                    pl={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Ionicons
+                      name='person'
+                      size={20}
+                      color={emailVal(value)}
                     />
-                    <Text
-                        bold
-                        color={colors.tertiary}
-                        fontSize='xl'
-                    >
-                        Hiviews
-                    </Text>
-                </VStack>
-                <VStack
-                    alignItems={'center'}
-                    maxW={'90%'}
-                    pt={3}
-                    pb={1}
-                >
-                    <Input
-                        color={colors.quaternary}
-                        bgColor={colors.white}
-                        focusOutlineColor={colors.quaternary}
-                        invalidOutlineColor={colors.error.primary}
-                        mx={3}
-                        placeholder={`Nombre de usuario`}
-                        w={'75%'}
-                        InputLeftElement={ <Icon as={<Ionicons
-                            name='person-circle-outline'
-                            />}
-                            ml={2} 
-                            size={5}
-                            color={colors.tertiary}
-                            />
-                        }
+                  </Stack>
+                }
+              />
+              {emailValidator(value) ? null : (
+                <FormControl.ErrorMessage
+                  leftIcon={
+                    <WarningOutlineIcon
+                      size='xs'
                     />
-                </VStack>
-                <VStack
-                    alignItems={'center'}
-                    maxW={'90%'}
-                    pt={1}
-                    pb={3}
+                  }
                 >
-                    <FormControl 
-                        isInvalid={true}
-                        w={'100%'}
+                  El correo electrónico no es válido
+                </FormControl.ErrorMessage>
+              )}
+            </FormControl>
+          )}
+        />
+
+        <Controller
+          name='password'
+          control={control}
+          render={({ field: { onChange, value = '' } }) => (
+            <FormControl
+              isInvalid={
+                !passwordValidator(value) && value !== ''
+              }
+              h={75}
+            >
+              <StyledField
+                ref={ref}
+                placeholder='Contraseña'
+                onChangeText={onChange}
+                secureTextEntry={!show}
+                InputLeftElement={
+                  <Stack
+                    pl={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Ionicons
+                      name='lock-closed'
+                      size={20}
+                      color={passVal(value)}
+                    />
+                  </Stack>
+                }
+                InputRightElement={
+                  <Stack
+                    pr={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <TouchableOpacity
+                      onPress={() => setShow(!show)}
                     >
-                        <Input 
-                            type={'password'}
-                            color={colors.quaternary}
-                            bgColor={colors.white}
-                            focusOutlineColor={colors.quaternary}
-                            invalidOutlineColor={colors.error.primary}
-                            mx={3}
-                            placeholder={`Contraseña`}
-                            w={'75%'}
-                            InputLeftElement={ <Icon as={<Ionicons
-                                name='key-outline'
-                                />}
-                                ml={2}
-                                size={5}
-                                color={colors.tertiary}
-                                />
-                            }
-                        />
-                    </FormControl>
-                </VStack>
-                <VStack
-                    alignItems={'center'}
-                    maxW={'90%'}
-                    py={2}
-                >
-                    <Button 
-                        background={colors.tertiary}
-                        shadow={5}
-                        rounded={5}
-                        onPress={() => console.log('Login: Login button')}
-                    >
-                        <Stack
-                            alignItems={'center'}
-                            justifyContent={'center'}
-                        >
-                            <TouchableOpacity onPress={() => console.log('Login: Login button')}>
-                                <Text
-                                    bold
-                                    color={colors.base}
-                                >
-                                    Iniciar sesión
-                                </Text>
-                            </TouchableOpacity>
-                        </Stack>
-                    </Button>
-                </VStack>
-                <VStack
-                    alignItems={'center'}
-                    maxW={'90%'}
-                >
-                    <HStack
-                        alignItems={'center'}
-                        maxW={'100%'}
-                    >
-                        <Text
-                            color={colors.quaternary}
-                            pr={1}
-                        >
-                            ¿Olvidaste tu contraseña?
-                        </Text>
-                        <TouchableOpacity onPress={() => console.log('Login: Forgot password')}>
-                        <Text
-                            bold
-                            color={colors.tertiary}
-                        >
-                            Haz clic aquí 
-                        </Text>
+                      <Ionicons
+                        name={show ? 'eye-outline' : 'eye-off-outline'}
+                        size={20}
+                        color={passVal(value)}
+                      />
                     </TouchableOpacity>
-                    </HStack>
-                    
-                    
-                </VStack>
-                <VStack
-                    alignItems={'center'}
-                    maxW={'90%'}
+                  </Stack>
+                }
+              />
+              {passwordValidator(value) ? null : (
+                <FormControl.ErrorMessage
+                  leftIcon={
+                    <WarningOutlineIcon
+                      size='xs'
+                    />
+                  }
                 >
-                    <HStack
-                        alignItems={'center'}
-                        maxW={'100%'}
-                    >
-                        <Text
-                            color={colors.quaternary}
-                            pr={1}
-                        >
-                            ¿No tienes una cuenta?
-                        </Text>
-                        <TouchableOpacity onPress={() => console.log('Login: Register')}>
-                            <Text
-                                bold
-                                color={colors.tertiary}
-                            >
-                                Regístrate
-                            </Text>
-                        </TouchableOpacity>
-                    </HStack>
-                </VStack>
-            </Box>
-        </View>
-        </ImageBackground>
-    )
-    
+                  La contraseña no es válida
+                </FormControl.ErrorMessage>
+              )}
+            </FormControl>
+          )}
+        />
+
+        <Stack
+          w='100%'
+          justifyContent='center'
+          alignItems='center'
+        >
+          <Button
+            w='100%'
+            isLoading={isLoading}
+            isDisabled={isLoading || !isValid}
+            onPress={handleSubmit(onSubmit)}
+            borderRadius='full'
+            style={{
+              backgroundColor: colors.secondary
+            }}
+            shadow={1}
+          >
+            Ingresar
+          </Button>
+        </Stack>
+
+        <VStack
+          pt={5}
+          w='100%'
+          justifyContent='center'
+          alignItems='center'
+          space={0}
+        >
+          <Text
+            textAlign='center'
+            color={colors.gray4}
+            fontSize='xs'
+          >
+            ¿No recuerdas alguno de tus datos?
+          </Text>
+          <HStack
+            justifyContent='center'
+            space={1}
+          >
+            <Text
+              textAlign='center'
+              color={colors.gray4}
+              fontSize='xs'
+            >
+              No te preocupes,
+            </Text>
+            <Text
+              fontSize='xs'
+              color={colors.secondary}
+              onPress={() => console.log('Forget password')}
+            >
+              ingresa aquí
+            </Text>
+          </HStack>
+        </VStack>
+
+
+      </VStack>
+    </CardContainer>
+  )
+
 }
 
 export default LoginForm

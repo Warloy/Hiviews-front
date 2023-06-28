@@ -5,10 +5,21 @@ import { Avatar, HStack, Image, Stack, Text } from 'native-base'
 import colors from '../styled-components/colors'
 import { INavBarProps } from '../interfaces/NavBar.Interface'
 import { Ionicons } from '@expo/vector-icons'
+import useAuthContext from '../hooks/useAuthContext'
 
 const NavBar = ({ hidden = false }: INavBarProps) => {
 
   const layout: ScaledSize = useWindowDimensions()
+
+  const {
+    state: { user },
+    dispatch
+  } = useAuthContext()
+
+  const logoButton = () => {
+    console.log('Logo press nav button')
+    dispatch({ type: 'LOGOUT' })
+  }
 
   return (
     <>
@@ -22,7 +33,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
         >
           <Stack>
             <TouchableOpacity
-              onPress={() => console.log('Logo press nav button')}
+              onPress={logoButton}
             >
               <HStack
                 alignItems='flex-end'

@@ -6,6 +6,8 @@ import { StackOptions } from './styled-components/styles'
 import LoginPage from '../pages/LoginPage'
 import BottomNavigation from './BottomNavigation'
 
+import useAuthContext from '../hooks/useAuthContext'
+
 const Stack = createNativeStackNavigator()
 
 const stackRoutes: TStackRoutes = [
@@ -29,12 +31,17 @@ const stackRoutes: TStackRoutes = [
 
 const StackNavigation = () => {
 
+  const {
+    state: { isAuthenticated }
+  } = useAuthContext()
+
   return (
     <Stack.Navigator
-      initialRouteName={stackRoutes[1].name}
+      initialRouteName={stackRoutes[0].name}
       screenOptions={StackOptions}
     >
       {stackRoutes
+        .filter(({ requireAuth }) => requireAuth === isAuthenticated)
         .map(({ name, component, options }) => (
           <Stack.Screen
             key={name}
