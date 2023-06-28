@@ -36,7 +36,7 @@ interface ILoginForm {
   navigation?: NavigationProp<any>
 }
 
-const BottomChildren = () => {
+const BottomChildren = ({ navigation }: ILoginForm) => {
   return (
     <Stack
       w='100%'
@@ -66,8 +66,11 @@ const BottomChildren = () => {
         <Text
           fontSize='sm'
           color={colors.secondary}
-          onPress={() => console.log('Register')}
-        >
+          onPress={() => {
+            console.log('Register')
+            navigation?.navigate('RegisterPage')
+        }}
+        > 
           Regístrate aquí
         </Text>
       </HStack>
@@ -148,7 +151,9 @@ const LoginForm = ({ navigation }: ILoginForm) => {
         />
       }
       bottomChildren={
-        <BottomChildren />
+        <BottomChildren 
+            navigation={navigation}
+        />
       }
     >
       <VStack

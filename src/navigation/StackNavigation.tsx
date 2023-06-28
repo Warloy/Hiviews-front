@@ -4,6 +4,7 @@ import { TStackRoutes } from '../types'
 import { StackOptions } from './styled-components/styles'
 
 import LoginPage from '../pages/LoginPage'
+import RegisterPage from '../pages/RegisterPage'
 import BottomNavigation from './BottomNavigation'
 
 import useAuthContext from '../hooks/useAuthContext'
@@ -26,7 +27,17 @@ const stackRoutes: TStackRoutes = [
     options: {
       headerShown: false
     }
+  },
+  
+  {
+    name: 'RegisterPage',
+    component: RegisterPage,
+    requireAuth: false,
+    options: {
+      headerShown: false
+    }
   }
+  
 ]
 
 const StackNavigation = () => {
