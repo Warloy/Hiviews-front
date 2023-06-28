@@ -8,12 +8,14 @@ interface LoginPageProps {
   navigation?: NavigationProp<any>
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ }) => {
+const LoginPage: React.FC<LoginPageProps> = ({ navigation }) => {
   return (
     <Container
       hiddenNavBar={true}
     >
-      <LoginForm />
+      <LoginForm
+       navigation={navigation}
+       />
     </Container>
   )
 }
