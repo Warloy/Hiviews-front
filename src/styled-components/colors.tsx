@@ -12,6 +12,12 @@ export const colors = {
   gray5: '#111111',
   white: '#FFFFFF',
   background: 'rgba(70, 0, 110,1.0)',
+  textField: {
+    primary: '#ffcc7a',
+    background: 'rgba(255, 204, 122, .1)',
+    text: '#333333',
+    error: '#d95f5f',
+  },
   button: {
     //Fix needed: Apply colours to button colours when needed
     primary: 'rgba(84, 13, 110, 1)',
