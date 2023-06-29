@@ -3,8 +3,9 @@ const RegExp = {
   regLetters: /^[A-ZÁÉÍÓÚÑ ]+$/i,
   regPhone: /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i,
   regPassword: /^[\w-\/]{8,15}$/i,
-  regName:  /^[A-ZÁÉÍÓÚÑ ]+$/i,
-  regLastName: /^[A-ZÁÉÍÓÚÑ ]+$/i,
+  regName:  /^[\p{L}ñÑáéíóúÁÉÍÓÚüÜ\p{S}]{4,}( [\p{L}ñÑáéíóúÁÉÍÓÚüÜ\p{S}]{1,})?$/u,
+  regLastName: /^[\p{L}ñÑáéíóúÁÉÍÓÚüÜ\p{S}]{4,}( [\p{L}ñÑáéíóúÁÉÍÓÚüÜ\p{S}]{1,})?$/u,
+  regUsername: /^(?=.*[a-zA-Z])[\w_]{4,}$/
 }
 
 export default RegExp
