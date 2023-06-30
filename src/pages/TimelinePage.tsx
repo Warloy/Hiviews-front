@@ -59,7 +59,6 @@ const TimelinePage: React.FC<TimelinePageProps> = ({ navigation }) => {
 
   const handleCategories = (item: TTag) => {
     setCategoriesSelected([item])
-    setReviews([])
     setCurrentPage(1)
     setIsNextPage(true)
   }
@@ -113,6 +112,9 @@ const TimelinePage: React.FC<TimelinePageProps> = ({ navigation }) => {
 
   return (
     <Container
+      statusBarStyle='dark-content'
+      statusBarColor={colors.container.top}
+      backgroundTopColor={colors.container.top}
       backgroundBottomColor={colors.container.bottom}
     >
       <Stack
@@ -123,13 +125,13 @@ const TimelinePage: React.FC<TimelinePageProps> = ({ navigation }) => {
       >
         <Divider bgColor={colors.tertiary} />
         <MovieCarousel />
-        <Divider bgColor={colors.tertiary} />
         <TagCarousel
           tags={badges}
           handleCategories={handleCategories}
           getCategory={getCategory}
           selectedBadges={categoriesSelected}
         />
+        <Divider bgColor={colors.tertiary} />
         <FlatList
           refreshControl={
             <RefreshControl

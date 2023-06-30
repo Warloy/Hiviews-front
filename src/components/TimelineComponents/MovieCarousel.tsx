@@ -43,6 +43,7 @@ const MovieCarousel = () => {
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
+      minH={130}
       maxH={130}
     >
       {movies?.map((movie, index) => 

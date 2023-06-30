@@ -7,6 +7,7 @@ import { AntDesign, Feather, FontAwesome5 } from '@expo/vector-icons'
 import { AirbnbRating } from 'react-native-elements'
 
 import { TReview } from '../../types'
+import { before24hours, formatDate, getHour } from '../../utils/functions'
 import colors from '../../styled-components/colors'
 
 const ReviewCard = ({ review }: { review: TReview }) => {
@@ -45,13 +46,17 @@ const ReviewCard = ({ review }: { review: TReview }) => {
             maxW='82%'
             justifyContent='center'
           >
-            <Text
-              fontSize='lg'
-              bold
-              color={colors.tertiary}
+            <TouchableOpacity
+              onPress={() => console.log(`${review.id} - ${review.movie} movie pressed`)}
             >
-              {review.movie}
-            </Text>
+              <Text
+                fontSize='lg'
+                bold
+                color={colors.tertiary}
+              >
+                {review.movie}
+              </Text>
+            </TouchableOpacity>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -63,12 +68,16 @@ const ReviewCard = ({ review }: { review: TReview }) => {
                   key={index}
                   px={1}
                 >
-                  <Text
-                    fontSize='xs'
-                    color={colors.tertiary}
+                  <TouchableOpacity
+                    onPress={() => console.log(`${item.id} - ${item.name} hashtag pressed`)}
                   >
-                    #{item.name?.split(' ').join('')}
-                  </Text>
+                    <Text
+                      fontSize='xs'
+                      color={colors.tertiary}
+                    >
+                      #{item.name?.split(' ').join('')}
+                    </Text>
+                  </TouchableOpacity>
                 </Stack>
               ))}
             </ScrollView>
@@ -108,20 +117,31 @@ const ReviewCard = ({ review }: { review: TReview }) => {
                 color={colors.tertiary}
                 textAlign='right'
               >
-                {review.date.toLocaleString()}
+                {formatDate(review.date)} {getHour(review.date)}
               </Text>
-              <Text
-                fontSize='xs'
-                color={colors.tertiary}
-                textAlign='right'
+              <HStack
+                justifyContent='flex-end'
               >
-                por{' '}
                 <Text
-                  bold
+                  fontSize='xs'
+                  color={colors.tertiary}
+                  textAlign='right'
                 >
-                  {review.author}
+                  por{' '}
                 </Text>
-              </Text>
+                <TouchableOpacity
+                  onPress={() => console.log(`${review.id} - ${review.author} author pressed`)}
+                >
+                  <Text
+                    bold
+                    fontSize='xs'
+                    color={colors.tertiary}
+                    textAlign='right'
+                  >
+                    {review.author}
+                  </Text>
+                </TouchableOpacity>
+              </HStack>
               <AirbnbRating
                 count={5}
                 showRating={false}
@@ -141,7 +161,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
           py={1}
           px={2}
         >
-          {review.author === 'Manuel' &&
+          {review.author === 'Manuel' && before24hours(review.date) &&
             <>
               <TouchableOpacity
                 onPress={() => console.log('Delete pressed')}

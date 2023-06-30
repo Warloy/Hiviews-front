@@ -86,7 +86,7 @@ const reviews: TReview[] = [
     description: 'Es un perfecto ejemplo del adulto que todo niño quiere ser. Spoilers (no de la película): Llegando a adulto te das cuenta de que no quieres que tu vida tenga las mismas decisiones que las de un papel de Adam Sandler. Por lo menos es cómica.',
     movie: 'Grown Ups (2010)',
     image: require('../assets/example/movie09.jpg'),
-    date: new Date(),
+    date: '2023-06-30T14:36:15.684Z',
     rate: 3,
     likes: 10,
     comments: 35,
@@ -115,6 +115,31 @@ const reviews: TReview[] = [
       {
         id: 9,
         name: 'Familiar'
+      },
+    ]
+  },
+  {
+    id: 6,
+    author: 'Manuel',
+    description: 'no la he visto, pero dicen que es madre pelicula',
+    movie: 'Death Stranding',
+    image: require('../assets/example/movie11.jpg'),
+    date: '2023-05-30T14:36:15.684Z',
+    rate: 1,
+    likes: 0,
+    comments: 0,
+    tags: [
+      {
+        id: 11,
+        name: 'Videojuegos'
+      },
+      {
+        id: 12,
+        name: 'Kojimamadas'
+      },
+      {
+        id: 13,
+        name: 'No tiene nada que ver con cine'
       },
     ]
   }

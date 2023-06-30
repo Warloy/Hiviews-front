@@ -18,7 +18,8 @@ const TagCarousel = ({ tags, handleCategories, getCategory, selectedBadges }: IT
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      maxH={8}
+      minH={7}
+      maxH={7}
     >
       {tags?.map((item, index) =>
         <Stack
