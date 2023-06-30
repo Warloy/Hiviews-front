@@ -32,3 +32,16 @@ export type TTag = {
   id: number,
   name: string
 }
+
+export type TReview = {
+  id: number | string
+  author: string
+  date: Date | string
+  description: string | number
+  image: any
+  movie: string
+  rate: number
+  likes: number
+  comments: number
+  tags?: TTag[]
+}

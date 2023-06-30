@@ -7,7 +7,7 @@ import { TMovie } from '../../types'
 
 const MovieCarousel = () => {
 
-  const [movies, setMovies] = useState<TMovie[]>([
+  const movies = [
     {
       id: 1,
       name: 'Final Fantasy VII Advent Children',
@@ -33,10 +33,10 @@ const MovieCarousel = () => {
       name: 'Barbie',
       image: require('../../assets/example/movie05.jpg')
     }
-  ])
+  ]
 
   useEffect(() => {
-    
+
   }, movies)
 
   return (
