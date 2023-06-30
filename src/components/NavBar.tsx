@@ -47,7 +47,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
                 <Text
                   bold
                   fontSize='xl'
-                  color={colors.tertiary}
+                  color={colors.primary}
                 >
                   HIVIEWS
                 </Text>
@@ -64,7 +64,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
             >
               <Ionicons
                 name='search'
-                color={colors.tertiary}
+                color={colors.secondary}
                 size={20}
               />
             </TouchableOpacity>
@@ -73,7 +73,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
             >
               <Ionicons
                 name='notifications-outline'
-                color={colors.tertiary}
+                color={colors.secondary}
                 size={20}
               />
             </TouchableOpacity>
@@ -86,7 +86,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
                 source={{
                   uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
                 }}
-                bg={colors.tertiary}
+                bg={colors.secondary}
               >
                 GR
               </Avatar>

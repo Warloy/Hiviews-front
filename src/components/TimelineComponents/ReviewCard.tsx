@@ -20,7 +20,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
       minH={100}
       shadow={1}
       borderRadius={5}
-      bgColor={colors.container.top}
+      bgColor={colors.white}
     >
       <VStack
       >
@@ -52,7 +52,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
               <Text
                 fontSize='lg'
                 bold
-                color={colors.tertiary}
+                color={colors.text}
               >
                 {review.movie}
               </Text>
@@ -73,7 +73,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
                   >
                     <Text
                       fontSize='xs'
-                      color={colors.tertiary}
+                      color={colors.primary}
                     >
                       #{item.name?.split(' ').join('')}
                     </Text>
@@ -101,7 +101,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
               <Text
                 fontSize='xs'
                 lineHeight={13}
-                color={colors.tertiary}
+                color={colors.gray5}
               >
                 {review?.description}
               </Text>
@@ -114,7 +114,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
             >
               <Text
                 fontSize={9}
-                color={colors.tertiary}
+                color={colors.gray5}
                 textAlign='right'
               >
                 {formatDate(review.date)} {getHour(review.date)}
@@ -124,7 +124,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
               >
                 <Text
                   fontSize='xs'
-                  color={colors.tertiary}
+                  color={colors.gray5}
                   textAlign='right'
                 >
                   por{' '}
@@ -135,7 +135,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
                   <Text
                     bold
                     fontSize='xs'
-                    color={colors.tertiary}
+                    color={colors.text}
                     textAlign='right'
                   >
                     {review.author}
@@ -173,7 +173,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
                   <AntDesign
                     name='delete'
                     size={14}
-                    color={colors.tertiary}
+                    color={colors.primary}
                   />
                 </HStack>
               </TouchableOpacity>
@@ -188,7 +188,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
                   <Feather
                     name='edit'
                     size={14}
-                    color={colors.tertiary}
+                    color={colors.primary}
                   />
                 </HStack>
               </TouchableOpacity>
@@ -206,11 +206,11 @@ const ReviewCard = ({ review }: { review: TReview }) => {
               <FontAwesome5
                 name='comment-alt'
                 size={14}
-                color={colors.tertiary}
+                color={colors.primary}
               />
               <Text
                 fontSize={10}
-                color={colors.tertiary}
+                color={colors.primary}
               >
                 {review.comments}
               </Text>
@@ -227,11 +227,11 @@ const ReviewCard = ({ review }: { review: TReview }) => {
               <AntDesign
                 name={like ? 'like1' : 'like2'}
                 size={16}
-                color={colors.tertiary}
+                color={colors.primary}
               />
               <Text
                 fontSize={10}
-                color={colors.tertiary}
+                color={colors.primary}
               >
                 {like ? review.likes + 1 : review.likes}
               </Text>

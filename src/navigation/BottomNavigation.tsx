@@ -17,8 +17,8 @@ const bottomRoutes: TBottomRoutes = [
     component: ProfilePage,
     Icon: ({ color, size }) => (
       <FontAwesome5
-        name={color === colors.primary ? 'user-alt' : 'user'}
-        color={colors.tertiary}
+        name={color === colors.secondary ? 'user-alt' : 'user'}
+        color={colors.secondary}
         size={size}
       />
     )
@@ -28,8 +28,8 @@ const bottomRoutes: TBottomRoutes = [
     component: TimelinePage,
     Icon: ({ color, size }) => (
       <Ionicons
-        name={color === colors.primary ? 'home' : 'home-outline'}
-        color={colors.tertiary}
+        name={color === colors.secondary ? 'home' : 'home-outline'}
+        color={colors.secondary}
         size={size}
       />
     )

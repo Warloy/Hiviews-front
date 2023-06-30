@@ -17,7 +17,7 @@ const StyledField = forwardRef<any, IStyledFieldProps>((props, ref) => {
       alignItems='flex-start'
       justifyContent='flex-start'
       _focus={{
-        borderColor: colors.textField.primary,
+        borderColor: colors.primary,
         backgroundColor: colors.textField.background
       }}
       {...rest}

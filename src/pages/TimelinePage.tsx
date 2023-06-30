@@ -113,9 +113,9 @@ const TimelinePage: React.FC<TimelinePageProps> = ({ navigation }) => {
   return (
     <Container
       statusBarStyle='dark-content'
-      statusBarColor={colors.container.top}
-      backgroundTopColor={colors.container.top}
-      backgroundBottomColor={colors.container.bottom}
+      statusBarColor={colors.white}
+      backgroundTopColor={colors.white}
+      backgroundBottomColor={colors.white}
     >
       <Stack
         w='100%'
@@ -123,7 +123,7 @@ const TimelinePage: React.FC<TimelinePageProps> = ({ navigation }) => {
         minH='100%'
         py={1}
       >
-        <Divider bgColor={colors.tertiary} />
+        <Divider bgColor={colors.divider} />
         <MovieCarousel />
         <TagCarousel
           tags={badges}
@@ -131,7 +131,7 @@ const TimelinePage: React.FC<TimelinePageProps> = ({ navigation }) => {
           getCategory={getCategory}
           selectedBadges={categoriesSelected}
         />
-        <Divider bgColor={colors.tertiary} />
+        <Divider bgColor={colors.divider} />
         <FlatList
           refreshControl={
             <RefreshControl
