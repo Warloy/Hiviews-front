@@ -5,6 +5,7 @@ import { StackOptions } from './styled-components/styles'
 
 import LoginPage from '../pages/LoginPage'
 import RegisterPage from '../pages/RegisterPage'
+import ChangePasswPage from '../pages/ChangePasswPage'
 import BottomNavigation from './BottomNavigation'
 
 import useAuthContext from '../hooks/useAuthContext'
@@ -36,8 +37,15 @@ const stackRoutes: TStackRoutes = [
     options: {
       headerShown: false
     }
+  },
+  {
+    name: 'ChangePasswPage',
+    component: ChangePasswPage,
+    requireAuth: true,
+    options: {
+      headerShown: false
+    }
   }
-  
 ]
 
 const StackNavigation = () => {
