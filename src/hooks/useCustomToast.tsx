@@ -6,9 +6,8 @@ import { IToastProps } from '../interfaces/useCustomToast.Interface'
 
 const { width } = Dimensions.get('window')
 
-const Toast = ({ id = 'unique', text = '', color = colors.primary, bgColor = colors.secondary }: IToastProps) => (
+const Toast = ({ text = '', color = colors.primary, bgColor = colors.secondary }: IToastProps) => (
   <HStack
-    id={id}
     h='20'
     w={width}
     bottom={-50}
@@ -38,7 +37,7 @@ const useCustomToast = () => {
   const showSuccessToast = (text = '') => {
     toast.show({
       render: ({ id }) => {
-        return <Toast id={id} text={text} bgColor={colors.base} />
+        return <Toast id={id} text={text} bgColor={colors.base} color={colors.secondary} />
       },
     })
   }

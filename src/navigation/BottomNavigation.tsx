@@ -43,9 +43,9 @@ const BottomNavigation = () => {
       screenOptions={BottomOptions}
     >
       {bottomRoutes
-        .map(({ name, component, Icon }) => (
+        .map(({ name, component, Icon }, index) => (
           <Tab.Screen
-            key={name}
+            key={index}
             name={name}
             component={component}
             options={{

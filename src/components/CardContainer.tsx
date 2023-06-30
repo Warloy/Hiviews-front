@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { useWindowDimensions } from 'react-native'
 
-import { View, ScrollView, Stack, KeyboardAvoidingView } from 'native-base'
+import { View, Stack, KeyboardAvoidingView } from 'native-base'
 
 import styles from './styled-components/styles'
 import ICardContainerProps from '../interfaces/CardContainer.Interface'
