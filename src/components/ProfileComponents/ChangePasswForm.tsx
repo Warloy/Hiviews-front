@@ -17,7 +17,7 @@ import { NavigationProp } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { RegisterDefaultValues,registerSchema } from '../../schemas/registerSchema'
+import { ChangePasswDefaultValues,changePasswSchema } from '../../schemas/changePasswSchema'
 
 import colors from '../../styled-components/colors'
 
@@ -28,16 +28,16 @@ import useLoading from '../../hooks/useLoading'
 import useCustomToast from '../../hooks/useCustomToast'
 import StyledField from '../StyledField'
 import { TouchableOpacity } from 'react-native'
-import { emailValidator, passwordValidator, nameValidator, lastNameValidator,usernameValidator} from '../../utils/validators'
+import {passwordValidator} from '../../utils/validators'
 import useAuthContext from '../../hooks/useAuthContext'
 import { setSession } from '../../services/jwt'
 
 
-interface IRegisterForm {
+interface IChangePasswForm {
     navigation?: NavigationProp<any>
   }
 
-const RegisterForm = ({ navigation }: IRegisterForm) => {
+const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
   const ref = useRef()
 
   const [show, setShow] = useState(false)
@@ -47,25 +47,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
   const { isLoading, startLoading, stopLoading } = useLoading()
   const { showSuccessToast, showErrorToast } = useCustomToast()
 
-  const emailVal = (value: string): string => {
-    if (!emailValidator(value) && value !== '') {
-      return colors.error.primary
-    } else if (emailValidator(value) && value !== '') {
-      return colors.primary
-    } else {
-      return colors.gray0
-    }
-  }
 
-  const usernameVal = (value: string): string => {
-    if (!usernameValidator(value) && value !== '') {
-      return colors.error.primary
-    } else if (usernameValidator(value) && value !== '') {
-      return colors.primary
-    } else {
-      return colors.gray0
-    }
-  }
 
   const passVal = (value: string): string => {
     if (!passwordValidator(value) && value !== '') {
@@ -77,25 +59,6 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
     }
   }
 
-  const nameVal = (value: string): string => {
-    if (!nameValidator(value) && value !== '') {
-      return colors.error.primary
-    } else if (nameValidator(value) && value !== '') {
-      return colors.primary
-    } else {
-      return colors.gray0
-    }
-  }
-
-  const lastNameVal = (value: string): string => {
-    if (!lastNameValidator(value) && value !== '') {
-      return colors.error.primary
-    } else if (lastNameValidator(value) && value !== '') {
-      return colors.primary
-    } else {
-      return colors.gray0
-    }
-  }
 
   const {
     control,
@@ -104,8 +67,8 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
     reset
   } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(registerSchema),
-    defaultValues: RegisterDefaultValues
+    resolver: yupResolver(changePasswSchema),
+    defaultValues: ChangePasswDefaultValues
   })
 
 
@@ -125,7 +88,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           }
         }
       })
-      reset(RegisterDefaultValues)
+      reset(ChangePasswDefaultValues)
     } catch (error) {
       showErrorToast(`Error: ${error}`)
     }
@@ -153,69 +116,25 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           color= '#8A2F62'
           pb={5}
         >
-          Registro de usuarios
+          Cambiar contraseña
         </Text>
-
-        <Controller
-          name='email'
-          control={control}
-          render={({ field: { onChange, value = '' } }) => (
-            <FormControl
-              isInvalid={
-                !emailValidator(value) && value !== ''
-              }
-              h={75}
-            >
-              <StyledField
-                ref={ref}
-                placeholder='Correo electrónico'
-                onChangeText={onChange}
-                borderColor={emailVal(value)}
-                InputLeftElement={
-                  <Stack
-                    pl={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Ionicons
-                      name='at-circle-outline'
-                      size={20}
-                      color={emailVal(value)}
-                    />
-                  </Stack>
-                }
-              />
-              {emailValidator(value) ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  El correo electrónico no es válido
-                </FormControl.ErrorMessage>
-              )}
-            </FormControl>
-          )}
-        />
 
         
         <Controller
-          name='username'
+          name='password'
           control={control}
           render={({ field: { onChange, value = '' } }) => (
             <FormControl
               isInvalid={
-                !usernameValidator(value) && value !== ''
+                !passwordValidator(value) && value !== ''
               }
               h={75}
             >
               <StyledField
                 ref={ref}
-                placeholder='Nombre de usuario'
+                placeholder='Contraseña actual'
                 onChangeText={onChange}
+                secureTextEntry={!show}
                 InputLeftElement={
                   <Stack
                     pl={2}
@@ -224,9 +143,9 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     alignItems='center'
                   >
                     <Ionicons
-                      name='people-outline'
+                      name='lock-closed'
                       size={20}
-                      color={usernameVal(value)}
+                      color={passVal(value)}
                     />
                   </Stack>
                 }
@@ -240,12 +159,16 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     <TouchableOpacity
                       onPress={() => setShow(!show)}
                     >
-            
+                      <Ionicons
+                        name={show ? 'eye-outline' : 'eye-off-outline'}
+                        size={20}
+                        color={passVal(value)}
+                      />
                     </TouchableOpacity>
                   </Stack>
                 }
               />
-              {usernameValidator(value) ? null : (
+              {passwordValidator(value) ? null : (
                 <FormControl.ErrorMessage
                   leftIcon={
                     <WarningOutlineIcon
@@ -253,14 +176,12 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     />
                   }
                 >
-                  El nombre de usuario no es válido
+                  La contraseña no es válida
                 </FormControl.ErrorMessage>
               )}
             </FormControl>
           )}
         />
-
-
         <Controller
           name='password'
           control={control}
@@ -273,7 +194,69 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
             >
               <StyledField
                 ref={ref}
-                placeholder='Contraseña'
+                placeholder='Nueva contraseña'
+                onChangeText={onChange}
+                secureTextEntry={!show}
+                InputLeftElement={
+                  <Stack
+                    pl={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Ionicons
+                      name='lock-closed'
+                      size={20}
+                      color={passVal(value)}
+                    />
+                  </Stack>
+                }
+                InputRightElement={
+                  <Stack
+                    pr={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <TouchableOpacity
+                      onPress={() => setShow(!show)}
+                    >
+                      <Ionicons
+                        name={show ? 'eye-outline' : 'eye-off-outline'}
+                        size={20}
+                        color={passVal(value)}
+                      />
+                    </TouchableOpacity>
+                  </Stack>
+                }
+              />
+              {passwordValidator(value) ? null : (
+                <FormControl.ErrorMessage
+                  leftIcon={
+                    <WarningOutlineIcon
+                      size='xs'
+                    />
+                  }
+                >
+                  La contraseña no es válida
+                </FormControl.ErrorMessage>
+              )}
+            </FormControl>
+          )}
+        />
+        <Controller
+          name='password'
+          control={control}
+          render={({ field: { onChange, value = '' } }) => (
+            <FormControl
+              isInvalid={
+                !passwordValidator(value) && value !== ''
+              }
+              h={75}
+            >
+              <StyledField
+                ref={ref}
+                placeholder='Confirmar contraseña'
                 onChangeText={onChange}
                 secureTextEntry={!show}
                 InputLeftElement={
@@ -324,99 +307,6 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           )}
         />
 
-
-
-        <Controller
-          name='name'
-          control={control}
-          render={({ field: { onChange, value = '' } }) => (
-            <FormControl
-              isInvalid={
-                !nameValidator(value) && value !== ''
-              }
-              h={75}
-            >
-              <StyledField
-                ref={ref}
-                placeholder='Nombre'
-                onChangeText={onChange}
-                borderColor={nameVal(value)}
-                InputLeftElement={
-                  <Stack
-                    pl={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Ionicons
-                      name='person'
-                      size={20}
-                      color={nameVal(value)}
-                    />
-                  </Stack>
-                }
-              />
-              {nameValidator(value) ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  El nombre no es válido
-                </FormControl.ErrorMessage>
-              )}
-            </FormControl>
-          )}
-        />
-
-        <Controller
-          name='lastName'
-          control={control}
-          render={({ field: { onChange, value = '' } }) => (
-            <FormControl
-              isInvalid={
-                !lastNameValidator(value) && value !== ''
-              }
-              h={75}
-            >
-              <StyledField
-                ref={ref}
-                placeholder='Apellido'
-                onChangeText={onChange}
-                borderColor={lastNameVal(value)}
-                InputLeftElement={
-                  <Stack
-                    pl={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Ionicons
-                      name='person'
-                      size={20}
-                      color={lastNameVal(value)}
-                    />
-                  </Stack>
-                }
-              />
-              {lastNameValidator(value) ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  El apellido no es válido
-                </FormControl.ErrorMessage>
-              )}
-            </FormControl>
-          )}
-        />
-
-        
               
         <HStack
           w='100%'
@@ -449,7 +339,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
             }}
             shadow={1}
           >
-            Registrarse
+            Cambiar contraseña
           </Button>
 
         </HStack>
@@ -476,6 +366,5 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
 
 }
 
-export default RegisterForm
-
+export default ChangePasswForm
 
