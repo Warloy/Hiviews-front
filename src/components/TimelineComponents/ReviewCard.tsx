@@ -34,7 +34,7 @@ const ReviewCard = ({ review }: { review: TReview }) => {
             onPress={() => console.log(`Press review of ${review.movie} movie`)}
           >
             <Image
-              borderRadius='full'
+              borderRadius={50}
               h={50}
               w={50}
               source={review.image}
