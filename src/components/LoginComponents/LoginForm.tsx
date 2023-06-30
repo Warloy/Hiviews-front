@@ -31,6 +31,8 @@ import { TouchableOpacity } from 'react-native'
 import { emailValidator, passwordValidator } from '../../utils/validators'
 import useAuthContext from '../../hooks/useAuthContext'
 import { setSession } from '../../services/jwt'
+import SVGImg  from '../../assets/hilogo-7V2.svg';
+
 
 interface ILoginForm {
   navigation?: NavigationProp<any>
@@ -45,12 +47,12 @@ const BottomChildren = ({ navigation }: ILoginForm) => {
       alignItems='center'
       justifyContent='center'
     >
-      <Image
-        alt='HiViews Logo'
-        source={require('../../assets/logoPro.png')}
-        h='16'
-        w='16'
+
+      <SVGImg
+        width={60} 
+        height={60}
       />
+
       <HStack
         w='100%'
         justifyContent='center'
