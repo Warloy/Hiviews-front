@@ -1,9 +1,9 @@
 export const colors = {
-  base: '#ffe6bd',
-  primary: '#ffcc7a',
-  secondary: '#e68a6c',
-  tertiary: '#8a2f62',
-  quaternary: '#260016',
+  base: '#FFFFFF',
+  primary: '#975C8D',
+  secondary: '#D989B5',
+  tertiary: '#FFADBC',
+  quaternary: '#FF9747',
   gray0: '#b7b7b7',
   gray1: '#999999',
   gray2: '#777777',
@@ -11,18 +11,20 @@ export const colors = {
   gray4: '#333333',
   gray5: '#111111',
   white: '#FFFFFF',
-  background: 'rgba(70, 0, 110,1.0)',
-  cardBackground: '#fff9ef',
+  background: '#863A6F',
+  divider: '#FFADBC',
+  cardBackground: '#FFF0F2',
   container: {
-    top: '#ffe9c4',
+    top: '#FFB3E8',
     bottom: '#ffffff'
   },
   textField: {
-    primary: '#ffcc7a',
-    background: 'rgba(255, 204, 122, .1)',
+    primary: '#7dffc0',
+    background: 'rgba(255, 179, 232, .1)',
     text: '#333333',
     error: '#d95f5f',
   },
+  text: '#916D8B',
   button: {
     //Fix needed: Apply colours to button colours when needed
     primary: 'rgba(84, 13, 110, 1)',
@@ -42,6 +44,10 @@ export const colors = {
     secondary: '#f52556',
     bgError: '#fce1e1',
     warning: '#f57f25',
+  },
+  badge: {
+    primary: '#975C8D',
+    secondary: '#ECE6FF'
   },
   neon: '#FF00F0',
 }
