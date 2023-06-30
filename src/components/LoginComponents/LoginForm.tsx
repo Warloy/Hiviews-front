@@ -288,7 +288,7 @@ const LoginForm = ({ navigation }: ILoginForm) => {
             isLoading={isLoading}
             isDisabled={isLoading || !isValid}
             onPress={handleSubmit(onSubmit)}
-            borderRadius='full'
+            borderRadius={50}
             style={{
               backgroundColor: colors.secondary
             }}

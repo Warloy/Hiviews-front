@@ -427,7 +427,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
             isLoading={isLoading}
             isDisabled={isLoading || !isValid}
             onPress={handleSubmit(onSubmit)}
-            borderRadius='full'
+            borderRadius={50}
             style={{
               backgroundColor: colors.secondary
             }}
@@ -441,7 +441,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
             isLoading={isLoading}
             isDisabled={isLoading || !isValid}
             onPress={handleSubmit(onSubmit)}
-            borderRadius='full'
+            borderRadius={50}
             style={{
               backgroundColor: colors.secondary
             }}
