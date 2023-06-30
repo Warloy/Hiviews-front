@@ -5,7 +5,7 @@ import colors from '../../styled-components/colors'
 
 export const BottomOptions: BottomTabNavigationOptions = {
   headerShown: false,
-  tabBarActiveTintColor: colors.primary,
+  tabBarActiveTintColor: colors.secondary,
   tabBarInactiveTintColor: colors.gray0,
   tabBarInactiveBackgroundColor: colors.white,
   tabBarActiveBackgroundColor: colors.white,
