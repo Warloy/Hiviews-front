@@ -7,8 +7,8 @@ export const BottomOptions: BottomTabNavigationOptions = {
   headerShown: false,
   tabBarActiveTintColor: colors.primary,
   tabBarInactiveTintColor: colors.gray0,
-  tabBarInactiveBackgroundColor: colors.base,
-  tabBarActiveBackgroundColor: colors.base,
+  tabBarInactiveBackgroundColor: colors.white,
+  tabBarActiveBackgroundColor: colors.white,
   tabBarHideOnKeyboard: true,
   tabBarShowLabel: false,
   tabBarStyle: {
