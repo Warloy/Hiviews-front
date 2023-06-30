@@ -17,6 +17,10 @@ export const lastNameValidator = (lastname: string) => {
   return RegExp.regLastName.test(lastname)
 }
 
+export const usernameValidator = (username: string) => {
+  return RegExp.regUsername.test(username)
+}
+
 export const phoneValidator = (phone: string) => {
   return RegExp.regPhone.test(phone)
 }

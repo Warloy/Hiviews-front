@@ -18,7 +18,7 @@ import { Ionicons } from '@expo/vector-icons'
 
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { loginDefaultValues, loginSchema } from '../../schemas/loginSchema'
+import { RegisterDefaultValues,registerSchema } from '../../schemas/registerSchema'
 
 import colors from '../../styled-components/colors'
 
@@ -29,7 +29,7 @@ import useLoading from '../../hooks/useLoading'
 import useCustomToast from '../../hooks/useCustomToast'
 import StyledField from '../StyledField'
 import { TouchableOpacity } from 'react-native'
-import { emailValidator, passwordValidator, nameValidator} from '../../utils/validators'
+import { emailValidator, passwordValidator, nameValidator, lastNameValidator,usernameValidator} from '../../utils/validators'
 import useAuthContext from '../../hooks/useAuthContext'
 import { setSession } from '../../services/jwt'
 
@@ -59,6 +59,16 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
     }
   }
 
+  const usernameVal = (value: string): string => {
+    if (!usernameValidator(value) && value !== '') {
+      return colors.error.primary
+    } else if (usernameValidator(value) && value !== '') {
+      return colors.primary
+    } else {
+      return colors.gray0
+    }
+  }
+
   const passVal = (value: string): string => {
     if (!passwordValidator(value) && value !== '') {
       return colors.error.primary
@@ -68,10 +78,21 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
       return colors.gray0
     }
   }
+
   const nameVal = (value: string): string => {
     if (!nameValidator(value) && value !== '') {
       return colors.error.primary
     } else if (nameValidator(value) && value !== '') {
+      return colors.primary
+    } else {
+      return colors.gray0
+    }
+  }
+
+  const lastNameVal = (value: string): string => {
+    if (!lastNameValidator(value) && value !== '') {
+      return colors.error.primary
+    } else if (lastNameValidator(value) && value !== '') {
       return colors.primary
     } else {
       return colors.gray0
@@ -85,8 +106,8 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
     reset
   } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(loginSchema),
-    defaultValues: loginDefaultValues
+    resolver: yupResolver(registerSchema),
+    defaultValues: RegisterDefaultValues
   })
 
   const onSubmit = async (value: any) => {
@@ -104,7 +125,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           }
         }
       })
-      reset(loginDefaultValues)
+      reset(RegisterDefaultValues)
     } catch (error) {
       showErrorToast(`Error: ${error}`)
     }
@@ -128,9 +149,11 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
         <Text
           bold
           fontSize='xl'
+          textAlign='center'
+          color= '#8A2F62'
           pb={5}
         >
-          ¡Registro de iguanas!
+          Registro de usuarios
         </Text>
 
         <Controller
@@ -156,7 +179,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     alignItems='center'
                   >
                     <Ionicons
-                      name='person'
+                      name='at-circle-outline'
                       size={20}
                       color={emailVal(value)}
                     />
@@ -177,22 +200,22 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
             </FormControl>
           )}
         />
-{/*         
+
+        
         <Controller
-          name='name'
+          name='username'
           control={control}
           render={({ field: { onChange, value = '' } }) => (
             <FormControl
               isInvalid={
-                !nameValidator(value) && value !== ''
+                !usernameValidator(value) && value !== ''
               }
               h={75}
             >
               <StyledField
                 ref={ref}
-                placeholder='Nombre'
+                placeholder='Nombre de usuario'
                 onChangeText={onChange}
-                borderColor={nameVal(value)}
                 InputLeftElement={
                   <Stack
                     pl={2}
@@ -201,14 +224,28 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     alignItems='center'
                   >
                     <Ionicons
-                      name='person'
+                      name='people-outline'
                       size={20}
-                      color={nameVal(value)}
+                      color={usernameVal(value)}
                     />
                   </Stack>
                 }
+                InputRightElement={
+                  <Stack
+                    pr={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <TouchableOpacity
+                      onPress={() => setShow(!show)}
+                    >
+            
+                    </TouchableOpacity>
+                  </Stack>
+                }
               />
-              {nameValidator(value) ? null : (
+              {usernameValidator(value) ? null : (
                 <FormControl.ErrorMessage
                   leftIcon={
                     <WarningOutlineIcon
@@ -216,12 +253,13 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     />
                   }
                 >
-                  El nombre no es válido
+                  El nombre de usuario no es válido
                 </FormControl.ErrorMessage>
               )}
             </FormControl>
           )}
-        /> */}
+        />
+
 
         <Controller
           name='password'
@@ -286,13 +324,106 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           )}
         />
 
-        <Stack
+
+
+        <Controller
+          name='name'
+          control={control}
+          render={({ field: { onChange, value = '' } }) => (
+            <FormControl
+              isInvalid={
+                !nameValidator(value) && value !== ''
+              }
+              h={75}
+            >
+              <StyledField
+                ref={ref}
+                placeholder='Nombre'
+                onChangeText={onChange}
+                borderColor={nameVal(value)}
+                InputLeftElement={
+                  <Stack
+                    pl={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Ionicons
+                      name='person'
+                      size={20}
+                      color={nameVal(value)}
+                    />
+                  </Stack>
+                }
+              />
+              {nameValidator(value) ? null : (
+                <FormControl.ErrorMessage
+                  leftIcon={
+                    <WarningOutlineIcon
+                      size='xs'
+                    />
+                  }
+                >
+                  El nombre no es válido
+                </FormControl.ErrorMessage>
+              )}
+            </FormControl>
+          )}
+        />
+
+        <Controller
+          name='lastName'
+          control={control}
+          render={({ field: { onChange, value = '' } }) => (
+            <FormControl
+              isInvalid={
+                !lastNameValidator(value) && value !== ''
+              }
+              h={75}
+            >
+              <StyledField
+                ref={ref}
+                placeholder='Apellido'
+                onChangeText={onChange}
+                borderColor={lastNameVal(value)}
+                InputLeftElement={
+                  <Stack
+                    pl={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Ionicons
+                      name='person'
+                      size={20}
+                      color={lastNameVal(value)}
+                    />
+                  </Stack>
+                }
+              />
+              {lastNameValidator(value) ? null : (
+                <FormControl.ErrorMessage
+                  leftIcon={
+                    <WarningOutlineIcon
+                      size='xs'
+                    />
+                  }
+                >
+                  El apellido no es válido
+                </FormControl.ErrorMessage>
+              )}
+            </FormControl>
+          )}
+        />
+
+        <HStack
           w='100%'
           justifyContent='center'
           alignItems='center'
+          space={2}
         >
           <Button
-            w='100%'
+            w='40%'
             isLoading={isLoading}
             isDisabled={isLoading || !isValid}
             onPress={handleSubmit(onSubmit)}
@@ -302,9 +433,24 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
             }}
             shadow={1}
           >
-            Ingresar
+            Cancelar
           </Button>
-        </Stack>
+          
+          <Button
+            w='40%'
+            isLoading={isLoading}
+            isDisabled={isLoading || !isValid}
+            onPress={handleSubmit(onSubmit)}
+            borderRadius='full'
+            style={{
+              backgroundColor: colors.secondary
+            }}
+            shadow={1}
+          >
+            Registrarse
+          </Button>
+
+        </HStack>
 
         <VStack
           pt={5}
@@ -313,31 +459,11 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           alignItems='center'
           space={0}
         >
-          <Text
-            textAlign='center'
-            color={colors.gray4}
-            fontSize='xs'
-          >
-            ¿No recuerdas alguno de tus datos?
-          </Text>
           <HStack
             justifyContent='center'
             space={1}
           >
-            <Text
-              textAlign='center'
-              color={colors.gray4}
-              fontSize='xs'
-            >
-              No te preocupes,
-            </Text>
-            <Text
-              fontSize='xs'
-              color={colors.secondary}
-              onPress={() => console.log('Forget password')}
-            >
-              ingresa aquí
-            </Text>
+  
           </HStack>
         </VStack>
 
