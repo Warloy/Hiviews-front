@@ -6,6 +6,8 @@ import colors from '../styled-components/colors'
 import { INavBarProps } from '../interfaces/NavBar.Interface'
 import { Ionicons } from '@expo/vector-icons'
 import useAuthContext from '../hooks/useAuthContext'
+import SVGImg  from '../assets/hilogo-7V2.svg';
+
 
 const NavBar = ({ hidden = false }: INavBarProps) => {
 
@@ -38,11 +40,10 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
                 alignItems='flex-end'
                 space={2}
               >
-                <Image
-                  source={require('../assets/logoPro.png')}
-                  alt='Hiviews logo'
-                  h={10}
-                  w={10}
+                
+                <SVGImg
+                  width={45} 
+                  height={45}
                 />
                 <Text
                   bold
