@@ -12,7 +12,6 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
   const layout: ScaledSize = useWindowDimensions()
 
   const {
-    state: { user },
     dispatch
   } = useAuthContext()
 
@@ -65,7 +64,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
             >
               <Ionicons
                 name='search'
-                color={colors.white}
+                color={colors.tertiary}
                 size={20}
               />
             </TouchableOpacity>
@@ -74,7 +73,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
             >
               <Ionicons
                 name='notifications-outline'
-                color={colors.white}
+                color={colors.tertiary}
                 size={20}
               />
             </TouchableOpacity>

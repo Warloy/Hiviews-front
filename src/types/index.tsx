@@ -21,3 +21,14 @@ export type TBottomRoutes = {
   Icon: ({ color, size }: TBottomIconProps) => ReactElement
   options?: any
 }[]
+
+export type TMovie = {
+  id: number,
+  name: string,
+  image: any
+}
+
+export type TTag = {
+  id: number,
+  name: string
+}

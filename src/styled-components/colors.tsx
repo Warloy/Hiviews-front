@@ -12,6 +12,10 @@ export const colors = {
   gray5: '#111111',
   white: '#FFFFFF',
   background: 'rgba(70, 0, 110,1.0)',
+  container: {
+    top: '#ffe9c4',
+    bottom: '#ffffff'
+  },
   textField: {
     primary: '#ffcc7a',
     background: 'rgba(255, 204, 122, .1)',
