@@ -61,9 +61,9 @@ const StackNavigation = () => {
     >
       {stackRoutes
         .filter(({ requireAuth }) => requireAuth === isAuthenticated)
-        .map(({ name, component, options }) => (
+        .map(({ name, component, options }, index) => (
           <Stack.Screen
-            key={name}
+            key={index}
             name={name}
             component={component}
             options={options}
