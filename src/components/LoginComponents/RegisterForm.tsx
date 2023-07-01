@@ -134,6 +134,8 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
 
   return (
     <CardContainer
+      h={0.75}
+      top='10%'
       topChildren={
         <Cinema
           height='65%'
@@ -426,12 +428,10 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
         >
           <Button
             w='40%'
-            isLoading={isLoading}
-            isDisabled={isLoading || !isValid}
             onPress={handleSubmit(onSubmit)}
             borderRadius={50}
             style={{
-              backgroundColor: colors.secondary
+              backgroundColor: colors.tertiary
             }}
             shadow={1}
           >
