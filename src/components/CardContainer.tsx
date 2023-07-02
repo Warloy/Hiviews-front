@@ -7,7 +7,7 @@ import styles from './styled-components/styles'
 import ICardContainerProps from '../interfaces/CardContainer.Interface'
 
 
-const CardContainer = ({ topChildren, children, bottomChildren, h = 0.5, top = '25%', opacity = 0.85 }: ICardContainerProps) => {
+const CardContainer = ({ topChildren, children, bottomChildren, h = 0.5, top = '25%', opacity = 0.95 }: ICardContainerProps) => {
   
   const { height } = useWindowDimensions()
 
