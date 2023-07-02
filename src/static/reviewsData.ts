@@ -50,7 +50,7 @@ const reviews: TReview[] = [
   {
     id: 3,
     author: 'Luis Álvarez',
-    description: 'Esta sí es la mejor película de todos los tiempso. Simón [ comment removed by the mod team ].',
+    description: 'Esta sí es la mejor película de todos los tiempos. Simón [ comment removed by the mod team ].',
     movie: 'Shrek 2 (2004)',
     image: require('../assets/example/movie08.jpg'),
     date: new Date(),
@@ -120,7 +120,7 @@ const reviews: TReview[] = [
   },
   {
     id: 6,
-    author: 'Manuel',
+    author: 'Wilder',
     description: 'no la he visto, pero dicen que es madre pelicula',
     movie: 'Death Stranding',
     image: require('../assets/example/movie11.jpg'),

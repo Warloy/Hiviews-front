@@ -1,10 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
+import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import colors from '../styled-components/colors'
 
 import ProfilePage from '../pages/ProfilePage'
 import TimelinePage from '../pages/TimelinePage'
+import ThreadTimelinePage from '../pages/ThreadTimelinePage'
 
 import { TBottomRoutes } from '../types'
 import { BottomOptions } from './styled-components/styles'
@@ -13,22 +14,33 @@ const Tab = createBottomTabNavigator()
 
 const bottomRoutes: TBottomRoutes = [
   {
-    name: 'Profile',
-    component: ProfilePage,
+    name: 'Home',
+    component: TimelinePage,
     Icon: ({ color, size }) => (
-      <FontAwesome5
-        name={color === colors.secondary ? 'user-alt' : 'user'}
+      <Ionicons
+        name={color === colors.secondary ? 'home' : 'home-outline'}
         color={colors.secondary}
         size={size}
       />
     )
   },
   {
-    name: 'Home',
-    component: TimelinePage,
+    name: 'Forum',
+    component: ThreadTimelinePage,
     Icon: ({ color, size }) => (
-      <Ionicons
-        name={color === colors.secondary ? 'home' : 'home-outline'}
+      <MaterialCommunityIcons
+        name={color === colors.secondary ? 'forum' : 'forum-outline'}
+        color={colors.secondary}
+        size={size}
+      />
+    )
+  },
+  {
+    name: 'Profile',
+    component: ProfilePage,
+    Icon: ({ color, size }) => (
+      <FontAwesome5
+        name={color === colors.secondary ? 'user-alt' : 'user'}
         color={colors.secondary}
         size={size}
       />

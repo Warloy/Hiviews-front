@@ -2,6 +2,7 @@ import React from 'react'
 import { ScaledSize, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { Avatar, HStack, Image, Stack, Text } from 'native-base'
 
+import { useNavigation } from '@react-navigation/native'
 import colors from '../styled-components/colors'
 import { INavBarProps } from '../interfaces/NavBar.Interface'
 import { Ionicons } from '@expo/vector-icons'
@@ -16,6 +17,8 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
   const {
     dispatch
   } = useAuthContext()
+
+  const navigation = useNavigation()
 
   const logoButton = () => {
     console.log('Logo press nav button')
@@ -79,7 +82,11 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => console.log('Profile nav button')}
+              onPress={() => {
+                console.log('Profile nav button')
+                navigation?.navigate('Profile')
+              }}
+
             >
               <Avatar
                 alignSelf='center'

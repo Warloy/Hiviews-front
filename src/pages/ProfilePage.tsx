@@ -16,7 +16,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({  }) => {
         alignItems='center'
         h='100%'
       >
-
+        <Text>
+          Profile page?
+        </Text>
       </Stack>
     </Container>
   )

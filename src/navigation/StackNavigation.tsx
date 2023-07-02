@@ -9,6 +9,7 @@ import ChangePasswPage from '../pages/ChangePasswPage'
 import BottomNavigation from './BottomNavigation'
 
 import useAuthContext from '../hooks/useAuthContext'
+import ProfilePage from '../pages/ProfilePage'
 
 const Stack = createNativeStackNavigator()
 
@@ -41,6 +42,14 @@ const stackRoutes: TStackRoutes = [
   {
     name: 'ChangePasswPage',
     component: ChangePasswPage,
+    requireAuth: true,
+    options: {
+      headerShown: false
+    }
+  },
+  {
+    name: 'ProfilePage',
+    component: ProfilePage,
     requireAuth: true,
     options: {
       headerShown: false

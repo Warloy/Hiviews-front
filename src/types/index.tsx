@@ -45,3 +45,20 @@ export type TReview = {
   comments: number
   tags?: TTag[]
 }
+
+export type TCategory = {
+  id: number | string
+  name: string
+}
+
+export type TThread = {
+  id: number | string
+  author: string
+  date: Date | string
+  category: TCategory
+  topic: string
+  description: string
+  picture: any
+  likes: number
+  comments: number
+}
