@@ -1,12 +1,12 @@
 /**
  * The locale for date and time formatting.
  */
-const locale = 'es-VE'
+export const locale = 'es-VE'
 
 /**
  * The time zone for date and time calculations.
  */
-const timeZone = 'America/Caracas'
+export const timeZone = 'America/Caracas'
 
 /**
  * The options for date and time formatting.
@@ -48,15 +48,15 @@ export const getHour = (date: string | Date | null): string => {
 export const getDate = (date: Date = new Date()): { dayWeek: string, day: number, month: string, year: number } | null => {
   try {
     const months = [
-      'January', 'February', 'March',
-      'April', 'May', 'June',
-      'July', 'August', 'September',
-      'October', 'November', 'December'
+      'Enero', 'Febrero', 'Marzo',
+      'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre',
+      'Octubre', 'Noviembre', 'Diciembre'
     ]
 
     const days = [
-      'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-      'Friday', 'Saturday'
+      'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves',
+      'Viernes', 'Sábado'
     ]
 
     const d = new Date(date)

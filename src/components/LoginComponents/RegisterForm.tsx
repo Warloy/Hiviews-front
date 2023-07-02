@@ -17,7 +17,7 @@ import { NavigationProp } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { RegisterDefaultValues,registerSchema } from '../../schemas/registerSchema'
+import { RegisterDefaultValues, registerSchema } from '../../schemas/registerSchema'
 
 import colors from '../../styled-components/colors'
 
@@ -27,45 +27,52 @@ import CardContainer from '../CardContainer'
 import useLoading from '../../hooks/useLoading'
 import useCustomToast from '../../hooks/useCustomToast'
 import StyledField from '../StyledField'
-import { TouchableOpacity, Pressable, Platform} from 'react-native'
-import { emailValidator, passwordValidator, nameValidator, lastNameValidator,usernameValidator} from '../../utils/validators'
+import { TouchableOpacity, Platform } from 'react-native'
+import { emailValidator, passwordValidator, nameValidator, lastNameValidator, usernameValidator } from '../../utils/validators'
 import useAuthContext from '../../hooks/useAuthContext'
 import { setSession } from '../../services/jwt'
 import DateTimePicker from '@react-native-community/datetimepicker'
+import { formatDate, locale } from '../../utils/functions'
 
 interface IRegisterForm {
-    navigation?: NavigationProp<any>
-  }
+  navigation?: NavigationProp<any>
+}
 
 const RegisterForm = ({ navigation }: IRegisterForm) => {
   const ref = useRef()
 
   const [show, setShow] = useState(false)
+  const [showDatePicker, setShowDatePicker] = useState(false)
 
   const { dispatch } = useAuthContext()
 
   const { isLoading, startLoading, stopLoading } = useLoading()
   const { showSuccessToast, showErrorToast } = useCustomToast()
-  
+
   //Datepicker
   const [date, setDate] = useState(new Date())
-  const [showDatePicker, setShowDatePicker] = useState(false)
 
   const toogleDatePicker = () => {
-      setShowDatePicker(!showDatePicker)
+    setShowDatePicker(!showDatePicker)
   }
+
   const onDatePicker = (type: any, selectedDate: any) => {
-      if(type =='set'){
-        const currentDate = selectedDate
-        setDate(currentDate)
-      if(Platform.OS === 'android'){
+    if (type == 'set') {
+      const currentDate = selectedDate
+      setDate(currentDate)
+      if (Platform.OS === 'android') {
         setShowDatePicker(false)
       }
-      }else {
-        toogleDatePicker()
-      }
+    } else {
+      toogleDatePicker()
     }
+  }
 
+  const onChangeDate = (event: any, selectedDate: any) => {
+    const currentDate = selectedDate
+    setShowDatePicker(false)
+    setDate(currentDate)
+  }
 
   const emailVal = (value: string): string => {
     if (!emailValidator(value) && value !== '') {
@@ -120,7 +127,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
   const {
     control,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, errors },
     reset
   } = useForm({
     mode: 'onChange',
@@ -167,19 +174,17 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
       <ScrollView
         minH='100%'
         maxH='100%'
-        w='100%'        
+        w='100%'
       >
         <Text
           bold
           fontSize='xl'
           textAlign='center'
-          color= '#8A2F62'
+          color='#8A2F62'
           pb={5}
         >
           Registro de usuarios
         </Text>
-
-      
 
         <Controller
           name='name'
@@ -219,13 +224,13 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     />
                   }
                 >
-                  El nombre no es válido
+                  {errors?.name?.message}
                 </FormControl.ErrorMessage>
               )}
             </FormControl>
           )}
         />
-        
+
         <Controller
           name='lastName'
           control={control}
@@ -264,42 +269,79 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     />
                   }
                 >
-                  El apellido no es válido
+                  {errors?.lastName?.message}
                 </FormControl.ErrorMessage>
               )}
             </FormControl>
           )}
         />
 
-
-{/* <Controller
-      name='birthday'
-      control={control}
-      render={({ field: { onChange } }) => (
-        <FormControl isRequired>
-          <FormControl.Label>Fecha de nacimiento</FormControl.Label>
-          <Stack space={2}>
-            <FormControl>
-              <DateTimePicker
-                value={date}
-                mode='date'
-                is24Hour
-                display='spinner'
-                onChange={onDatePicker}
+        <Controller
+          name='birthday'
+          control={control}
+          render={({ field: { onChange, value = '' } }) => (
+            <FormControl
+              h={75}
+            >
+              <StyledField
+                ref={ref}
+                placeholder='Fecha de nacimiento'
+                onChangeText={onChange}
+                borderColor={lastNameVal(value)}
+                value={formatDate(date)}
+                isReadOnly
+                InputLeftElement={
+                  <TouchableOpacity
+                    onPress={() => setShowDatePicker(true)}
+                  >
+                    <Stack
+                      pl={2}
+                      h='full'
+                      justifyContent='center'
+                      alignItems='center'
+                    >
+                      <Ionicons
+                        name='calendar-outline'
+                        size={20}
+                        color={lastNameVal(value)}
+                      />
+                    </Stack>
+                  </TouchableOpacity>
+                }
               />
-            </FormControl>
-            <FormControl>
-            <Ionicons
-              name='calendar-outline'
-              size={20}        
+              {showDatePicker &&
+                <DateTimePicker
+                  testID='dateTimePicker'
+                  mode='date'
+                  is24Hour
+                  display='spinner'
+                  locale={locale}
+                  positiveButton={{
+                    label: 'Aceptar',
+                    textColor: colors.secondary                    
+                  }}
+                  negativeButton={{
+                    label: 'Cancelar',
+                    textColor: colors.error.primary
+                  }}
+                  onChange={onChangeDate}
+                  value={date}
+                />
+              }
+              {lastNameValidator(value) ? null : (
+                <FormControl.ErrorMessage
+                  leftIcon={
+                    <WarningOutlineIcon
+                      size='xs'
                     />
+                  }
+                >
+                  {errors?.birthday?.message}
+                </FormControl.ErrorMessage>
+              )}
             </FormControl>
-          </Stack>
-        </FormControl>
-      )}
-    /> */}
-
-
+          )}
+        />
 
         <Controller
           name='email'
@@ -339,14 +381,14 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     />
                   }
                 >
-                  El correo electrónico no es válido
+                  {errors?.email?.message}
                 </FormControl.ErrorMessage>
               )}
             </FormControl>
           )}
         />
 
-        
+
         <Controller
           name='username'
           control={control}
@@ -385,7 +427,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     <TouchableOpacity
                       onPress={() => setShow(!show)}
                     >
-            
+
                     </TouchableOpacity>
                   </Stack>
                 }
@@ -398,7 +440,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     />
                   }
                 >
-                  El nombre de usuario no es válido
+                  {errors?.username?.message}
                 </FormControl.ErrorMessage>
               )}
             </FormControl>
@@ -462,16 +504,13 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                     />
                   }
                 >
-                  La contraseña no es válida
+                  {errors?.password?.message}
                 </FormControl.ErrorMessage>
               )}
             </FormControl>
           )}
         />
 
-
-        
-              
         <HStack
           w='100%'
           justifyContent='center'
@@ -480,7 +519,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
         >
           <Button
             w='40%'
-            onPress={handleSubmit(onSubmit)}
+            onPress={() => navigation?.goBack()}
             borderRadius={50}
             style={{
               backgroundColor: colors.tertiary
@@ -489,7 +528,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           >
             Cancelar
           </Button>
-          
+
           <Button
             w='40%'
             isLoading={isLoading}
@@ -517,7 +556,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
             justifyContent='center'
             space={1}
           >
-  
+
           </HStack>
         </VStack>
 
@@ -525,7 +564,6 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
       </ScrollView>
     </CardContainer>
   )
-
 }
 
 export default RegisterForm

@@ -8,12 +8,14 @@ interface RegisterPageProps {
   navigation?: NavigationProp<any>
 }
 
-const RegisterPage: React.FC<RegisterPageProps> = ({ }) => {
+const RegisterPage: React.FC<RegisterPageProps> = ({ navigation }) => {
   return (
     <Container
       hiddenNavBar={true}
     >
-      <RegisterForm />
+      <RegisterForm
+        navigation={navigation}
+      />
     </Container>
   )
 }

@@ -2,6 +2,8 @@ import React from 'react'
 import { ScaledSize, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { Avatar, HStack, Image, Stack, Text } from 'native-base'
 
+import { setSession } from '../services/jwt'
+
 import { useNavigation } from '@react-navigation/native'
 import colors from '../styled-components/colors'
 import { INavBarProps } from '../interfaces/NavBar.Interface'
@@ -22,6 +24,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
 
   const logoButton = () => {
     console.log('Logo press nav button')
+    setSession(null, null)
     dispatch({ type: 'LOGOUT' })
   }
 
