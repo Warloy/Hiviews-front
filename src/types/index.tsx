@@ -1,3 +1,4 @@
+import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import { FC, ReactElement } from 'react'
 
 type TBottomIconProps = {
@@ -19,7 +20,7 @@ export type TBottomRoutes = {
   name: string
   component: FC
   Icon: ({ color, size }: TBottomIconProps) => ReactElement
-  options?: any
+  options?: BottomTabNavigationOptions
 }[]
 
 export type TMovie = {

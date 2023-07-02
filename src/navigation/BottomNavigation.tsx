@@ -1,3 +1,4 @@
+import { View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -8,24 +9,17 @@ import TimelinePage from '../pages/TimelinePage'
 import ThreadTimelinePage from '../pages/ThreadTimelinePage'
 
 import { TBottomRoutes } from '../types'
-import { BottomOptions } from './styled-components/styles'
+import { BottomOptions, setStyle, styles } from './styled-components/styles'
 
 const Tab = createBottomTabNavigator()
 
 const bottomRoutes: TBottomRoutes = [
   {
-    name: 'Home',
-    component: TimelinePage,
-    Icon: ({ color, size }) => (
-      <Ionicons
-        name={color === colors.secondary ? 'home' : 'home-outline'}
-        color={colors.secondary}
-        size={size}
-      />
-    )
-  },
-  {
     name: 'Forum',
+    options: {
+      tabBarShowLabel: true,
+      tabBarLabel: 'Foro',
+    },
     component: ThreadTimelinePage,
     Icon: ({ color, size }) => (
       <MaterialCommunityIcons
@@ -36,8 +30,31 @@ const bottomRoutes: TBottomRoutes = [
     )
   },
   {
+    name: 'Home',
+    component: TimelinePage,
+    options: {
+      tabBarShowLabel: true,
+      tabBarLabel: ''
+    },
+    Icon: ({ color, size }) => (
+      <View
+        style={setStyle(color)}
+      >
+        <Ionicons
+          name={color === colors.secondary ? 'home' : 'home-outline'}
+          color={color === colors.secondary ? colors.white : colors.secondary}
+          size={size}
+        />
+      </View>
+    )
+  },
+  {
     name: 'Profile',
     component: ProfilePage,
+    options: {
+      tabBarShowLabel: true,
+      tabBarLabel: 'Perfil',
+    },
     Icon: ({ color, size }) => (
       <FontAwesome5
         name={color === colors.secondary ? 'user-alt' : 'user'}
@@ -55,14 +72,14 @@ const BottomNavigation = () => {
       screenOptions={BottomOptions}
     >
       {bottomRoutes
-        .map(({ name, component, Icon }, index) => (
+        .map(({ name, component, Icon, options }, index) => (
           <Tab.Screen
             key={index}
             name={name}
             component={component}
             options={{
               tabBarIcon: Icon,
-              tabBarShowLabel: false
+              ...options
             }}
           />
         ))
