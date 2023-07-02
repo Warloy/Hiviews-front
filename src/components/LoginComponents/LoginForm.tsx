@@ -21,7 +21,7 @@ import { loginDefaultValues, loginSchema } from '../../schemas/loginSchema'
 
 import colors from '../../styled-components/colors'
 
-import Cinema from '../../assets/MovieNight-amico.svg'
+import Cinema from '../../assets/Movie-Night-Pink.svg'
 import CardContainer from '../CardContainer'
 
 import useLoading from '../../hooks/useLoading'
@@ -90,6 +90,8 @@ const LoginForm = ({ navigation }: ILoginForm) => {
 
   const { isLoading, startLoading, stopLoading } = useLoading()
   const { showSuccessToast, showErrorToast } = useCustomToast()
+
+  
 
   const emailVal = (value: string): string => {
     if (!emailValidator(value) && value !== '') {
@@ -171,7 +173,6 @@ const LoginForm = ({ navigation }: ILoginForm) => {
         >
           ¡BIENVENIDO!
         </Text>
-
         <Controller
           name='email'
           control={control}
