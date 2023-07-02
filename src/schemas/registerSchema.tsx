@@ -21,7 +21,6 @@ export const registerSchema = object({
     .required('El apellido es requerido'),
 
     birthday: string()
-    .default(new Date().toISOString().split('T')[0])
     .required('La fecha de nacimiento es requerida'),
 
   password: string()

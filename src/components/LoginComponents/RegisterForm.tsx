@@ -32,7 +32,7 @@ import { emailValidator, passwordValidator, nameValidator, lastNameValidator, us
 import useAuthContext from '../../hooks/useAuthContext'
 import { setSession } from '../../services/jwt'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import { formatDate, locale } from '../../utils/functions'
+import { formatDate, locale} from '../../utils/functions'
 
 interface IRegisterForm {
   navigation?: NavigationProp<any>
@@ -52,21 +52,6 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
   //Datepicker
   const [date, setDate] = useState(new Date())
 
-  const toogleDatePicker = () => {
-    setShowDatePicker(!showDatePicker)
-  }
-
-  const onDatePicker = (type: any, selectedDate: any) => {
-    if (type == 'set') {
-      const currentDate = selectedDate
-      setDate(currentDate)
-      if (Platform.OS === 'android') {
-        setShowDatePicker(false)
-      }
-    } else {
-      toogleDatePicker()
-    }
-  }
 
   const onChangeDate = (event: any, selectedDate: any) => {
     const currentDate = selectedDate
@@ -287,7 +272,6 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                 ref={ref}
                 placeholder='Fecha de nacimiento'
                 onChangeText={onChange}
-                borderColor={lastNameVal(value)}
                 value={formatDate(date)}
                 isReadOnly
                 InputLeftElement={
@@ -303,7 +287,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                       <Ionicons
                         name='calendar-outline'
                         size={20}
-                        color={lastNameVal(value)}
+                        color={colors.gray0}
                       />
                     </Stack>
                   </TouchableOpacity>
@@ -315,7 +299,10 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                   mode='date'
                   is24Hour
                   display='spinner'
-                  locale={locale}
+                  locale="es-ES"  
+                  minimumDate={new Date(1923, 0, 1)}
+                  maximumDate={new Date()}
+
                   positiveButton={{
                     label: 'Aceptar',
                     textColor: colors.secondary                    
@@ -328,17 +315,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                   value={date}
                 />
               }
-              {lastNameValidator(value) ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  {errors?.birthday?.message}
-                </FormControl.ErrorMessage>
-              )}
+              
             </FormControl>
           )}
         />
