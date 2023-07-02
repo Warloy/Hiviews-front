@@ -116,7 +116,7 @@ const LoginForm = ({ navigation }: ILoginForm) => {
   const {
     control,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, errors },
     reset
   } = useForm({
     mode: 'onChange',
@@ -173,13 +173,14 @@ const LoginForm = ({ navigation }: ILoginForm) => {
         >
           ¡BIENVENIDO!
         </Text>
+
         <Controller
           name='email'
           control={control}
           render={({ field: { onChange, value = '' } }) => (
             <FormControl
               isInvalid={
-                !emailValidator(value) && value !== ''
+                errors?.email && value !== ''
               }
               h={75}
             >
@@ -203,7 +204,7 @@ const LoginForm = ({ navigation }: ILoginForm) => {
                   </Stack>
                 }
               />
-              {emailValidator(value) ? null : (
+              {!errors?.email ? null : (
                 <FormControl.ErrorMessage
                   leftIcon={
                     <WarningOutlineIcon
@@ -211,7 +212,7 @@ const LoginForm = ({ navigation }: ILoginForm) => {
                     />
                   }
                 >
-                  El correo electrónico no es válido
+                  {errors?.email?.message}
                 </FormControl.ErrorMessage>
               )}
             </FormControl>
@@ -224,7 +225,7 @@ const LoginForm = ({ navigation }: ILoginForm) => {
           render={({ field: { onChange, value = '' } }) => (
             <FormControl
               isInvalid={
-                !passwordValidator(value) && value !== ''
+                errors?.password && value !== ''
               }
               h={75}
             >
@@ -266,7 +267,7 @@ const LoginForm = ({ navigation }: ILoginForm) => {
                   </Stack>
                 }
               />
-              {passwordValidator(value) ? null : (
+              {!errors?.password ? null : (
                 <FormControl.ErrorMessage
                   leftIcon={
                     <WarningOutlineIcon
@@ -274,7 +275,7 @@ const LoginForm = ({ navigation }: ILoginForm) => {
                     />
                   }
                 >
-                  La contraseña no es válida
+                  {errors?.password?.message}
                 </FormControl.ErrorMessage>
               )}
             </FormControl>

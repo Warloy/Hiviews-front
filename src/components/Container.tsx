@@ -15,6 +15,7 @@ const Container = ({
   hiddenNavBar = false,
   backgroundTopColor = colors.primary,
   backgroundBottomColor = colors.base,
+  navigation,
   children
 }: IContainerProps) => {
 
@@ -30,6 +31,7 @@ const Container = ({
       />
       <NavBar 
         hidden={hiddenNavBar}
+        navigation={navigation}
       />
       {children}
     </Background>

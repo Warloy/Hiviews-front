@@ -8,7 +8,7 @@ interface ChangePasswPageProps {
   navigation?: NavigationProp<any>
 }
 
-const ChangePasswPage: React.FC<ChangePasswPageProps> = ({ }) => {
+const ChangePasswPage: React.FC<ChangePasswPageProps> = ({ navigation }) => {
   return (
     <Container
       hiddenNavBar={true}

@@ -69,6 +69,7 @@ const ThreadTimelinePage: React.FC<ThreadTimelinePageProps> = ({ navigation }) =
   return (
     <Container
       statusBarStyle='dark-content'
+      navigation={navigation}
       statusBarColor={colors.white}
       backgroundTopColor={colors.white}
       backgroundBottomColor={colors.white}

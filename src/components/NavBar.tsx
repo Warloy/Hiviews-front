@@ -1,10 +1,9 @@
 import React from 'react'
-import { ScaledSize, TouchableOpacity, useWindowDimensions } from 'react-native'
-import { Avatar, HStack, Image, Stack, Text } from 'native-base'
+import { TouchableOpacity, useWindowDimensions } from 'react-native'
+import { Avatar, HStack, Stack, Text } from 'native-base'
 
 import { setSession } from '../services/jwt'
 
-import { useNavigation } from '@react-navigation/native'
 import colors from '../styled-components/colors'
 import { INavBarProps } from '../interfaces/NavBar.Interface'
 import { Ionicons } from '@expo/vector-icons'
@@ -12,15 +11,13 @@ import useAuthContext from '../hooks/useAuthContext'
 import SVGImg  from '../assets/hilogo-7V2.svg';
 
 
-const NavBar = ({ hidden = false }: INavBarProps) => {
+const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
 
-  const layout: ScaledSize = useWindowDimensions()
+  const layout = useWindowDimensions()
 
   const {
     dispatch
   } = useAuthContext()
-
-  const navigation = useNavigation()
 
   const logoButton = () => {
     console.log('Logo press nav button')

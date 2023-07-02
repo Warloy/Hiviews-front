@@ -113,6 +113,7 @@ const TimelinePage: React.FC<TimelinePageProps> = ({ navigation }) => {
   return (
     <Container
       statusBarStyle='dark-content'
+      navigation={navigation}
       statusBarColor={colors.white}
       backgroundTopColor={colors.white}
       backgroundBottomColor={colors.white}

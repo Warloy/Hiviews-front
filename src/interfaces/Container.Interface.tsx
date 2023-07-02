@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
 import { StatusBarStyle } from 'react-native'
+import { NavigationProp } from '@react-navigation/native'
 
 export interface IContainerProps {
     statusBarStyle?: StatusBarStyle, 
@@ -8,5 +9,6 @@ export interface IContainerProps {
     hiddenNavBar?: boolean, 
     backgroundTopColor?: string, 
     backgroundBottomColor?: string, 
-    children?: ReactNode
+    children?: ReactNode,
+    navigation?: NavigationProp<any>
 }
