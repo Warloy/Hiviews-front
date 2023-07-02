@@ -21,17 +21,17 @@ import { RegisterDefaultValues,registerSchema } from '../../schemas/registerSche
 
 import colors from '../../styled-components/colors'
 
-import Cinema from '../../assets/MovieNight-amico.svg'
+import Cinema from '../../assets/SignUp-amico.svg'
 import CardContainer from '../CardContainer'
 
 import useLoading from '../../hooks/useLoading'
 import useCustomToast from '../../hooks/useCustomToast'
 import StyledField from '../StyledField'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Pressable, Platform} from 'react-native'
 import { emailValidator, passwordValidator, nameValidator, lastNameValidator,usernameValidator} from '../../utils/validators'
 import useAuthContext from '../../hooks/useAuthContext'
 import { setSession } from '../../services/jwt'
-
+import DateTimePicker from '@react-native-community/datetimepicker'
 
 interface IRegisterForm {
     navigation?: NavigationProp<any>
@@ -46,6 +46,26 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
 
   const { isLoading, startLoading, stopLoading } = useLoading()
   const { showSuccessToast, showErrorToast } = useCustomToast()
+  
+  //Datepicker
+  const [date, setDate] = useState(new Date())
+  const [showDatePicker, setShowDatePicker] = useState(false)
+
+  const toogleDatePicker = () => {
+      setShowDatePicker(!showDatePicker)
+  }
+  const onDatePicker = (type: any, selectedDate: any) => {
+      if(type =='set'){
+        const currentDate = selectedDate
+        setDate(currentDate)
+      if(Platform.OS === 'android'){
+        setShowDatePicker(false)
+      }
+      }else {
+        toogleDatePicker()
+      }
+    }
+
 
   const emailVal = (value: string): string => {
     if (!emailValidator(value) && value !== '') {
@@ -135,7 +155,8 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
   return (
     <CardContainer
       h={0.75}
-      top='10%'
+      top='18%'
+
       topChildren={
         <Cinema
           height='65%'
@@ -157,6 +178,128 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
         >
           Registro de usuarios
         </Text>
+
+      
+
+        <Controller
+          name='name'
+          control={control}
+          render={({ field: { onChange, value = '' } }) => (
+            <FormControl
+              isInvalid={
+                !nameValidator(value) && value !== ''
+              }
+              h={75}
+            >
+              <StyledField
+                ref={ref}
+                placeholder='Nombre'
+                onChangeText={onChange}
+                borderColor={nameVal(value)}
+                InputLeftElement={
+                  <Stack
+                    pl={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Ionicons
+                      name='person'
+                      size={20}
+                      color={nameVal(value)}
+                    />
+                  </Stack>
+                }
+              />
+              {nameValidator(value) ? null : (
+                <FormControl.ErrorMessage
+                  leftIcon={
+                    <WarningOutlineIcon
+                      size='xs'
+                    />
+                  }
+                >
+                  El nombre no es válido
+                </FormControl.ErrorMessage>
+              )}
+            </FormControl>
+          )}
+        />
+        
+        <Controller
+          name='lastName'
+          control={control}
+          render={({ field: { onChange, value = '' } }) => (
+            <FormControl
+              isInvalid={
+                !lastNameValidator(value) && value !== ''
+              }
+              h={75}
+            >
+              <StyledField
+                ref={ref}
+                placeholder='Apellido'
+                onChangeText={onChange}
+                borderColor={lastNameVal(value)}
+                InputLeftElement={
+                  <Stack
+                    pl={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Ionicons
+                      name='person'
+                      size={20}
+                      color={lastNameVal(value)}
+                    />
+                  </Stack>
+                }
+              />
+              {lastNameValidator(value) ? null : (
+                <FormControl.ErrorMessage
+                  leftIcon={
+                    <WarningOutlineIcon
+                      size='xs'
+                    />
+                  }
+                >
+                  El apellido no es válido
+                </FormControl.ErrorMessage>
+              )}
+            </FormControl>
+          )}
+        />
+
+
+{/* <Controller
+      name='birthday'
+      control={control}
+      render={({ field: { onChange } }) => (
+        <FormControl isRequired>
+          <FormControl.Label>Fecha de nacimiento</FormControl.Label>
+          <Stack space={2}>
+            <FormControl>
+              <DateTimePicker
+                value={date}
+                mode='date'
+                is24Hour
+                display='spinner'
+                onChange={onDatePicker}
+              />
+            </FormControl>
+            <FormControl>
+            <Ionicons
+              name='calendar-outline'
+              size={20}        
+                    />
+            </FormControl>
+          </Stack>
+        </FormControl>
+      )}
+    /> */}
+
+
 
         <Controller
           name='email'
@@ -326,97 +469,6 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           )}
         />
 
-
-
-        <Controller
-          name='name'
-          control={control}
-          render={({ field: { onChange, value = '' } }) => (
-            <FormControl
-              isInvalid={
-                !nameValidator(value) && value !== ''
-              }
-              h={75}
-            >
-              <StyledField
-                ref={ref}
-                placeholder='Nombre'
-                onChangeText={onChange}
-                borderColor={nameVal(value)}
-                InputLeftElement={
-                  <Stack
-                    pl={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Ionicons
-                      name='person'
-                      size={20}
-                      color={nameVal(value)}
-                    />
-                  </Stack>
-                }
-              />
-              {nameValidator(value) ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  El nombre no es válido
-                </FormControl.ErrorMessage>
-              )}
-            </FormControl>
-          )}
-        />
-
-        <Controller
-          name='lastName'
-          control={control}
-          render={({ field: { onChange, value = '' } }) => (
-            <FormControl
-              isInvalid={
-                !lastNameValidator(value) && value !== ''
-              }
-              h={75}
-            >
-              <StyledField
-                ref={ref}
-                placeholder='Apellido'
-                onChangeText={onChange}
-                borderColor={lastNameVal(value)}
-                InputLeftElement={
-                  <Stack
-                    pl={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Ionicons
-                      name='person'
-                      size={20}
-                      color={lastNameVal(value)}
-                    />
-                  </Stack>
-                }
-              />
-              {lastNameValidator(value) ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  El apellido no es válido
-                </FormControl.ErrorMessage>
-              )}
-            </FormControl>
-          )}
-        />
 
         
               

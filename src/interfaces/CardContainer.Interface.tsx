@@ -6,4 +6,5 @@ export default interface ICardContainerProps {
   bottomChildren?: ReactNode
   h?: number
   top?: string | number
+  opacity?: number
 }

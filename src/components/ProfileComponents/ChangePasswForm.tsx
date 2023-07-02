@@ -21,7 +21,7 @@ import { ChangePasswDefaultValues,changePasswSchema } from '../../schemas/change
 
 import colors from '../../styled-components/colors'
 
-import Cinema from '../../assets/MovieNight-amico.svg'
+import Cinema from '../../assets/Movie-Night-Pink.svg'
 import CardContainer from '../CardContainer'
 
 import useLoading from '../../hooks/useLoading'
