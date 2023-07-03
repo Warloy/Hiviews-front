@@ -63,3 +63,11 @@ export type TThread = {
   likes: number
   comments: number
 }
+
+export type TComment = {
+  id: number | string
+  author: string
+  authAvatar: any
+  content: string
+  date: Date | string
+}
