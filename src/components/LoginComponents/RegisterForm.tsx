@@ -50,7 +50,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
   const { showSuccessToast, showErrorToast } = useCustomToast()
 
   //Datepicker
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState(new Date(2009, 1, 1))
 
 
   const onChangeDate = (event: any, selectedDate: any) => {
@@ -438,6 +438,68 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
               <StyledField
                 ref={ref}
                 placeholder='Contraseña'
+                onChangeText={onChange}
+                secureTextEntry={!show}
+                InputLeftElement={
+                  <Stack
+                    pl={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <Ionicons
+                      name='lock-closed'
+                      size={20}
+                      color={passVal(value)}
+                    />
+                  </Stack>
+                }
+                InputRightElement={
+                  <Stack
+                    pr={2}
+                    h='full'
+                    justifyContent='center'
+                    alignItems='center'
+                  >
+                    <TouchableOpacity
+                      onPress={() => setShow(!show)}
+                    >
+                      <Ionicons
+                        name={show ? 'eye-outline' : 'eye-off-outline'}
+                        size={20}
+                        color={passVal(value)}
+                      />
+                    </TouchableOpacity>
+                  </Stack>
+                }
+              />
+              {passwordValidator(value) ? null : (
+                <FormControl.ErrorMessage
+                  leftIcon={
+                    <WarningOutlineIcon
+                      size='xs'
+                    />
+                  }
+                >
+                  {errors?.password?.message}
+                </FormControl.ErrorMessage>
+              )}
+            </FormControl>
+          )}
+        />
+        <Controller
+          name='password'
+          control={control}
+          render={({ field: { onChange, value = '' } }) => (
+            <FormControl
+              isInvalid={
+                !passwordValidator(value) && value !== ''
+              }
+              h={75}
+            >
+              <StyledField
+                ref={ref}
+                placeholder='Cofirmar contraseña'
                 onChangeText={onChange}
                 secureTextEntry={!show}
                 InputLeftElement={

@@ -8,7 +8,7 @@ import colors from '../styled-components/colors'
 import { INavBarProps } from '../interfaces/NavBar.Interface'
 import { Ionicons } from '@expo/vector-icons'
 import useAuthContext from '../hooks/useAuthContext'
-import SVGImg  from '../assets/hilogo-7V2.svg';
+import SVGImg  from '../assets/1-hilogo-oficial.svg';
 
 
 const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
