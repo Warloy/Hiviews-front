@@ -29,7 +29,7 @@ import { TouchableOpacity } from 'react-native'
 import { emailValidator, passwordValidator, nameValidator, lastNameValidator, usernameValidator, birthdayValidator } from '../../utils/validators'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { formatDate, locale } from '../../utils/functions'
-import { IRegisterAdapter } from '../../adapters/RegisterAdapter'
+import { IRegisterAdapter, registerAdapter } from '../../adapters/RegisterAdapter'
 
 interface IRegisterForm {
   navigation?: NavigationProp<any>
@@ -115,10 +115,10 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
     defaultValues: RegisterDefaultValues
   })
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: IRegisterAdapter) => {
     startLoading()
     try {
-      console.log(values)
+      console.log(registerAdapter(values))
       showSuccessToast('Si se pudo Vzla')
       reset()
     } catch (error) {
