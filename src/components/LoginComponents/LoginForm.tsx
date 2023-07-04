@@ -31,7 +31,7 @@ import { TouchableOpacity } from 'react-native'
 import { emailValidator, passwordValidator } from '../../utils/validators'
 import useAuthContext from '../../hooks/useAuthContext'
 import { setSession } from '../../services/jwt'
-import SVGImg  from '../../assets/hilogo-7V2.svg';
+import SVGImg  from '../../assets/1-hilogo-oficial.svg';
 
 
 interface ILoginForm {
