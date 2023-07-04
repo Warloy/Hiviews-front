@@ -124,7 +124,7 @@ const LoginForm = ({ navigation }: ILoginForm) => {
     defaultValues: loginDefaultValues
   })
 
-  const onSubmit = async (value: any) => {
+  const onSubmit = async (values: any) => {
     startLoading()
     try {
       showSuccessToast(`¡Bienvenido a Hiviews!`)

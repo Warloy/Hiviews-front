@@ -3,11 +3,9 @@ import {
   Text,
   VStack,
   ScrollView,
-  Image,
   Stack,
   HStack,
   FormControl,
-  Icon,
   WarningOutlineIcon,
   Button,
 } from 'native-base'
@@ -27,12 +25,11 @@ import CardContainer from '../CardContainer'
 import useLoading from '../../hooks/useLoading'
 import useCustomToast from '../../hooks/useCustomToast'
 import StyledField from '../StyledField'
-import { TouchableOpacity} from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { emailValidator, passwordValidator, nameValidator, lastNameValidator, usernameValidator, birthdayValidator } from '../../utils/validators'
-import useAuthContext from '../../hooks/useAuthContext'
-import { setSession } from '../../services/jwt'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import { formatDate, locale} from '../../utils/functions'
+import { formatDate, locale } from '../../utils/functions'
+import { IRegisterAdapter } from '../../adapters/RegisterAdapter'
 
 interface IRegisterForm {
   navigation?: NavigationProp<any>
@@ -44,20 +41,8 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
   const [show, setShow] = useState(false)
   const [showDatePicker, setShowDatePicker] = useState(false)
 
-  const { dispatch } = useAuthContext()
-
   const { isLoading, startLoading, stopLoading } = useLoading()
   const { showSuccessToast, showErrorToast } = useCustomToast()
-
-  //Datepicker
-  const [date, setDate] = useState(new Date(2009, 1, 1))
-
-
-  const onChangeDate = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate
-    setShowDatePicker(false)
-    setDate(currentDate)
-  }
 
   const emailVal = (value: string): string => {
     if (!emailValidator(value) && value !== '') {
@@ -109,6 +94,16 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
     }
   }
 
+  const birthdayVal = (value: string): string => {
+    if (!birthdayValidator(value) && value !== '') {
+      return colors.error.primary
+    } else if (birthdayValidator(value) && value !== '') {
+      return colors.primary
+    } else {
+      return colors.gray0
+    }
+  }
+
   const {
     control,
     handleSubmit,
@@ -120,25 +115,14 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
     defaultValues: RegisterDefaultValues
   })
 
-
-
-  const onSubmit = async (value: any) => {
+  const onSubmit = async (values: any) => {
     startLoading()
     try {
-      showSuccessToast(`¡Bienvenido a Hiviews!`)
-      await setSession('1', 'token')
-      dispatch({
-        type: 'LOGIN',
-        payload: {
-          user: {
-            id: '1',
-            token: 'token',
-            user: 'user'
-          }
-        }
-      })
-      reset(RegisterDefaultValues)
+      console.log(values)
+      showSuccessToast('Si se pudo Vzla')
+      reset()
     } catch (error) {
+      console.log(error)
       showErrorToast(`Error: ${error}`)
     }
     stopLoading()
@@ -264,18 +248,18 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
         <Controller
           name='birthday'
           control={control}
-          render={({ field: { onChange, value = '' } }) => (
+          render={({ field: { onChange, value = new Date() } }) => (
             <FormControl
-            isInvalid={
-              !birthdayValidator(value) && value !== ''
-            }
-            h={75}
+              isInvalid={
+                !birthdayValidator(formatDate(value)) && formatDate(value) !== ''
+              }
+              h={75}
             >
               <StyledField
                 ref={ref}
                 placeholder='Fecha de nacimiento'
-                onChangeText={onChange}
-                value={formatDate(date)}
+                value={formatDate(value)}
+                borderColor={birthdayVal(formatDate(value))}
                 isReadOnly
                 InputLeftElement={
                   <TouchableOpacity
@@ -290,7 +274,7 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                       <Ionicons
                         name='calendar-outline'
                         size={20}
-                        color={colors.gray0}
+                        color={birthdayVal(formatDate(value))}
                       />
                     </Stack>
                   </TouchableOpacity>
@@ -302,23 +286,35 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                   mode='date'
                   is24Hour
                   display='spinner'
-                  locale="es-ES"  
+                  locale={locale}
                   minimumDate={new Date(1923, 0, 1)}
                   maximumDate={new Date()}
-
                   positiveButton={{
                     label: 'Aceptar',
-                    textColor: colors.secondary                    
+                    textColor: colors.secondary
                   }}
                   negativeButton={{
                     label: 'Cancelar',
                     textColor: colors.error.primary
                   }}
-                  onChange={onChangeDate}
-                  value={date}
+                  onChange={(event, date) => {
+                    onChange(date ?? new Date())
+                    setShowDatePicker(false)
+                  }}
+                  value={value}
                 />
               }
-              
+              {birthdayValidator(formatDate(value)) ? null : (
+                <FormControl.ErrorMessage
+                  leftIcon={
+                    <WarningOutlineIcon
+                      size='xs'
+                    />
+                  }
+                >
+                  {errors?.birthday?.message}
+                </FormControl.ErrorMessage>
+              )}
             </FormControl>
           )}
         />
@@ -490,8 +486,9 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
             </FormControl>
           )}
         />
+
         <Controller
-          name='password'
+          name='passwordConfirm'
           control={control}
           render={({ field: { onChange, value = '' } }) => (
             <FormControl
@@ -609,5 +606,3 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
 }
 
 export default RegisterForm
-
-
