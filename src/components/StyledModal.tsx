@@ -19,11 +19,13 @@ const StyledModal = ({
       <Modal.Content>
         {header && <Modal.Header>{header}</Modal.Header>}
         {closeButton && <Modal.CloseButton />}
+       <Modal.Header>
         <Modal.Body>
           <Stack>
             {children}
           </Stack>
         </Modal.Body>
+       </Modal.Header>
       </Modal.Content>
     </Modal>
   )

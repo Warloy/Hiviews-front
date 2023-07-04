@@ -8,6 +8,7 @@ import {
   FormControl,
   WarningOutlineIcon,
   Button,
+  Image,
 } from 'native-base'
 
 import { NavigationProp } from '@react-navigation/native'
@@ -30,13 +31,15 @@ import { emailValidator, passwordValidator, nameValidator, lastNameValidator, us
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { formatDate, locale } from '../../utils/functions'
 import { IRegisterAdapter, registerAdapter } from '../../adapters/RegisterAdapter'
-
+import StyledModal from '../../components/StyledModal'
+import SVGImg from '../../assets/Check-2.svg';
 interface IRegisterForm {
   navigation?: NavigationProp<any>
 }
 
 const RegisterForm = ({ navigation }: IRegisterForm) => {
   const ref = useRef()
+  const [viewModal, setViewModal] = useState(false)
 
   const [show, setShow] = useState(false)
   const [showDatePicker, setShowDatePicker] = useState(false)
@@ -567,12 +570,16 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           >
             Cancelar
           </Button>
+          
 
           <Button
             w='40%'
             isLoading={isLoading}
             isDisabled={isLoading || !isValid}
-            onPress={handleSubmit(onSubmit)}
+            onPress={() => {
+              handleSubmit(onSubmit);
+              setViewModal(true);
+            }}
             borderRadius={50}
             style={{
               backgroundColor: colors.secondary
@@ -581,8 +588,44 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           >
             Registrarse
           </Button>
+    
 
         </HStack>
+        <StyledModal
+              isOpen={viewModal}
+              onClose={() => setViewModal(false)}
+            >
+              <VStack
+                justifyContent='center'
+                alignItems='center'
+                space={3}
+              >
+                {/* <Icon size="5" mt="0.5" color="emerald.500" /> */}
+                
+                <SVGImg
+            
+                    width={60} 
+                    height={60}
+                  />
+
+                <Text textAlign={'center'} fontSize="lg" bold color={'#863A6F'}>Registro completado.</Text>
+                  <Text textAlign={'center'}>
+                    Se ha enviado un código de verificación a tu dirección de correo electrónico.
+                  </Text>
+                  <Button
+                    w='60%'
+                    borderRadius={50}
+                    style={{
+                      backgroundColor: colors.secondary
+                    }}
+                    shadow={1}
+                    onPress={() => navigation?.navigate('Login')}
+                  >
+                    Aceptar
+                  </Button>
+              </VStack>
+            </StyledModal>
+
 
         <VStack
           pt={5}

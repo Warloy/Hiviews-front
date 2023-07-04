@@ -134,7 +134,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
 
               </VStack>
             </StyledModal>
-
+                    
             <StyledModal
               isOpen={logoutModal}
               onClose={() => setLogoutModal(false)}
