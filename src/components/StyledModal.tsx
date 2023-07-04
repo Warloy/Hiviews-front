@@ -1,22 +1,29 @@
 import React from 'react'
-import { useWindowDimensions } from 'react-native'
-
-import { Modal } from 'native-base'
+import { Modal, Stack } from 'native-base'
 
 import { IStyledModal } from '../interfaces/StyledModal.Interface'
 
-import colors from '../styled-components/colors'
-import styles from './styled-components/styles'
-
-const StyledModal = ({ children, ...props }: IStyledModal) => {
-
-  const layout = useWindowDimensions()
+const StyledModal = ({
+  size = 'md',
+  header = undefined,
+  closeButton = false,
+  children,
+  ...props
+}: IStyledModal) => {
 
   return (
-    <Modal>
+    <Modal
+      size={size}
+      {...props}
+    >
       <Modal.Content>
-        <Modal.CloseButton />
-
+        {header && <Modal.Header>{header}</Modal.Header>}
+        {closeButton && <Modal.CloseButton />}
+        <Modal.Body>
+          <Stack>
+            {children}
+          </Stack>
+        </Modal.Body>
       </Modal.Content>
     </Modal>
   )

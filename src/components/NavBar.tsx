@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TouchableOpacity, useWindowDimensions } from 'react-native'
-import { Avatar, HStack, Stack, Text } from 'native-base'
+import { Avatar, Button, HStack, Stack, Text, VStack } from 'native-base'
 
 import { setSession } from '../services/jwt'
 
@@ -8,7 +8,8 @@ import colors from '../styled-components/colors'
 import { INavBarProps } from '../interfaces/NavBar.Interface'
 import { Ionicons } from '@expo/vector-icons'
 import useAuthContext from '../hooks/useAuthContext'
-import SVGImg  from '../assets/1-hilogo-oficial.svg';
+import SVGImg from '../assets/1-hilogo-oficial.svg';
+import StyledModal from './StyledModal'
 
 
 const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
@@ -20,11 +21,14 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
   } = useAuthContext()
 
 
-  const logoutButton = () => {  
+  const logoutButton = () => {
     console.log('Logout button')
     setSession(null, null)
     dispatch({ type: 'LOGOUT' })
   }
+
+  const [viewModal, setViewModal] = useState(false)
+  const [logoutModal, setLogoutModal] = useState(false)
 
   return (
     <>
@@ -44,9 +48,9 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                 alignItems='flex-end'
                 space={2}
               >
-                
+
                 <SVGImg
-                  width={45} 
+                  width={45}
                   height={45}
                 />
                 <Text
@@ -82,23 +86,11 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                 size={20}
               />
             </TouchableOpacity>
-            
+
             <TouchableOpacity
-              onPress={logoutButton}
-            >
-              <Ionicons
-                name='log-out-outline'
-                color={colors.secondary}
-                size={20}
-              />
-            </TouchableOpacity>            
-            
-            <TouchableOpacity
-              onPress={() => {
-                console.log('Profile nav button')
-                navigation?.navigate('Profile')
-              }}
-              
+              onPress={() =>
+                setViewModal(true)
+              }
             >
               <Avatar
                 alignSelf='center'
@@ -112,6 +104,79 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
               </Avatar>
             </TouchableOpacity>
 
+            <StyledModal
+              isOpen={viewModal}
+              onClose={() => setViewModal(false)}
+            >
+              <VStack
+                justifyContent='center'
+                alignItems='center'
+                space={2}
+              >
+                <TouchableOpacity
+                  onPress={() => navigation?.navigate('Profile')}
+                >
+                  <Text>
+                    Perfil
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    setViewModal(false)
+                    setLogoutModal(true)
+                  }}
+                >
+                  <Text>
+                    Cerrar sesión
+                  </Text>
+                </TouchableOpacity>
+
+              </VStack>
+            </StyledModal>
+
+            <StyledModal
+              isOpen={logoutModal}
+              onClose={() => setLogoutModal(false)}
+            >
+              <VStack
+                justifyContent='center'
+                alignItems='center'
+                space={2}
+              >
+
+                <Text>
+                  ¿Está seguro que desea cerrar sesión?
+                </Text>
+
+                <Button.Group space={2}>
+                  <Button
+                    w='40%'
+                    borderRadius={50}
+                    style={{
+                      backgroundColor: colors.tertiary
+                    }}
+                    shadow={1}
+                    onPress={() => setLogoutModal(false)}
+                  >
+                    No
+                  </Button>
+
+                  <Button
+                    w='40%'
+                    borderRadius={50}
+                    style={{
+                      backgroundColor: colors.secondary
+                    }}
+                    shadow={1}
+                    onPress={logoutButton}
+                  >
+                    Sí
+                  </Button>
+                </Button.Group>
+
+              </VStack>
+            </StyledModal>
           </HStack>
         </HStack>
       }
