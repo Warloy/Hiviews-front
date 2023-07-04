@@ -19,8 +19,9 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
     dispatch
   } = useAuthContext()
 
-  const logoButton = () => {
-    console.log('Logo press nav button')
+
+  const logoutButton = () => {  
+    console.log('Logout button')
     setSession(null, null)
     dispatch({ type: 'LOGOUT' })
   }
@@ -37,7 +38,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
         >
           <Stack>
             <TouchableOpacity
-              onPress={logoButton}
+              onPress={() => console.log('Hiviews logo')}
             >
               <HStack
                 alignItems='flex-end'
@@ -81,12 +82,23 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                 size={20}
               />
             </TouchableOpacity>
+            
+            <TouchableOpacity
+              onPress={logoutButton}
+            >
+              <Ionicons
+                name='log-out-outline'
+                color={colors.secondary}
+                size={20}
+              />
+            </TouchableOpacity>            
+            
             <TouchableOpacity
               onPress={() => {
                 console.log('Profile nav button')
                 navigation?.navigate('Profile')
               }}
-
+              
             >
               <Avatar
                 alignSelf='center'
@@ -99,6 +111,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                 GR
               </Avatar>
             </TouchableOpacity>
+
           </HStack>
         </HStack>
       }

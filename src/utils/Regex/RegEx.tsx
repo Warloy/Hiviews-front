@@ -5,7 +5,8 @@ const RegExp = {
   regPassword: /^[\w-\/]{8,15}$/i,
   regName:  /^[\p{L}ñÑáéíóúÁÉÍÓÚüÜ\p{S}]{4,}( [\p{L}ñÑáéíóúÁÉÍÓÚüÜ\p{S}]{1,})?$/u,
   regLastName: /^[\p{L}ñÑáéíóúÁÉÍÓÚüÜ\p{S}]{4,}( [\p{L}ñÑáéíóúÁÉÍÓÚüÜ\p{S}]{1,})?$/u,
-  regUsername: /^(?=.*[a-zA-Z])[\w_]{4,}$/
+  regUsername: /^(?=.*[a-zA-Z])[\w_]{4,}$/,
+  regBirthday: /^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/](19|20)\d\d$/
 }
 
 export default RegExp
