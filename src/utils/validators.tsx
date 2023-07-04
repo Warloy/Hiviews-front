@@ -20,3 +20,6 @@ export const lastNameValidator = (lastname: string) => {
 export const usernameValidator = (username: string) => {
   return RegExp.regUsername.test(username)
 }
+export const birthdayValidator = (birthday: string) => {
+  return RegExp.regBirthday.test(birthday)
+}

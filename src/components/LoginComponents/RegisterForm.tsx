@@ -27,8 +27,8 @@ import CardContainer from '../CardContainer'
 import useLoading from '../../hooks/useLoading'
 import useCustomToast from '../../hooks/useCustomToast'
 import StyledField from '../StyledField'
-import { TouchableOpacity, Platform } from 'react-native'
-import { emailValidator, passwordValidator, nameValidator, lastNameValidator, usernameValidator } from '../../utils/validators'
+import { TouchableOpacity} from 'react-native'
+import { emailValidator, passwordValidator, nameValidator, lastNameValidator, usernameValidator, birthdayValidator } from '../../utils/validators'
 import useAuthContext from '../../hooks/useAuthContext'
 import { setSession } from '../../services/jwt'
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -266,7 +266,10 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
           control={control}
           render={({ field: { onChange, value = '' } }) => (
             <FormControl
-              h={75}
+            isInvalid={
+              !birthdayValidator(value) && value !== ''
+            }
+            h={75}
             >
               <StyledField
                 ref={ref}

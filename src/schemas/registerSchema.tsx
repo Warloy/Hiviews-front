@@ -1,4 +1,4 @@
-import { object, string } from 'yup'
+import { date, object, string } from 'yup'
 
 export const registerSchema = object({
     email: string()
