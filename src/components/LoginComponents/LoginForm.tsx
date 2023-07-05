@@ -31,7 +31,8 @@ import { TouchableOpacity } from 'react-native'
 import { emailValidator, passwordValidator } from '../../utils/validators'
 import useAuthContext from '../../hooks/useAuthContext'
 import { setSession } from '../../services/jwt'
-import SVGImg  from '../../assets/1-hilogo-oficial.svg';
+import SVGImg from '../../assets/1-hilogo-oficial.svg';
+import useCustomModal from '../../hooks/useCustomModal'
 
 
 interface ILoginForm {
@@ -49,7 +50,7 @@ const BottomChildren = ({ navigation }: ILoginForm) => {
     >
 
       <SVGImg
-        width={60} 
+        width={60}
         height={60}
       />
 
@@ -71,8 +72,8 @@ const BottomChildren = ({ navigation }: ILoginForm) => {
           onPress={() => {
             console.log('Register')
             navigation?.navigate('RegisterPage')
-        }}
-        > 
+          }}
+        >
           Regístrate aquí
         </Text>
       </HStack>
@@ -90,8 +91,6 @@ const LoginForm = ({ navigation }: ILoginForm) => {
 
   const { isLoading, startLoading, stopLoading } = useLoading()
   const { showSuccessToast, showErrorToast } = useCustomToast()
-
-  
 
   const emailVal = (value: string): string => {
     if (!emailValidator(value) && value !== '') {
@@ -155,8 +154,8 @@ const LoginForm = ({ navigation }: ILoginForm) => {
         />
       }
       bottomChildren={
-        <BottomChildren 
-            navigation={navigation}
+        <BottomChildren
+          navigation={navigation}
         />
       }
     >
@@ -336,8 +335,6 @@ const LoginForm = ({ navigation }: ILoginForm) => {
             </Text>
           </HStack>
         </VStack>
-
-
       </VStack>
     </CardContainer>
   )
