@@ -75,7 +75,7 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
     startLoading()
     try {
       console.log(changePasswAdapter(values))
-      showSuccessToast('Si se pudo Vzla')
+      showSuccessToast('Front es mi pasion')
       reset()
     } catch (error) {
       console.log(error)
@@ -310,8 +310,9 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
           space={2}
         >
           <Button
+
             w='40%'
-            height={60}
+            height={50}
             onPress={() => navigation?.navigate('TimelinePage')}
             borderRadius={50}
             style={{
@@ -319,13 +320,20 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
             }}
             shadow={1}
           >
-            Cancelar
+            <Text
+              textAlign={'center'}
+              color={'white'}
+              fontSize={'sm'}
+              lineHeight={14}
+           > 
+              Cancelar 
+            </Text>
           </Button>
           
 
-          <Button
+          <Button 
             w='40%'
-            height={60}
+            height={50}
             isLoading={isLoading}
             isDisabled={isLoading || !isValid}
             onPress={() => {
@@ -337,7 +345,15 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
             }}
             shadow={1}
           >
-            Cambiar contraseña
+           <Text
+              textAlign={'center'}
+              color={'white'}
+              fontSize={'sm'}
+              lineHeight={14}
+           > 
+           Cambiar contraseña 
+            </Text> 
+            
           </Button>
     
 
