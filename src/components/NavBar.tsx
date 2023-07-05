@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { TouchableOpacity, useWindowDimensions } from 'react-native'
-import { Avatar, Button, HStack, Stack, Text, VStack } from 'native-base'
+import { Avatar, Button, HStack, Stack, Text, VStack, Icon,Menu} from 'native-base';
 
 import { setSession } from '../services/jwt'
 
@@ -29,6 +29,8 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
 
   const [viewModal, setViewModal] = useState(false)
   const [logoutModal, setLogoutModal] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false);
+
 
   return (
     <>
@@ -113,11 +115,22 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                 alignItems='center'
                 space={2}
               >
+                
                 <TouchableOpacity
                   onPress={() => navigation?.navigate('Profile')}
                 >
+                  
                   <Text>
                     Perfil
+                  </Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity
+                  onPress={() => navigation?.navigate('ChangePasswPage')}
+                >
+                  
+                  <Text>
+                    Cambiar Contraseña
                   </Text>
                 </TouchableOpacity>
 
@@ -126,6 +139,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                     setViewModal(false)
                     setLogoutModal(true)
                   }}
+                  
                 >
                   <Text>
                     Cerrar sesión
@@ -134,7 +148,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
 
               </VStack>
             </StyledModal>
-                    
+
             <StyledModal
               isOpen={logoutModal}
               onClose={() => setLogoutModal(false)}
@@ -144,7 +158,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                 alignItems='center'
                 space={2}
               >
-
+                
                 <Text>
                   ¿Está seguro que desea cerrar sesión?
                 </Text>
