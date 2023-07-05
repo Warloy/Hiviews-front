@@ -603,7 +603,6 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
                 {/* <Icon size="5" mt="0.5" color="emerald.500" /> */}
                 
                 <SVGImg
-            
                     width={60} 
                     height={60}
                   />

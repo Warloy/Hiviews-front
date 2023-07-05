@@ -3,11 +3,9 @@ import {
   Text,
   VStack,
   ScrollView,
-  Image,
   Stack,
   HStack,
   FormControl,
-  Icon,
   WarningOutlineIcon,
   Button,
 } from 'native-base'
@@ -15,13 +13,13 @@ import {
 import { NavigationProp } from '@react-navigation/native'
 
 import { Ionicons } from '@expo/vector-icons'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, set, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ChangePasswDefaultValues,changePasswSchema } from '../../schemas/changePasswSchema'
 
 import colors from '../../styled-components/colors'
 
-import Cinema from '../../assets/Movie-Night-Pink.svg'
+import Passw from '../../assets/3-hiviews-password.svg'
 import CardContainer from '../CardContainer'
 
 import useLoading from '../../hooks/useLoading'
@@ -30,7 +28,8 @@ import StyledField from '../StyledField'
 import { TouchableOpacity } from 'react-native'
 import {passwordValidator} from '../../utils/validators'
 import useAuthContext from '../../hooks/useAuthContext'
-import { setSession } from '../../services/jwt'
+import { setSession } from '../../services/jwt';
+import { IChangePasswAdapter, changePasswAdapter } from '../../adapters/ChangePasswAdapter'
 
 
 interface IChangePasswForm {
@@ -39,9 +38,9 @@ interface IChangePasswForm {
 
 const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
   const ref = useRef()
-
-  const [show, setShow] = useState(false)
-
+  const [currentpassw, setCurrentPassw] = useState(false)
+  const [newpassw, setNewPassw] = useState(false)
+  const [confirmNewPassw, setConfirmNewPassw] = useState(false)
   const { dispatch } = useAuthContext()
 
   const { isLoading, startLoading, stopLoading } = useLoading()
@@ -59,7 +58,6 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
     }
   }
 
-
   const {
     control,
     handleSubmit,
@@ -73,32 +71,28 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
 
 
 
-  const onSubmit = async (value: any) => {
+  const onSubmit = async (values: IChangePasswAdapter) => {
     startLoading()
     try {
-      showSuccessToast(`¡Bienvenido a Hiviews!`)
-      await setSession('1', 'token')
-      dispatch({
-        type: 'LOGIN',
-        payload: {
-          user: {
-            id: '1',
-            token: 'token',
-            user: 'user'
-          }
-        }
-      })
-      reset(ChangePasswDefaultValues)
+      console.log(changePasswAdapter(values))
+      showSuccessToast('Si se pudo Vzla')
+      reset()
     } catch (error) {
+      console.log(error)
       showErrorToast(`Error: ${error}`)
     }
     stopLoading()
   }
 
+
   return (
     <CardContainer
+
+    h={0.55}
+    top='25%'
+
       topChildren={
-        <Cinema
+        <Passw
           height='65%'
           width='65%'
         />
@@ -134,7 +128,7 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
                 ref={ref}
                 placeholder='Contraseña actual'
                 onChangeText={onChange}
-                secureTextEntry={!show}
+                secureTextEntry={!currentpassw}
                 InputLeftElement={
                   <Stack
                     pl={2}
@@ -157,10 +151,10 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
                     alignItems='center'
                   >
                     <TouchableOpacity
-                      onPress={() => setShow(!show)}
+                      onPress={() => setCurrentPassw(!currentpassw)}
                     >
                       <Ionicons
-                        name={show ? 'eye-outline' : 'eye-off-outline'}
+                        name={currentpassw ? 'eye-outline' : 'eye-off-outline'}
                         size={20}
                         color={passVal(value)}
                       />
@@ -182,8 +176,9 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
             </FormControl>
           )}
         />
+
         <Controller
-          name='password'
+          name='newPassw'
           control={control}
           render={({ field: { onChange, value = '' } }) => (
             <FormControl
@@ -196,7 +191,7 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
                 ref={ref}
                 placeholder='Nueva contraseña'
                 onChangeText={onChange}
-                secureTextEntry={!show}
+                secureTextEntry={!newpassw}
                 InputLeftElement={
                   <Stack
                     pl={2}
@@ -219,10 +214,10 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
                     alignItems='center'
                   >
                     <TouchableOpacity
-                      onPress={() => setShow(!show)}
+                      onPress={() => setNewPassw(!newpassw)}
                     >
                       <Ionicons
-                        name={show ? 'eye-outline' : 'eye-off-outline'}
+                        name={newpassw ? 'eye-outline' : 'eye-off-outline'}
                         size={20}
                         color={passVal(value)}
                       />
@@ -245,7 +240,7 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
           )}
         />
         <Controller
-          name='password'
+          name='newPasswConfirm'
           control={control}
           render={({ field: { onChange, value = '' } }) => (
             <FormControl
@@ -256,9 +251,9 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
             >
               <StyledField
                 ref={ref}
-                placeholder='Confirmar contraseña'
+                placeholder='Confirmar nueva contraseña'
                 onChangeText={onChange}
-                secureTextEntry={!show}
+                secureTextEntry={!confirmNewPassw}
                 InputLeftElement={
                   <Stack
                     pl={2}
@@ -281,10 +276,10 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
                     alignItems='center'
                   >
                     <TouchableOpacity
-                      onPress={() => setShow(!show)}
+                      onPress={() => setConfirmNewPassw(!confirmNewPassw)}
                     >
                       <Ionicons
-                        name={show ? 'eye-outline' : 'eye-off-outline'}
+                        name={confirmNewPassw ? 'eye-outline' : 'eye-off-outline'}
                         size={20}
                         color={passVal(value)}
                       />
@@ -308,7 +303,7 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
         />
 
               
-        <HStack
+<HStack
           w='100%'
           justifyContent='center'
           alignItems='center'
@@ -316,24 +311,27 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
         >
           <Button
             w='40%'
-            isLoading={isLoading}
-            isDisabled={isLoading || !isValid}
-            onPress={handleSubmit(onSubmit)}
-            borderRadius='full'
+            height={60}
+            onPress={() => navigation?.navigate('TimelinePage')}
+            borderRadius={50}
             style={{
-              backgroundColor: colors.secondary
+              backgroundColor: colors.tertiary
             }}
             shadow={1}
           >
             Cancelar
           </Button>
           
+
           <Button
             w='40%'
+            height={60}
             isLoading={isLoading}
             isDisabled={isLoading || !isValid}
-            onPress={handleSubmit(onSubmit)}
-            borderRadius='full'
+            onPress={() => {
+              handleSubmit(onSubmit);
+            }}
+            borderRadius={50}
             style={{
               backgroundColor: colors.secondary
             }}
@@ -341,6 +339,7 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
           >
             Cambiar contraseña
           </Button>
+    
 
         </HStack>
 
