@@ -6,10 +6,11 @@ import { StackOptions } from './styled-components/styles'
 import LoginPage from '../pages/LoginPage'
 import RegisterPage from '../pages/RegisterPage'
 import ChangePasswPage from '../pages/ChangePasswPage'
+import PasswRecoveryPage from '../pages/PasswRecoveryPage'
+import ProfilePage from '../pages/ProfilePage'
 import BottomNavigation from './BottomNavigation'
 
 import useAuthContext from '../hooks/useAuthContext'
-import ProfilePage from '../pages/ProfilePage'
 
 const Stack = createNativeStackNavigator()
 
@@ -43,6 +44,14 @@ const stackRoutes: TStackRoutes = [
     name: 'ChangePasswPage',
     component: ChangePasswPage,
     requireAuth: true,
+    options: {
+      headerShown: false
+    }
+  },
+  {
+    name: 'PasswRecoveryPage',
+    component: PasswRecoveryPage,
+    requireAuth: false,
     options: {
       headerShown: false
     }
