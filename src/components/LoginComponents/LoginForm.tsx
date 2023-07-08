@@ -329,7 +329,7 @@ const LoginForm = ({ navigation }: ILoginForm) => {
             <Text
               fontSize='xs'
               color={colors.secondary}
-              onPress={() => console.log('Forget password')}
+              onPress={() => navigation?.navigate('PasswRecoveryPage')}
             >
               ingresa aquí
             </Text>
