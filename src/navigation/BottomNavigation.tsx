@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'
+import { Ionicons, FontAwesome5, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 
 import colors from '../styled-components/colors'
 
@@ -14,6 +14,21 @@ import { BottomOptions, setStyle, styles } from './styled-components/styles'
 const Tab = createBottomTabNavigator()
 
 const bottomRoutes: TBottomRoutes = [
+  {
+    name: 'Reviews',
+    options: {
+      tabBarShowLabel: true,
+      tabBarLabel: 'Reseñas',
+    },
+    component: TimelinePage,
+    Icon: ({ color, size }) => (
+      <MaterialCommunityIcons
+        name={color === colors.secondary ? 'movie-open' : 'movie-open-outline'}
+        color={colors.secondary}
+        size={size}
+      />
+    )
+  },
   {
     name: 'Forum',
     options: {
@@ -30,7 +45,7 @@ const bottomRoutes: TBottomRoutes = [
     )
   },
   {
-    name: 'Home',
+    name: 'NewPost',
     component: TimelinePage,
     options: {
       tabBarShowLabel: true,
@@ -40,8 +55,8 @@ const bottomRoutes: TBottomRoutes = [
       <View
         style={setStyle(color)}
       >
-        <Ionicons
-          name={color === colors.secondary ? 'home' : 'home-outline'}
+        <FontAwesome
+          name={color === colors.secondary ? 'plus' : 'plus'}
           color={color === colors.secondary ? colors.white : colors.secondary}
           size={size}
         />
@@ -49,6 +64,36 @@ const bottomRoutes: TBottomRoutes = [
     )
   },
   {
+    name: 'Reviews-all',
+    options: {
+      tabBarShowLabel: true,
+      tabBarLabel: 'Explorar',
+    },
+    component: TimelinePage,
+    Icon: ({ color, size }) => (
+      <Ionicons
+        name={color === colors.secondary ? 'compass' : 'compass-outline'}
+        color={colors.secondary}
+        size={size}
+      />
+    )
+  },
+  {
+    name: 'Forum-all',
+    options: {
+      tabBarShowLabel: true,
+      tabBarLabel: 'Trending',
+    },
+    component: ThreadTimelinePage,
+    Icon: ({ color, size }) => (
+      <Ionicons
+        name={color === colors.secondary ? 'flame' : 'flame-outline'}
+        color={colors.secondary}
+        size={size}
+      />
+    )
+  },
+  /*{
     name: 'Profile',
     component: ProfilePage,
     options: {
@@ -62,7 +107,7 @@ const bottomRoutes: TBottomRoutes = [
         size={size}
       />
     )
-  }
+  }*/
 ]
 
 const BottomNavigation = () => {

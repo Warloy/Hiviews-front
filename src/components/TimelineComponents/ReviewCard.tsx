@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Box, HStack, VStack, Image, Text, ScrollView, Stack, Divider } from 'native-base'
 
-import { AntDesign, Feather, FontAwesome5 } from '@expo/vector-icons'
+import { AntDesign, Feather, FontAwesome5, Ionicons } from '@expo/vector-icons'
 
 import { AirbnbRating } from 'react-native-elements'
+
+import useCustomToast from '../../hooks/useCustomToast'
 
 import { TReview } from '../../types'
 import { before24hours, formatDate, getHour } from '../../utils/functions'
@@ -13,6 +15,8 @@ import colors from '../../styled-components/colors'
 const ReviewCard = ({ review }: { review: TReview }) => {
 
   const [like, setLike] = useState(false)
+  const [bookmark, setBookmark] = useState(false)
+  const toast = useCustomToast()
 
   return (
     <Box
@@ -195,6 +199,25 @@ const ReviewCard = ({ review }: { review: TReview }) => {
             </>
 
           }
+
+          <TouchableOpacity
+            onPress={() => {
+              toast.showSuccessToast(!bookmark? `Añadido a favoritos.` : `Eliminado de favoritos.`)
+              setBookmark(!bookmark)
+            }}
+          >
+            <HStack
+              alignItems='center'
+              space={1}
+              mr={2}
+            >
+              <Ionicons
+                name={bookmark ? 'star' : 'star-outline'}
+                size={14}
+                color={colors.primary}
+              />
+            </HStack>
+          </TouchableOpacity> 
 
           <TouchableOpacity
             onPress={() => console.log('Comment pressed')}

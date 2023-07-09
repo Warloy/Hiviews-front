@@ -44,7 +44,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
         >
           <Stack>
             <TouchableOpacity
-              onPress={() => console.log('Hiviews logo')}
+              onPress={() => navigation?.navigate('Reviews')}
             >
               <HStack
                 alignItems='flex-end'
@@ -117,7 +117,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
               >
                 
                 <TouchableOpacity
-                  onPress={() => navigation?.navigate('Profile')}
+                  onPress={() => navigation?.navigate('ProfilePage')}
                 >
                   
                   <Text>
