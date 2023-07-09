@@ -215,7 +215,7 @@ const ReviewCard = ({ navigation, review }: { navigation?: NavigationProp<any>, 
               mr={2}
             >
               <Ionicons
-                name={bookmark ? 'star' : 'star-outline'}
+                name={bookmark ? 'ios-bookmark' : 'ios-bookmark-outline'}
                 size={14}
                 color={colors.primary}
               />

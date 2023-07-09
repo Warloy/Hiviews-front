@@ -1,12 +1,13 @@
 import React, { useCallback, useState } from 'react'
 import { ActivityIndicator, RefreshControl } from 'react-native'
-
-import { FlatList, Stack } from 'native-base'
+import { FlatList, Stack, Divider, VStack } from 'native-base'
 import { NavigationProp } from '@react-navigation/native'
 
+import { Ionicons } from '@expo/vector-icons'
 import colors from '../../styled-components/colors'
-import { TComment } from '../../types'
+import StyledField from '../StyledField'
 
+import { TComment } from '../../types'
 import commentsData from '../../static/commentData'
 import CommentContainer from './CommentContainer'
 
@@ -56,12 +57,41 @@ const CommentSection = ({ navigation }: { navigation?: NavigationProp<any> }) =>
 
     return(
         <Stack
+        h="100%"
         w='100%'
         maxH='100%'
         minH='100%'
         py={1}
         pb={7}
+        justifyContent='center'
+        alignContent='center'
+        alignItems='center'
         >
+            <VStack
+                w={'90%'}
+                space={2}
+                pt={2}
+            >
+                <Divider/>
+                <StyledField
+                    placeholder='Publicar un comentario'
+                    borderColor={colors.primary}
+                    InputRightElement={
+                    <Stack
+                        pr={2}
+                        h='full'
+                        justifyContent='center'
+                        alignItems='center'
+                    >
+                        <Ionicons
+                        name='send'
+                        size={20}
+                        color={colors.primary}
+                        />
+                    </Stack>
+                    }
+                />
+            </VStack>
             <FlatList
                 refreshControl={
                     <RefreshControl

@@ -4,9 +4,9 @@ import { Ionicons, FontAwesome5, MaterialCommunityIcons, FontAwesome } from '@ex
 
 import colors from '../styled-components/colors'
 
-import ProfilePage from '../pages/ProfilePage'
 import TimelinePage from '../pages/TimelinePage'
 import ThreadTimelinePage from '../pages/ThreadTimelinePage'
+import NewPostPage from '../pages/NewPostPage'
 
 import { TBottomRoutes } from '../types'
 import { BottomOptions, setStyle, styles } from './styled-components/styles'
@@ -46,7 +46,7 @@ const bottomRoutes: TBottomRoutes = [
   },
   {
     name: 'NewPost',
-    component: TimelinePage,
+    component: NewPostPage,
     options: {
       tabBarShowLabel: true,
       tabBarLabel: ''

@@ -6,7 +6,7 @@ import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
 import Container from '../components/Container'
 import colors from '../styled-components/colors'
-import { TReview, TTag, TThread } from '../types'
+import { TThread } from '../types'
 
 import threadsData from '../static/threadsData'
 import ThreadCard from '../components/ThreadComponents/ThreadCard'

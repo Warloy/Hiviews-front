@@ -16,18 +16,17 @@ const CommentContainer = ({ navigation, comment }: { navigation?: NavigationProp
   return (
     <Box
       m={2}
-      minH={100}
       w={'95%'}
       bgColor={colors.white}
-    >
+      py={2}
+    >     
         <VStack
             space={3}
+            pb={1}
         >
-        <Divider/>
         <HStack
             space={5}
             px={3}
-            h={60}
             w={'100%'}
             alignItems='center'
         >
@@ -142,8 +141,9 @@ const CommentContainer = ({ navigation, comment }: { navigation?: NavigationProp
                     </TouchableOpacity>
                 </HStack>
                 </VStack>
-        </HStack>
+        </HStack>    
         </VStack>
+        <Divider />
     </Box>
   )
 }
