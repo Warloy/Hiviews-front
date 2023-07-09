@@ -46,6 +46,7 @@ const ThreadTimelinePage: React.FC<ThreadTimelinePageProps> = ({ navigation }) =
   const renderItem = ({ item }: { item: TThread }) => {
     return (
       <ThreadCard
+        navigation={navigation}
         thread={item}
       />
     )

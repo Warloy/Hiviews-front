@@ -1,28 +1,20 @@
 import React, { useState } from 'react'
 import { ScaledSize, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { Modal, Box, HStack, VStack, Image, Text, ScrollView, Stack, Divider } from 'native-base'
+import { NavigationProp } from '@react-navigation/native'
 
 import { AntDesign, Feather, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { TComment, TThread } from '../../types'
 import { before24hours, formatDate, getHour } from '../../utils/functions'
 import colors from '../../styled-components/colors'
-import CommentContainer from '../CommentComponents/CommentContainer'
 
-const ThreadCard = ({ thread }: { thread: TThread }) => {
+const ThreadCard = ({ navigation, thread }: { navigation?: NavigationProp<any>, thread: TThread }) => {
 
   const layout: ScaledSize = useWindowDimensions()
-  
-  const comment: TComment = {
-    id: 1,
-    author: 'Chirulí',
-    authAvatar: require('../../assets/example/avatar12.jpg'),
-    content: 'Muy bueno el post pero que feo el autor',
-    date: new Date()
-  }
 
   const [like, setLike] = useState(false)
-  const [ showModal, setShowModal ] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <Box
@@ -53,7 +45,9 @@ const ThreadCard = ({ thread }: { thread: TThread }) => {
               pr={2}
             >
               <TouchableOpacity
-                onPress={() => console.log(`${thread.id} - ${thread.topic} thread pressed`)}
+                onPress={() => {console.log(`${thread.id} - ${thread.topic} thread pressed`)
+                navigation?.navigate('ThreadPage', {thread: thread})
+              }}
                 >
                 <Text
                     fontSize='lg'
@@ -268,10 +262,6 @@ const ThreadCard = ({ thread }: { thread: TThread }) => {
             </HStack>
           </TouchableOpacity>
         </HStack>
-      </VStack>
-      <VStack>
-        <CommentContainer
-          comment={comment} />
       </VStack>
     </Box>
   )

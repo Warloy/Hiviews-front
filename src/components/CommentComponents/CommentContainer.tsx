@@ -1,6 +1,7 @@
 import React from 'react'
 import { ScaledSize, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { Box, HStack, VStack, Image, Text, ScrollView, Stack, Divider } from 'native-base'
+import { NavigationProp } from '@react-navigation/native'
 
 import { AntDesign, Feather, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -8,7 +9,7 @@ import { TComment } from '../../types'
 import { before24hours, formatDate, getHour } from '../../utils/functions'
 import colors from '../../styled-components/colors'
 
-const CommentContainer = ({ comment }: { comment: TComment }) => {
+const CommentContainer = ({ navigation, comment }: { navigation?: NavigationProp<any>, comment: TComment }) => {
 
   const layout: ScaledSize = useWindowDimensions()
 
@@ -36,7 +37,9 @@ const CommentContainer = ({ comment }: { comment: TComment }) => {
                 justifyContent='flex-start'
             >
                 <TouchableOpacity
-                    onPress={() => console.log(`Press profile picture of ${comment.author}`)}
+                    onPress={() => {console.log(`Press profile picture of ${comment.author}`)
+                    navigation?.navigate('ProfilePage')
+                }}
                     >
                     <Image
                         borderRadius={50}
@@ -53,30 +56,42 @@ const CommentContainer = ({ comment }: { comment: TComment }) => {
                 justifyContent='flex-start'
                 pr={2}
                 >
-                <TouchableOpacity
-                    onPress={() => console.log(`Press profile name of ${comment.author}`)}
+                <HStack
+                    space={2}
+                    alignItems={'flex-end'}
                 >
-                    <Text
-                    fontSize='md'
-                    bold
-                    color={colors.text}
-                    >
-                    {comment.author}
-                    </Text>
-                </TouchableOpacity>
-                <HStack>
-                    <VStack
-                        w={'95%'}
-                        pr={1}
+                    <TouchableOpacity
+                        onPress={() => {console.log(`Press profile name of ${comment.author}`)
+                        navigation?.navigate('ProfilePage')
+                    }}
                     >
                         <Text
-                            fontSize='sm'
-                            color={colors.text}
-                            >
-                            {comment.content}
+                        fontSize='md'
+                        bold
+                        color={colors.text}
+                        >
+                        {comment.author}
                         </Text>
-                    </VStack>
+                    </TouchableOpacity>
+                    <Text
+                            fontSize={10}
+                            color={colors.text}
+                            textAlign={'right'}
+                            >
+                            {getHour(comment.date)} {formatDate(comment.date)}
+                    </Text>
                 </HStack>
+                <VStack
+                    w={'95%'}
+                    pr={1}
+                >
+                    <Text
+                        fontSize='sm'
+                        color={colors.text}
+                        >
+                        {comment.content}
+                    </Text>
+                </VStack>
                 <HStack 
                     justifyContent='flex-end'
                     alignItems='flex-end'

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Box, HStack, VStack, Image, Text, ScrollView, Stack, Divider } from 'native-base'
+import { NavigationProp } from '@react-navigation/native'
 
 import { AntDesign, Feather, FontAwesome5, Ionicons } from '@expo/vector-icons'
 
@@ -12,7 +13,7 @@ import { TReview } from '../../types'
 import { before24hours, formatDate, getHour } from '../../utils/functions'
 import colors from '../../styled-components/colors'
 
-const ReviewCard = ({ review }: { review: TReview }) => {
+const ReviewCard = ({ navigation, review }: { navigation?: NavigationProp<any>, review: TReview }) => {
 
   const [like, setLike] = useState(false)
   const [bookmark, setBookmark] = useState(false)
@@ -51,7 +52,9 @@ const ReviewCard = ({ review }: { review: TReview }) => {
             justifyContent='center'
           >
             <TouchableOpacity
-              onPress={() => console.log(`${review.id} - ${review.movie} movie pressed`)}
+              onPress={() => {console.log(`${review.id} - ${review.movie} movie pressed`)
+              navigation?.navigate('ReviewPage', {review: review})
+            }}
             >
               <Text
                 fontSize='lg'
