@@ -31,6 +31,20 @@ const reviews: TThread[] = [
   },
   {
     id: 3,
+    author: 'Anon',
+    description: 'No tiene comparativa. No hay discusión. En serio, no puedes llamarte un ser pensante y no estar de acuerdo con esto. Si piensas de esa manera, considera verte con un psicólogo o algo por el estilo. En serio.',
+    category: {
+        id: 3,
+        name: 'Offtopic'
+    },
+    topic: 'Definitivamente la mejor imagen de perfil de la app es esta.',
+    picture: require('../assets/example/avatar06.jpg'),
+    date: new Date(),
+    likes: 99,
+    comments: 1
+  },
+  {
+    id: 4,
     author: 'Luis',
     description: '[ This thread has been closed by the mod team ].',
     category: {

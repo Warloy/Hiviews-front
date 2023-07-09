@@ -11,6 +11,8 @@ import ProfilePage from '../pages/ProfilePage'
 import BottomNavigation from './BottomNavigation'
 
 import useAuthContext from '../hooks/useAuthContext'
+import ReviewPage from '../pages/ReviewPage'
+import ThreadPage from '../pages/ThreadPage'
 
 const Stack = createNativeStackNavigator()
 
@@ -59,6 +61,22 @@ const stackRoutes: TStackRoutes = [
   {
     name: 'ProfilePage',
     component: ProfilePage,
+    requireAuth: true,
+    options: {
+      headerShown: false
+    }
+  },
+  {
+    name: 'ReviewPage',
+    component: ReviewPage,
+    requireAuth: true,
+    options: {
+      headerShown: false
+    }
+  },
+  {
+    name: 'ThreadPage',
+    component: ThreadPage,
     requireAuth: true,
     options: {
       headerShown: false

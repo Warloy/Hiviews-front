@@ -90,6 +90,7 @@ const TimelinePage: React.FC<TimelinePageProps> = ({ navigation }) => {
   const renderItem = ({ item }: { item: TReview }) => {
     return (
       <ReviewCard
+        navigation={navigation}
         review={item}
       />
     )
