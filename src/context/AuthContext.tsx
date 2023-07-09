@@ -1,8 +1,7 @@
-import React, { createContext, useEffect, useReducer, ReactNode } from 'react'
+import React, { createContext, useEffect, useReducer } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { IAuthContextType, IAuthState, IAuthAction, IAuthProviderProps } from '../interfaces/AuthContext.Interfaces'
 import { setSession } from '../services/jwt'
-import jwt_decode from 'jwt-decode'
 
 export const AuthContext = createContext<IAuthContextType>({} as IAuthContextType)
 
@@ -54,7 +53,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   useEffect(() => {
     const initialize = async () => {
       try {
-        const accessID: string | null = await AsyncStorage.getItem('@id') ?? ''
+        const accessID: string | null = await AsyncStorage.getItem('@id')
         const accessToken: string | null = await AsyncStorage.getItem('@token')
 
         if (!accessToken) {
