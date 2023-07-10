@@ -53,7 +53,7 @@ const ReviewCard = ({ navigation, review }: { navigation?: NavigationProp<any>, 
           >
             <TouchableOpacity
               onPress={() => {console.log(`${review.id} - ${review.movie} movie pressed`)
-              navigation?.navigate('ReviewPage', {review: review})
+              navigation?.navigate('ReviewPage', {review})
             }}
             >
               <Text

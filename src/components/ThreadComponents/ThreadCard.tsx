@@ -46,7 +46,7 @@ const ThreadCard = ({ navigation, thread }: { navigation?: NavigationProp<any>, 
             >
               <TouchableOpacity
                 onPress={() => {console.log(`${thread.id} - ${thread.topic} thread pressed`)
-                navigation?.navigate('ThreadPage', {thread: thread})
+                navigation?.navigate('ThreadPage', {thread})
               }}
                 >
                 <Text

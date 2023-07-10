@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { TouchableOpacity, useWindowDimensions } from 'react-native'
-import { Avatar, Button, HStack, Stack, Text, VStack, Icon,Menu} from 'native-base';
+import { Avatar, Button, HStack, Stack, Text, VStack, Icon, Menu, Divider} from 'native-base';
 
 import { setSession } from '../services/jwt'
 
@@ -111,7 +111,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
               <VStack
                 justifyContent='center'
                 alignItems='center'
-                space={5}
+                space={3}
               >
                 
                 <TouchableOpacity
@@ -136,7 +136,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                     Ver perfil
                   </Text>
                 </TouchableOpacity>
-                
+                <Divider />
                 <TouchableOpacity
                   onPress={() => navigation?.navigate('ChangePasswPage')}
                 >
@@ -148,7 +148,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                     Editar perfil
                   </Text>
                 </TouchableOpacity>
-
+                <Divider />
                 <TouchableOpacity
                   onPress={() => navigation?.navigate('ChangePasswPage')}
                 >
@@ -160,7 +160,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                     Cambiar contraseña
                   </Text>
                 </TouchableOpacity>
-
+                <Divider />
                 <TouchableOpacity
                   onPress={() => {
                     setViewModal(false)
