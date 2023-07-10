@@ -32,6 +32,7 @@ const ThreadPage: React.FC<ThreadPageProps> = ({ navigation, route }) => {
             
         <CommentSection
             navigation={navigation}
+            listheight='33%'
         />
         </ThreadPost>
       </Container>

@@ -97,9 +97,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
               <Avatar
                 alignSelf='center'
                 size='sm'
-                source={{
-                  uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                }}
+                source={require('../assets/example/avatar16.jpg')}
                 bg={colors.secondary}
               >
                 GR
@@ -113,15 +111,29 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
               <VStack
                 justifyContent='center'
                 alignItems='center'
-                space={2}
+                space={5}
               >
                 
                 <TouchableOpacity
-                  onPress={() => navigation?.navigate('ProfilePage')}
+                  onPress={() => {navigation?.navigate('ProfilePage', {user:{
+                    id: 1,
+                    email: 'Durandal@gmail.com',
+                    name: 'Durandal',
+                    surname: 'Rossweise',
+                    username: 'Dudu',
+                    bio: 'No me pagan lo suficiente para acomodar el perfil.',
+                    birthday: new Date(),
+                    avatar: require('../assets/example/avatar16.jpg'),
+                    }})
+                    setViewModal(false)}
+                  }
                 >
                   
-                  <Text>
-                    Perfil
+                  <Text
+                    color={colors.text}
+                    bold
+                  >
+                    Ver perfil
                   </Text>
                 </TouchableOpacity>
                 
@@ -129,8 +141,23 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                   onPress={() => navigation?.navigate('ChangePasswPage')}
                 >
                   
-                  <Text>
-                    Cambiar Contraseña
+                  <Text
+                    color={colors.text}
+                    bold
+                  >
+                    Editar perfil
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => navigation?.navigate('ChangePasswPage')}
+                >
+                  
+                  <Text
+                    color={colors.text}
+                    bold
+                  >
+                    Cambiar contraseña
                   </Text>
                 </TouchableOpacity>
 
@@ -141,7 +168,10 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                   }}
                   
                 >
-                  <Text>
+                  <Text
+                    color={colors.text}
+                    bold
+                  >
                     Cerrar sesión
                   </Text>
                 </TouchableOpacity>

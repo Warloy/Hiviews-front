@@ -11,7 +11,12 @@ import { TComment } from '../../types'
 import commentsData from '../../static/commentData'
 import CommentContainer from './CommentContainer'
 
-const CommentSection = ({ navigation }: { navigation?: NavigationProp<any> }) => {
+interface ICommentSectionProps {
+    navigation?: NavigationProp<any>, 
+    listheight?: string
+}
+
+const CommentSection = ({ navigation, listheight }: ICommentSectionProps) => {
     const [comments, setComments] = useState(commentsData)
 
     const [currentPage, setCurrentPage] = useState(1)
@@ -63,16 +68,14 @@ const CommentSection = ({ navigation }: { navigation?: NavigationProp<any> }) =>
         minH='100%'
         py={1}
         pb={7}
-        justifyContent='center'
-        alignContent='center'
         alignItems='center'
         >
             <VStack
                 w={'90%'}
                 space={2}
-                pt={2}
+                py={2}
             >
-                <Divider/>
+                <Divider />
                 <StyledField
                     placeholder='Publicar un comentario'
                     borderColor={colors.primary}
@@ -103,6 +106,7 @@ const CommentSection = ({ navigation }: { navigation?: NavigationProp<any> }) =>
                 data={comments}
                 px={3}
                 pb={7}
+                maxH={listheight}
                 keyExtractor={(item, key) => `${item?.id}${new Date().toISOString()}${key}`}
                 renderItem={renderItem}
                 ListFooterComponent={renderLoader}

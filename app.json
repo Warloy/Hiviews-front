@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Hiviews",
-    "slug": "Hiviews",
+    "slug": "Hiviews-front",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/1-hilogo-oficial.png",

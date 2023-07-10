@@ -71,3 +71,14 @@ export type TComment = {
   content: string
   date: Date | string
 }
+
+export type TUser = {
+  id: number | string
+  email: string
+  name: string
+  surname: string
+  username: string
+  bio: string
+  birthday: Date | string
+  avatar: any
+}
