@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationProp } from '@react-navigation/native';
-import { ScrollView } from 'native-base';
-
+import { Stack } from 'native-base';
 import Container from '../components/Container';
 import { colors } from '../styled-components/colors';
 import ProfileComponent from '../components/ProfileComponents/ProfileComponent';
@@ -16,22 +15,25 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ navigation, route }) => {
   const user:TUser = route.params.user
   
   return (
-    <ScrollView>
-      <Container
-        statusBarStyle='dark-content'
-        navigation={navigation}
-        statusBarColor={colors.white}
-        backgroundTopColor={colors.white}
-        backgroundBottomColor={colors.white}
+    <Container
+      statusBarStyle='dark-content'
+      navigation={navigation}
+      statusBarColor={colors.white}
+      backgroundTopColor={colors.white}
+      backgroundBottomColor={colors.white}
+    >
+      <Stack
+        w='100%'
+        maxH='100%'
+        minH='100%'
+        py={1}
       >
-        <ProfileComponent
-          navigation={navigation}
-          user={user}
-        >
-          
-        </ProfileComponent>
-      </Container>
-    </ScrollView>
+      <ProfileComponent
+        navigation={navigation}
+        user={user}
+      />
+      </Stack>
+    </Container>
   );
 }
 

@@ -3,7 +3,13 @@ import { TouchableOpacity } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import { Text, Divider, Box, Stack, HStack, VStack } from 'native-base';
 
+import reviews from '../../static/reviewsData';
+import threads from '../../static/threadsData';
+import users from '../../static/userData';
 import { colors } from '../../styled-components/colors';
+import ThreadTimeline from '../GenericListComponents/TheadTimeline';
+import ReviewTimeline from '../GenericListComponents/ReviewTimeline';
+import UserTimeline from '../GenericListComponents/UserTimeline';
 
 interface IProfileTabsProps {
     navigation?: NavigationProp<any>;
@@ -155,7 +161,35 @@ const ProfileTabs = ({ navigation }: IProfileTabsProps) => {
             </HStack>
             <Divider my={4} />
             <Stack>
-                {/*Post Timelines here*/}
+                {
+                    activeTab===1 ? 
+                        <ReviewTimeline 
+                            navigation={navigation}
+                            reviews={reviews}
+                        />
+                    : activeTab===2 ?
+                        <ThreadTimeline 
+                            navigation={navigation}
+                            threads={threads}
+                        />
+                    : activeTab===3 ?
+                        <UserTimeline 
+                            navigation={navigation}
+                            users={users}
+                        />
+                    : activeTab===4 ?
+                        <UserTimeline 
+                            navigation={navigation}
+                            users={users}
+                        />
+                    : activeTab===5 ? 
+                    <ReviewTimeline 
+                        navigation={navigation}
+                        reviews={reviews}
+                    /> 
+                    : <></>
+                }
+                
             </Stack>
         </Stack>
     )

@@ -111,7 +111,7 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
               <VStack
                 justifyContent='center'
                 alignItems='center'
-                space={2}
+                space={5}
               >
                 
                 <TouchableOpacity
@@ -129,8 +129,11 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                   }
                 >
                   
-                  <Text>
-                    Perfil
+                  <Text
+                    color={colors.text}
+                    bold
+                  >
+                    Ver perfil
                   </Text>
                 </TouchableOpacity>
                 
@@ -138,8 +141,23 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                   onPress={() => navigation?.navigate('ChangePasswPage')}
                 >
                   
-                  <Text>
-                    Cambiar Contraseña
+                  <Text
+                    color={colors.text}
+                    bold
+                  >
+                    Editar perfil
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => navigation?.navigate('ChangePasswPage')}
+                >
+                  
+                  <Text
+                    color={colors.text}
+                    bold
+                  >
+                    Cambiar contraseña
                   </Text>
                 </TouchableOpacity>
 
@@ -150,7 +168,10 @@ const NavBar = ({ navigation, logout, hidden = false }: INavBarProps) => {
                   }}
                   
                 >
-                  <Text>
+                  <Text
+                    color={colors.text}
+                    bold
+                  >
                     Cerrar sesión
                   </Text>
                 </TouchableOpacity>

@@ -16,7 +16,7 @@ const ProfileContainer = ({ navigation, user }: IProfileContainerProps) => {
   return (
     <Box
     m={2}
-    w={'95%'}
+    w={'100%'}
     bgColor={colors.white}
     py={2}
     >     
@@ -64,7 +64,7 @@ const ProfileContainer = ({ navigation, user }: IProfileContainerProps) => {
                         {user.name}{` `}{user.surname}
                         </Text>
                         <VStack
-                            w={'95%'}
+                            w={'100%'}
                             pr={1}
                         >
                             <Text
@@ -80,7 +80,7 @@ const ProfileContainer = ({ navigation, user }: IProfileContainerProps) => {
         </TouchableOpacity>
         <Divider 
             my={2}
-            w={'90%'}
+            w={'100%'}
             alignSelf={'center'}
         />
     </Box>

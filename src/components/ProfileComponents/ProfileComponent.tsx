@@ -15,7 +15,6 @@ interface IProfileHeaderProps {
 }
 
 const ProfileComponent = ({ navigation, user, children }: IProfileHeaderProps) => {
-    const description = "No me pagan lo suficiente por esto."
     const [isFollowing, setIsFollowing] = useState(false)
 
     const handleFollowToggle = () => {
@@ -59,7 +58,7 @@ const ProfileComponent = ({ navigation, user, children }: IProfileHeaderProps) =
                     </Text>
                 </VStack>
                 <Stack
-                    w={'27%'}
+                    w={'30%'}
                     alignSelf={'flex-start'}
                     mt={3}
                     alignItems={'center'}
@@ -86,18 +85,22 @@ const ProfileComponent = ({ navigation, user, children }: IProfileHeaderProps) =
                     </TouchableOpacity>
                 </Stack>
             </HStack>
-            <Text 
-                style={{ 
-                    fontSize: 14, 
-                    textAlign: 'justify', 
-                    marginHorizontal: 14, 
-                    marginTop: 18, 
-                    marginBottom: 14, 
-                    color: colors.gray5 
-                    }}
-                >
-            {user.bio}
-            </Text>
+            <Stack
+                mx={3}
+            >
+                <Text 
+                    style={{ 
+                        fontSize: 14, 
+                        textAlign: 'justify', 
+                        marginHorizontal: 14, 
+                        marginTop: 18, 
+                        marginBottom: 14, 
+                        color: colors.gray5 
+                        }}
+                    >
+                {user.bio}
+                </Text>
+            </Stack>
             <Stack
                 w='100%'
             >

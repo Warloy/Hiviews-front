@@ -1,6 +1,6 @@
 import { TThread } from '../types'
 
-const reviews: TThread[] = [
+const threads: TThread[] = [
   {
     id: 1,
     author: 'Simón Bolívar',
@@ -59,4 +59,4 @@ const reviews: TThread[] = [
   },
 ]
 
-export default reviews
+export default threads
