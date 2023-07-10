@@ -22,7 +22,7 @@ import colors from '../../styled-components/colors'
 
 import Cinema from '../../assets/SignUp-amico.svg'
 import CardContainer from '../CardContainer'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import useLoading from '../../hooks/useLoading'
 import useCustomToast from '../../hooks/useCustomToast'
 import StyledField from '../StyledField'
@@ -132,7 +132,9 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
   }
 
   return (
-    <CardContainer
+
+    <KeyboardAwareScrollView>
+      <CardContainer
       h={0.75}
       top='18%'
 
@@ -644,6 +646,8 @@ const RegisterForm = ({ navigation }: IRegisterForm) => {
 
       </ScrollView>
     </CardContainer>
+    </KeyboardAwareScrollView>
+    
   )
 }
 
