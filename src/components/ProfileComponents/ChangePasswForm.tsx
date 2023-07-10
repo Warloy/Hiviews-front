@@ -30,7 +30,7 @@ import {passwordValidator} from '../../utils/validators'
 import useAuthContext from '../../hooks/useAuthContext'
 import { setSession } from '../../services/jwt';
 import { IChangePasswAdapter, changePasswAdapter } from '../../adapters/ChangePasswAdapter'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 interface IChangePasswForm {
     navigation?: NavigationProp<any>
@@ -86,297 +86,300 @@ const ChangePasswForm = ({ navigation }: IChangePasswForm) => {
 
 
   return (
-    <CardContainer
+    <KeyboardAwareScrollView>
+      <CardContainer
 
-    h={0.55}
-    top='25%'
+h={0.55}
+top='25%'
 
-      topChildren={
-        <Passw
-          height='65%'
-          width='65%'
-        />
-      }
+  topChildren={
+    <Passw
+      height='65%'
+      width='65%'
+    />
+  }
+>
+  <ScrollView
+    minH='100%'
+    maxH='100%'
+    w='100%'        
+  >
+    <Text
+      bold
+      fontSize='xl'
+      textAlign='center'
+      color= '#8A2F62'
+      pb={5}
     >
-      <ScrollView
-        minH='100%'
-        maxH='100%'
-        w='100%'        
+      Cambiar contraseña
+    </Text>
+
+    
+    <Controller
+      name='password'
+      control={control}
+      render={({ field: { onChange, value = '' } }) => (
+        <FormControl
+          isInvalid={
+            !passwordValidator(value) && value !== ''
+          }
+          h={75}
+        >
+          <StyledField
+            ref={ref}
+            placeholder='Contraseña actual'
+            onChangeText={onChange}
+            secureTextEntry={!currentpassw}
+            InputLeftElement={
+              <Stack
+                pl={2}
+                h='full'
+                justifyContent='center'
+                alignItems='center'
+              >
+                <Ionicons
+                  name='lock-closed'
+                  size={20}
+                  color={passVal(value)}
+                />
+              </Stack>
+            }
+            InputRightElement={
+              <Stack
+                pr={2}
+                h='full'
+                justifyContent='center'
+                alignItems='center'
+              >
+                <TouchableOpacity
+                  onPress={() => setCurrentPassw(!currentpassw)}
+                >
+                  <Ionicons
+                    name={currentpassw ? 'eye-outline' : 'eye-off-outline'}
+                    size={20}
+                    color={passVal(value)}
+                  />
+                </TouchableOpacity>
+              </Stack>
+            }
+          />
+          {passwordValidator(value) ? null : (
+            <FormControl.ErrorMessage
+              leftIcon={
+                <WarningOutlineIcon
+                  size='xs'
+                />
+              }
+            >
+              La contraseña no es válida
+            </FormControl.ErrorMessage>
+          )}
+        </FormControl>
+      )}
+    />
+
+    <Controller
+      name='newPassw'
+      control={control}
+      render={({ field: { onChange, value = '' } }) => (
+        <FormControl
+          isInvalid={
+            !passwordValidator(value) && value !== ''
+          }
+          h={75}
+        >
+          <StyledField
+            ref={ref}
+            placeholder='Nueva contraseña'
+            onChangeText={onChange}
+            secureTextEntry={!newpassw}
+            InputLeftElement={
+              <Stack
+                pl={2}
+                h='full'
+                justifyContent='center'
+                alignItems='center'
+              >
+                <Ionicons
+                  name='lock-closed'
+                  size={20}
+                  color={passVal(value)}
+                />
+              </Stack>
+            }
+            InputRightElement={
+              <Stack
+                pr={2}
+                h='full'
+                justifyContent='center'
+                alignItems='center'
+              >
+                <TouchableOpacity
+                  onPress={() => setNewPassw(!newpassw)}
+                >
+                  <Ionicons
+                    name={newpassw ? 'eye-outline' : 'eye-off-outline'}
+                    size={20}
+                    color={passVal(value)}
+                  />
+                </TouchableOpacity>
+              </Stack>
+            }
+          />
+          {passwordValidator(value) ? null : (
+            <FormControl.ErrorMessage
+              leftIcon={
+                <WarningOutlineIcon
+                  size='xs'
+                />
+              }
+            >
+              La contraseña no es válida
+            </FormControl.ErrorMessage>
+          )}
+        </FormControl>
+      )}
+    />
+    <Controller
+      name='newPasswConfirm'
+      control={control}
+      render={({ field: { onChange, value = '' } }) => (
+        <FormControl
+          isInvalid={
+            !passwordValidator(value) && value !== ''
+          }
+          h={75}
+        >
+          <StyledField
+            ref={ref}
+            placeholder='Confirmar nueva contraseña'
+            onChangeText={onChange}
+            secureTextEntry={!confirmNewPassw}
+            InputLeftElement={
+              <Stack
+                pl={2}
+                h='full'
+                justifyContent='center'
+                alignItems='center'
+              >
+                <Ionicons
+                  name='lock-closed'
+                  size={20}
+                  color={passVal(value)}
+                />
+              </Stack>
+            }
+            InputRightElement={
+              <Stack
+                pr={2}
+                h='full'
+                justifyContent='center'
+                alignItems='center'
+              >
+                <TouchableOpacity
+                  onPress={() => setConfirmNewPassw(!confirmNewPassw)}
+                >
+                  <Ionicons
+                    name={confirmNewPassw ? 'eye-outline' : 'eye-off-outline'}
+                    size={20}
+                    color={passVal(value)}
+                  />
+                </TouchableOpacity>
+              </Stack>
+            }
+          />
+          {passwordValidator(value) ? null : (
+            <FormControl.ErrorMessage
+              leftIcon={
+                <WarningOutlineIcon
+                  size='xs'
+                />
+              }
+            >
+              La contraseña no es válida
+            </FormControl.ErrorMessage>
+          )}
+        </FormControl>
+      )}
+    />
+
+          
+<HStack
+      w='100%'
+      justifyContent='center'
+      alignItems='center'
+      space={2}
+    >
+      <Button
+
+        w='40%'
+        height={50}
+        onPress={() => navigation?.navigate('TimelinePage')}
+        borderRadius={50}
+        style={{
+          backgroundColor: colors.tertiary
+        }}
+        shadow={1}
       >
         <Text
-          bold
-          fontSize='xl'
-          textAlign='center'
-          color= '#8A2F62'
-          pb={5}
-        >
-          Cambiar contraseña
+          textAlign={'center'}
+          color={'white'}
+          fontSize={'sm'}
+          lineHeight={14}
+       > 
+          Cancelar 
         </Text>
+      </Button>
+      
 
+      <Button 
+        w='40%'
+        height={50}
+        isLoading={isLoading}
+        isDisabled={isLoading || !isValid}
+        onPress={() => {
+          handleSubmit(onSubmit);
+        }}
+        borderRadius={50}
+        style={{
+          backgroundColor: colors.secondary
+        }}
+        shadow={1}
+      >
+       <Text
+          textAlign={'center'}
+          color={'white'}
+          fontSize={'sm'}
+          lineHeight={14}
+       > 
+       Cambiar contraseña 
+        </Text> 
         
-        <Controller
-          name='password'
-          control={control}
-          render={({ field: { onChange, value = '' } }) => (
-            <FormControl
-              isInvalid={
-                !passwordValidator(value) && value !== ''
-              }
-              h={75}
-            >
-              <StyledField
-                ref={ref}
-                placeholder='Contraseña actual'
-                onChangeText={onChange}
-                secureTextEntry={!currentpassw}
-                InputLeftElement={
-                  <Stack
-                    pl={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Ionicons
-                      name='lock-closed'
-                      size={20}
-                      color={passVal(value)}
-                    />
-                  </Stack>
-                }
-                InputRightElement={
-                  <Stack
-                    pr={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <TouchableOpacity
-                      onPress={() => setCurrentPassw(!currentpassw)}
-                    >
-                      <Ionicons
-                        name={currentpassw ? 'eye-outline' : 'eye-off-outline'}
-                        size={20}
-                        color={passVal(value)}
-                      />
-                    </TouchableOpacity>
-                  </Stack>
-                }
-              />
-              {passwordValidator(value) ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  La contraseña no es válida
-                </FormControl.ErrorMessage>
-              )}
-            </FormControl>
-          )}
-        />
+      </Button>
 
-        <Controller
-          name='newPassw'
-          control={control}
-          render={({ field: { onChange, value = '' } }) => (
-            <FormControl
-              isInvalid={
-                !passwordValidator(value) && value !== ''
-              }
-              h={75}
-            >
-              <StyledField
-                ref={ref}
-                placeholder='Nueva contraseña'
-                onChangeText={onChange}
-                secureTextEntry={!newpassw}
-                InputLeftElement={
-                  <Stack
-                    pl={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Ionicons
-                      name='lock-closed'
-                      size={20}
-                      color={passVal(value)}
-                    />
-                  </Stack>
-                }
-                InputRightElement={
-                  <Stack
-                    pr={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <TouchableOpacity
-                      onPress={() => setNewPassw(!newpassw)}
-                    >
-                      <Ionicons
-                        name={newpassw ? 'eye-outline' : 'eye-off-outline'}
-                        size={20}
-                        color={passVal(value)}
-                      />
-                    </TouchableOpacity>
-                  </Stack>
-                }
-              />
-              {passwordValidator(value) ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  La contraseña no es válida
-                </FormControl.ErrorMessage>
-              )}
-            </FormControl>
-          )}
-        />
-        <Controller
-          name='newPasswConfirm'
-          control={control}
-          render={({ field: { onChange, value = '' } }) => (
-            <FormControl
-              isInvalid={
-                !passwordValidator(value) && value !== ''
-              }
-              h={75}
-            >
-              <StyledField
-                ref={ref}
-                placeholder='Confirmar nueva contraseña'
-                onChangeText={onChange}
-                secureTextEntry={!confirmNewPassw}
-                InputLeftElement={
-                  <Stack
-                    pl={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Ionicons
-                      name='lock-closed'
-                      size={20}
-                      color={passVal(value)}
-                    />
-                  </Stack>
-                }
-                InputRightElement={
-                  <Stack
-                    pr={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <TouchableOpacity
-                      onPress={() => setConfirmNewPassw(!confirmNewPassw)}
-                    >
-                      <Ionicons
-                        name={confirmNewPassw ? 'eye-outline' : 'eye-off-outline'}
-                        size={20}
-                        color={passVal(value)}
-                      />
-                    </TouchableOpacity>
-                  </Stack>
-                }
-              />
-              {passwordValidator(value) ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  La contraseña no es válida
-                </FormControl.ErrorMessage>
-              )}
-            </FormControl>
-          )}
-        />
 
-              
-<HStack
-          w='100%'
-          justifyContent='center'
-          alignItems='center'
-          space={2}
-        >
-          <Button
+    </HStack>
 
-            w='40%'
-            height={50}
-            onPress={() => navigation?.navigate('TimelinePage')}
-            borderRadius={50}
-            style={{
-              backgroundColor: colors.tertiary
-            }}
-            shadow={1}
-          >
-            <Text
-              textAlign={'center'}
-              color={'white'}
-              fontSize={'sm'}
-              lineHeight={14}
-           > 
-              Cancelar 
-            </Text>
-          </Button>
-          
+    <VStack
+      pt={5}
+      w='100%'
+      justifyContent='center'
+      alignItems='center'
+      space={0}
+    >
+      <HStack
+        justifyContent='center'
+        space={1}
+      >
 
-          <Button 
-            w='40%'
-            height={50}
-            isLoading={isLoading}
-            isDisabled={isLoading || !isValid}
-            onPress={() => {
-              handleSubmit(onSubmit);
-            }}
-            borderRadius={50}
-            style={{
-              backgroundColor: colors.secondary
-            }}
-            shadow={1}
-          >
-           <Text
-              textAlign={'center'}
-              color={'white'}
-              fontSize={'sm'}
-              lineHeight={14}
-           > 
-           Cambiar contraseña 
-            </Text> 
-            
-          </Button>
+      </HStack>
+    </VStack>
+
+
+  </ScrollView>
+</CardContainer>
+</KeyboardAwareScrollView>
     
-
-        </HStack>
-
-        <VStack
-          pt={5}
-          w='100%'
-          justifyContent='center'
-          alignItems='center'
-          space={0}
-        >
-          <HStack
-            justifyContent='center'
-            space={1}
-          >
-  
-          </HStack>
-        </VStack>
-
-
-      </ScrollView>
-    </CardContainer>
   )
 
 }
