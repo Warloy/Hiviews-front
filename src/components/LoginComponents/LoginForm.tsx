@@ -23,7 +23,7 @@ import colors from '../../styled-components/colors'
 
 import Cinema from '../../assets/Movie-Night-Pink.svg'
 import CardContainer from '../CardContainer'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import useLoading from '../../hooks/useLoading'
 import useCustomToast from '../../hooks/useCustomToast'
 import StyledField from '../StyledField'
@@ -146,7 +146,8 @@ const LoginForm = ({ navigation }: ILoginForm) => {
   }
 
   return (
-    <CardContainer
+    <KeyboardAwareScrollView>
+      <CardContainer
       topChildren={
         <Cinema
           height='65%'
@@ -337,6 +338,7 @@ const LoginForm = ({ navigation }: ILoginForm) => {
         </VStack>
       </VStack>
     </CardContainer>
+  </KeyboardAwareScrollView>  
   )
 
 }
