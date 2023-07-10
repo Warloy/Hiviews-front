@@ -9,10 +9,11 @@ import ProfileContainer from '../ProfileComponents/ProfileContainer'
 
 interface IUserTimelineProps {
     navigation?: NavigationProp<any>;
-    users?: TUser[]
+    users?: TUser[],
+    listheight?: string
 }
 
-const UserTimeline = ({ navigation, users }: IUserTimelineProps) => {
+const UserTimeline = ({ navigation, users, listheight }: IUserTimelineProps) => {
     
     const renderItem = ({ item }: { item: TUser }) => {
         return (
@@ -37,7 +38,7 @@ const UserTimeline = ({ navigation, users }: IUserTimelineProps) => {
             px={3}
             pb={7}
             w='100%'
-            maxH='36%'
+            maxH={listheight}
             keyExtractor={(item, key) => `${item?.id}${new Date().toISOString()}${key}`}
             renderItem={renderItem}
             />

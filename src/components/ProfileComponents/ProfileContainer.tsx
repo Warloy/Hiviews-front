@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ScaledSize, TouchableOpacity, useWindowDimensions } from 'react-native'
-import { Box, HStack, VStack, Image, Text, Divider } from 'native-base'
+import { Box, HStack, VStack, Image, Text, Divider, Stack } from 'native-base'
 import { NavigationProp } from '@react-navigation/native'
 
 import { TUser } from '../../types'
@@ -12,31 +12,36 @@ interface IProfileContainerProps {
 }
 
 const ProfileContainer = ({ navigation, user }: IProfileContainerProps) => {
+    const [isFollowing, setIsFollowing] = useState(false)
+
+    const handleFollowToggle = () => {
+        setIsFollowing(!isFollowing)
+    };
 
   return (
     <Box
     m={2}
     w={'100%'}
     bgColor={colors.white}
-    py={2}
+    py={1}
     >     
         <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => {console.log(`Press profile card of ${user.username}`)
-            navigation?.navigate('ProfilePage', {user:user})}}
+            navigation?.navigate('ProfilePage', {user})}}
         >
-            <VStack
+            <Stack
                 space={3}
                 pb={1}
             >
                 <HStack
-                    space={5}
+                    space={3}
                     px={3}
                     w={'100%'}
                     alignItems='center'
                 >
                     <VStack
-                        maxW={'15%'}
+                        w={'15%'}
                         h={'100%'}
                         justifyContent='flex-start'
                     >
@@ -51,15 +56,16 @@ const ProfileContainer = ({ navigation, user }: IProfileContainerProps) => {
                         </TouchableOpacity>
                     </VStack>
                     <VStack
-                        maxW={'85%'}
+                        w={'45%'}
                         h={'100%'}
                         justifyContent='flex-start'
-                        pr={2}
+                        ml={2}
                     >
                         <Text
-                        fontSize='md'
-                        bold
-                        color={colors.text}
+                            fontSize='md'
+                            bold
+                            color={colors.text}
+                            lineHeight={'sm'}
                         >
                         {user.name}{` `}{user.surname}
                         </Text>
@@ -75,11 +81,36 @@ const ProfileContainer = ({ navigation, user }: IProfileContainerProps) => {
                             </Text>
                         </VStack>
                     </VStack>
+                    <Stack
+                        w={'28%'}
+                    >
+                        <TouchableOpacity 
+                            onPress={handleFollowToggle} 
+                            style={{ 
+                                backgroundColor: isFollowing ? colors.primary : colors.secondary, 
+                                paddingVertical: 3,
+                                paddingHorizontal: 13, 
+                                borderRadius: 4 
+                                }}
+                            >
+                            <Text 
+                                style={{ 
+                                    fontSize: 14, 
+                                    fontWeight: 'bold', 
+                                    alignSelf:'center',
+                                    alignItems: 'center', 
+                                    color: colors.button.text 
+                                }}
+                            >
+                            {isFollowing ? 'Siguiendo' : 'Seguir'}
+                            </Text>
+                        </TouchableOpacity>
+                    </Stack>
                 </HStack>    
-            </VStack>
+            </Stack>
         </TouchableOpacity>
         <Divider 
-            my={2}
+            mt={2}
             w={'100%'}
             alignSelf={'center'}
         />

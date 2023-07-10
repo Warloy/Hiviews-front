@@ -9,10 +9,11 @@ import ThreadCard from '../ThreadComponents/ThreadCard'
 
 interface IThreadTimelineProps {
     navigation?: NavigationProp<any>;
-    threads?: TThread[]
+    threads?: TThread[],
+    listheight?: string
 }
 
-const ThreadTimeline = ({ navigation, threads }: IThreadTimelineProps) => {
+const ThreadTimeline = ({ navigation, threads, listheight }: IThreadTimelineProps) => {
     
     const renderItem = ({ item }: { item: TThread }) => {
         return (
@@ -36,7 +37,7 @@ const ThreadTimeline = ({ navigation, threads }: IThreadTimelineProps) => {
             data={threads}
             px={3}
             pb={7}
-            maxH='36%'
+            maxH={listheight}
             keyExtractor={(item, key) => `${item?.id}${new Date().toISOString()}${key}`}
             renderItem={renderItem}
             />

@@ -27,6 +27,7 @@ const ProfileComponent = ({ navigation, user, children }: IProfileHeaderProps) =
                 alignItems={'center'}
                 px={5}
                 pt={3}
+                space={1}
             >
                 <Stack
                     w={'24%'}
@@ -38,7 +39,7 @@ const ProfileComponent = ({ navigation, user, children }: IProfileHeaderProps) =
                     />
                 </Stack>
                 <VStack
-                    w={'50%'}
+                    w={'48%'}
                 >
                     <Text 
                         style={{ 
@@ -63,26 +64,29 @@ const ProfileComponent = ({ navigation, user, children }: IProfileHeaderProps) =
                     mt={3}
                     alignItems={'center'}
                 >
-                    <TouchableOpacity 
-                        onPress={handleFollowToggle} 
-                        style={{ 
-                            backgroundColor: isFollowing ? colors.primary : colors.secondary, 
-                            paddingVertical: 4,
-                            paddingHorizontal: 13, 
-                            borderRadius: 4 
-                            }}
-                        >
-                        <Text 
+                    {user.username==='Dudu'?
+                    <></>:
+                        <TouchableOpacity 
+                            onPress={handleFollowToggle} 
                             style={{ 
-                                fontSize: 14, 
-                                fontWeight: 'bold', 
-                                alignItems: 'center', 
-                                color: colors.button.text 
-                            }}
-                        >
-                        {isFollowing ? 'Siguiendo' : 'Seguir'}
-                        </Text>
-                    </TouchableOpacity>
+                                backgroundColor: isFollowing ? colors.primary : colors.secondary, 
+                                paddingVertical: 4,
+                                paddingHorizontal: 13, 
+                                borderRadius: 4 
+                                }}
+                            >
+                            <Text 
+                                style={{ 
+                                    fontSize: 14, 
+                                    fontWeight: 'bold', 
+                                    alignItems: 'center', 
+                                    color: colors.button.text 
+                                }}
+                            >
+                            {isFollowing ? 'Siguiendo' : 'Seguir'}
+                            </Text>
+                        </TouchableOpacity>
+                    }
                 </Stack>
             </HStack>
             <Stack
@@ -104,7 +108,9 @@ const ProfileComponent = ({ navigation, user, children }: IProfileHeaderProps) =
             <Stack
                 w='100%'
             >
-                <ProfileTabs/>
+                <ProfileTabs
+                    navigation={navigation}
+                />
                 <ProfileContainer
                     navigation={navigation}
                     user={{

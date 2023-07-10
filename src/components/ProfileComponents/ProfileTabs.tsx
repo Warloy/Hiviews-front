@@ -166,27 +166,32 @@ const ProfileTabs = ({ navigation }: IProfileTabsProps) => {
                         <ReviewTimeline 
                             navigation={navigation}
                             reviews={reviews}
+                            listheight='38%'
                         />
                     : activeTab===2 ?
                         <ThreadTimeline 
                             navigation={navigation}
                             threads={threads}
+                            listheight='38%'
                         />
                     : activeTab===3 ?
                         <UserTimeline 
                             navigation={navigation}
                             users={users}
+                            listheight='38%'
                         />
                     : activeTab===4 ?
                         <UserTimeline 
                             navigation={navigation}
                             users={users}
+                            listheight='38%'
                         />
                     : activeTab===5 ? 
-                    <ReviewTimeline 
-                        navigation={navigation}
-                        reviews={reviews}
-                    /> 
+                        <ReviewTimeline 
+                            navigation={navigation}
+                            reviews={reviews}
+                            listheight='38%'
+                        /> 
                     : <></>
                 }
                 

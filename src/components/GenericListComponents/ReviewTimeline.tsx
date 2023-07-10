@@ -9,10 +9,11 @@ import ReviewCard from '../TimelineComponents/ReviewCard'
 
 interface IReviewTimelineProps {
     navigation?: NavigationProp<any>;
-    reviews?: TReview[]
+    reviews?: TReview[],
+    listheight?: string
 }
 
-const ReviewTimeline = ({ navigation, reviews }: IReviewTimelineProps) => {
+const ReviewTimeline = ({ navigation, reviews, listheight }: IReviewTimelineProps) => {
     
     const renderItem = ({ item }: { item: TReview }) => {
         return (
@@ -36,7 +37,7 @@ const ReviewTimeline = ({ navigation, reviews }: IReviewTimelineProps) => {
             data={reviews}
             px={3}
             pb={7}
-            maxH='36%'
+            maxH={listheight}
             keyExtractor={(item, key) => `${item?.id}${new Date().toISOString()}${key}`}
             renderItem={renderItem}
             />
