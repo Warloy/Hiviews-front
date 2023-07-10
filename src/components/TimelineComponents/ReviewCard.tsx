@@ -162,107 +162,114 @@ const ReviewCard = ({ navigation, review }: { navigation?: NavigationProp<any>, 
         </Box>
 
         <HStack
-          justifyContent='flex-end'
-          alignItems='center'
-          space={3}
+          justifyContent='space-between'
+          my={1}
           py={1}
           px={2}
         >
-          {review.author === 'Manuel' && before24hours(review.date) &&
-            <>
-              <TouchableOpacity
-                onPress={() => console.log('Delete pressed')}
-              >
-                <HStack
-                  alignItems='center'
-                  pr={2}
+          <HStack
+            px={2}
+            space={3}
+          >
+            {review.author === 'Manuel' && before24hours(review.date) &&
+              <>
+                <TouchableOpacity
+                  onPress={() => console.log('Delete pressed')}
                 >
-                  <AntDesign
-                    name='delete'
-                    size={14}
-                    color={colors.primary}
-                  />
-                </HStack>
-              </TouchableOpacity>
+                  <HStack
+                    alignItems='center'
+                    pr={2}
+                  >
+                    <AntDesign
+                      name='delete'
+                      size={14}
+                      color={colors.primary}
+                    />
+                  </HStack>
+                </TouchableOpacity>
 
-              <TouchableOpacity
-                onPress={() => console.log('Edit pressed')}
-              >
-                <HStack
-                  alignItems='center'
-                  pr={2}
+                <TouchableOpacity
+                  onPress={() => console.log('Edit pressed')}
                 >
-                  <Feather
-                    name='edit'
-                    size={14}
-                    color={colors.primary}
-                  />
-                </HStack>
-              </TouchableOpacity>
-            </>
+                  <HStack
+                    alignItems='center'
+                    pr={2}
+                  >
+                    <Feather
+                      name='edit'
+                      size={14}
+                      color={colors.primary}
+                    />
+                  </HStack>
+                </TouchableOpacity>
+              </>
 
-          }
-
-          <TouchableOpacity
-            onPress={() => {
-              toast.showSuccessToast(!bookmark? `Añadido a favoritos.` : `Eliminado de favoritos.`)
-              setBookmark(!bookmark)
-            }}
+            }
+          </HStack>
+          <HStack
+            px={2}
+            space={3}
           >
-            <HStack
-              alignItems='center'
-              space={1}
-              mr={2}
+            <TouchableOpacity
+              onPress={() => {
+                toast.showSuccessToast(!bookmark? `Añadido a favoritos.` : `Eliminado de favoritos.`)
+                setBookmark(!bookmark)
+              }}
             >
-              <Ionicons
-                name={bookmark ? 'ios-bookmark' : 'ios-bookmark-outline'}
-                size={14}
-                color={colors.primary}
-              />
-            </HStack>
-          </TouchableOpacity> 
-
-          <TouchableOpacity
-            onPress={() => console.log('Comment pressed')}
-          >
-            <HStack
-              alignItems='center'
-              space={1}
-            >
-              <FontAwesome5
-                name='comment-alt'
-                size={14}
-                color={colors.primary}
-              />
-              <Text
-                fontSize={10}
-                color={colors.primary}
+              <HStack
+                alignItems='center'
+                mr={2}
               >
-                {review.comments}
-              </Text>
-            </HStack>
-          </TouchableOpacity>
+                <Ionicons
+                  name={bookmark ? 'ios-bookmark' : 'ios-bookmark-outline'}
+                  size={14}
+                  color={colors.primary}
+                />
+              </HStack>
+            </TouchableOpacity> 
 
-          <TouchableOpacity
-            onPress={() => setLike(!like)}
-          >
-            <HStack
-              alignItems='center'
-              space={1}
+            <TouchableOpacity
+              onPress={() => console.log('Comment pressed')}
             >
-              <AntDesign
-                name={like ? 'like1' : 'like2'}
-                size={16}
-                color={colors.primary}
-              />
-              <Text
-                fontSize={10}
-                color={colors.primary}
+              <HStack
+                alignItems='center'
+                space={1}
               >
-                {like ? review.likes + 1 : review.likes}
-              </Text>
-            </HStack>
-          </TouchableOpacity>
+                <FontAwesome5
+                  name='comment-alt'
+                  size={14}
+                  color={colors.primary}
+                />
+                <Text
+                  fontSize={10}
+                  color={colors.primary}
+                >
+                  {review.comments}
+                </Text>
+              </HStack>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => setLike(!like)}
+            >
+              <HStack
+                alignItems='center'
+                space={1}
+              >
+                <AntDesign
+                  name={like ? 'like1' : 'like2'}
+                  size={16}
+                  color={colors.primary}
+                />
+                <Text
+                  fontSize={10}
+                  color={colors.primary}
+                >
+                  {like ? review.likes + 1 : review.likes}
+                </Text>
+              </HStack>
+            </TouchableOpacity>
+          </HStack>
         </HStack>
       </VStack>
     </Box>
