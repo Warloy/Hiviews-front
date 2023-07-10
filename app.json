@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "Hiviews-front",
-    "slug": "Hiviews-front",
+    "name": "Hiviews",
+    "slug": "Hiviews",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/1-hilogo-oficial.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/1-hilogo-oficial.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.Entropy.Hiviews"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "56f6cc63-2610-40ae-bb30-03f73f8c6557"
+      }
     }
   }
 }

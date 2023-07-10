@@ -173,88 +173,96 @@ const ThreadPost = ({ navigation, thread, children }: { navigation?: NavigationP
                 </Box>
 
                 <HStack
-                justifyContent='flex-end'
-                alignItems='center'
-                space={3}
-                py={1}
-                px={2}
-                >
-                {thread.author === 'Manuel' && before24hours(thread.date) &&
-                    <>
-                    <TouchableOpacity
-                        onPress={() => console.log('Delete pressed')}
-                    >
-                        <HStack
-                        alignItems='center'
-                        pr={2}
-                        >
-                        <AntDesign
-                            name='delete'
-                            size={14}
-                            color={colors.primary}
-                        />
-                        </HStack>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => console.log('Edit pressed')}
-                    >
-                        <HStack
-                        alignItems='center'
-                        pr={2}
-                        >
-                        <Feather
-                            name='edit'
-                            size={14}
-                            color={colors.primary}
-                        />
-                        </HStack>
-                    </TouchableOpacity>
-                    </>
-
-                }
-
-                <TouchableOpacity
-                    onPress={() => console.log('Comment pressed')}
+                    justifyContent='space-between'
+                    my={1}
+                    py={1}
+                    px={2}
                 >
                     <HStack
-                    alignItems='center'
-                    space={1}
+                        px={2}
+                        space={3}
                     >
-                    <FontAwesome5
-                        name='comment-alt'
-                        size={14}
-                        color={colors.primary}
-                    />
-                    <Text
-                        fontSize={10}
-                        color={colors.primary}
-                    >
-                        {thread.comments}
-                    </Text>
-                    </HStack>
-                </TouchableOpacity>
+                        {thread.author === 'Manuel' && before24hours(thread.date) &&
+                            <>
+                            <TouchableOpacity
+                                onPress={() => console.log('Delete pressed')}
+                            >
+                                <HStack
+                                alignItems='center'
+                                pr={2}
+                                >
+                                <AntDesign
+                                    name='delete'
+                                    size={14}
+                                    color={colors.primary}
+                                />
+                                </HStack>
+                            </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => setLike(!like)}
-                >
-                    <HStack
-                    alignItems='center'
-                    space={1}
-                    >
-                    <AntDesign
-                        name={like ? 'like1' : 'like2'}
-                        size={16}
-                        color={colors.primary}
-                    />
-                    <Text
-                        fontSize={10}
-                        color={colors.primary}
-                    >
-                        {like ? thread.likes + 1 : thread.likes}
-                    </Text>
+                            <TouchableOpacity
+                                onPress={() => console.log('Edit pressed')}
+                            >
+                                <HStack
+                                alignItems='center'
+                                pr={2}
+                                >
+                                <Feather
+                                    name='edit'
+                                    size={14}
+                                    color={colors.primary}
+                                />
+                                </HStack>
+                            </TouchableOpacity>
+                            </>
+
+                        }
                     </HStack>
-                </TouchableOpacity>
+                    <HStack
+                        px={2}
+                        space={3}
+                    >
+                        <TouchableOpacity
+                            onPress={() => console.log('Comment pressed')}
+                        >
+                            <HStack
+                            alignItems='center'
+                            space={1}
+                            >
+                            <FontAwesome5
+                                name='comment-alt'
+                                size={14}
+                                color={colors.primary}
+                            />
+                            <Text
+                                fontSize={10}
+                                color={colors.primary}
+                            >
+                                {thread.comments}
+                            </Text>
+                            </HStack>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => setLike(!like)}
+                        >
+                            <HStack
+                            alignItems='center'
+                            space={1}
+                            >
+                            <AntDesign
+                                name={like ? 'like1' : 'like2'}
+                                size={16}
+                                color={colors.primary}
+                            />
+                            <Text
+                                fontSize={10}
+                                color={colors.primary}
+                            >
+                                {like ? thread.likes + 1 : thread.likes}
+                            </Text>
+                            </HStack>
+                        </TouchableOpacity>
+                    </HStack>
                 </HStack>
             </VStack>
             {children}

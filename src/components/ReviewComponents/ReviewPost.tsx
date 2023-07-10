@@ -161,107 +161,114 @@ const ReviewPost = ({ navigation, review, children }: { navigation?: NavigationP
                 </Box>
 
                 <HStack
-                justifyContent='flex-end'
-                alignItems='center'
-                space={3}
-                py={1}
-                px={2}
+                    justifyContent='space-between'
+                    my={1}
+                    py={1}
+                    px={2}
                 >
-                {review?.author === 'Manuel' && before24hours(review.date) &&
-                    <>
-                    <TouchableOpacity
-                        onPress={() => console.log('Delete pressed')}
+                    <HStack
+                        px={2}
+                        space={3}
                     >
-                        <HStack
-                        alignItems='center'
-                        pr={2}
+                        {review?.author === 'Manuel' && before24hours(review.date) &&
+                            <>
+                            <TouchableOpacity
+                                onPress={() => console.log('Delete pressed')}
+                            >
+                                <HStack
+                                alignItems='center'
+                                pr={2}
+                                >
+                                <AntDesign
+                                    name='delete'
+                                    size={14}
+                                    color={colors.primary}
+                                />
+                                </HStack>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => console.log('Edit pressed')}
+                            >
+                                <HStack
+                                alignItems='center'
+                                pr={2}
+                                >
+                                <Feather
+                                    name='edit'
+                                    size={14}
+                                    color={colors.primary}
+                                />
+                                </HStack>
+                            </TouchableOpacity>
+                            </>
+
+                        }                       
+                    </HStack>
+                    <HStack
+                        px={2}
+                        space={3}
+                    >
+                        <TouchableOpacity
+                            onPress={() => {
+                            toast.showSuccessToast(!bookmark? `Añadido a favoritos.` : `Eliminado de favoritos.`)
+                            setBookmark(!bookmark)
+                            }}
                         >
-                        <AntDesign
-                            name='delete'
-                            size={14}
-                            color={colors.primary}
-                        />
-                        </HStack>
-                    </TouchableOpacity>
+                            <HStack
+                            alignItems='center'
+                            mr={2}
+                            >
+                            <Ionicons
+                                name={bookmark ? 'ios-bookmark' : 'ios-bookmark-outline'}
+                                size={14}
+                                color={colors.primary}
+                            />
+                            </HStack>
+                        </TouchableOpacity> 
 
-                    <TouchableOpacity
-                        onPress={() => console.log('Edit pressed')}
-                    >
-                        <HStack
-                        alignItems='center'
-                        pr={2}
+                        <TouchableOpacity
+                            onPress={() => console.log('Comment pressed')}
                         >
-                        <Feather
-                            name='edit'
-                            size={14}
-                            color={colors.primary}
-                        />
-                        </HStack>
-                    </TouchableOpacity>
-                    </>
+                            <HStack
+                            alignItems='center'
+                            space={1}
+                            >
+                            <FontAwesome5
+                                name='comment-alt'
+                                size={14}
+                                color={colors.primary}
+                            />
+                            <Text
+                                fontSize={10}
+                                color={colors.primary}
+                            >
+                                {review?.comments}
+                            </Text>
+                            </HStack>
+                        </TouchableOpacity>
 
-                }
-
-                <TouchableOpacity
-                    onPress={() => {
-                    toast.showSuccessToast(!bookmark? `Añadido a favoritos.` : `Eliminado de favoritos.`)
-                    setBookmark(!bookmark)
-                    }}
-                >
-                    <HStack
-                    alignItems='center'
-                    space={1}
-                    mr={2}
-                    >
-                    <Ionicons
-                        name={bookmark ? 'ios-bookmark' : 'ios-bookmark-outline'}
-                        size={14}
-                        color={colors.primary}
-                    />
+                        <TouchableOpacity
+                            onPress={() => setLike(!like)}
+                        >
+                            <HStack
+                            alignItems='center'
+                            space={1}
+                            >
+                            <AntDesign
+                                name={like ? 'like1' : 'like2'}
+                                size={16}
+                                color={colors.primary}
+                            />
+                            <Text
+                                fontSize={10}
+                                color={colors.primary}
+                            >
+                                {like && review ? review.likes + 1 : review?.likes}
+                            </Text>
+                            </HStack>
+                        </TouchableOpacity>               
                     </HStack>
-                </TouchableOpacity> 
-
-                <TouchableOpacity
-                    onPress={() => console.log('Comment pressed')}
-                >
-                    <HStack
-                    alignItems='center'
-                    space={1}
-                    >
-                    <FontAwesome5
-                        name='comment-alt'
-                        size={14}
-                        color={colors.primary}
-                    />
-                    <Text
-                        fontSize={10}
-                        color={colors.primary}
-                    >
-                        {review?.comments}
-                    </Text>
-                    </HStack>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => setLike(!like)}
-                >
-                    <HStack
-                    alignItems='center'
-                    space={1}
-                    >
-                    <AntDesign
-                        name={like ? 'like1' : 'like2'}
-                        size={16}
-                        color={colors.primary}
-                    />
-                    <Text
-                        fontSize={10}
-                        color={colors.primary}
-                    >
-                        {like && review ? review.likes + 1 : review?.likes}
-                    </Text>
-                    </HStack>
-                </TouchableOpacity>
                 </HStack>
             </VStack>
             {children}
