@@ -9,7 +9,12 @@ import { TComment } from '../../types'
 import { before24hours, formatDate, getHour } from '../../utils/functions'
 import colors from '../../styled-components/colors'
 
-const CommentContainer = ({ navigation, comment }: { navigation?: NavigationProp<any>, comment: TComment }) => {
+interface ICommentContainerProps {
+    navigation?: NavigationProp<any>, 
+    comment: TComment
+}
+
+const CommentContainer = ({ navigation, comment }: ICommentContainerProps) => {
 
   const layout: ScaledSize = useWindowDimensions()
 
