@@ -8,6 +8,7 @@ import RegisterPage from '../pages/RegisterPage'
 import ChangePasswPage from '../pages/ChangePasswPage'
 import PasswRecoveryPage from '../pages/PasswRecoveryPage'
 import ProfilePage from '../pages/ProfilePage'
+import EditProfilePage from '../pages/EditProfilePage'
 import BottomNavigation from './BottomNavigation'
 
 import useAuthContext from '../hooks/useAuthContext'
@@ -42,6 +43,17 @@ const stackRoutes: TStackRoutes = [
       headerShown: false
     }
   },
+  
+  {
+    name: 'EditProfilePage',
+    component: EditProfilePage,
+    requireAuth: false,
+    options: {
+      headerShown: false
+    }
+  },
+  
+  
   {
     name: 'ChangePasswPage',
     component: ChangePasswPage,
