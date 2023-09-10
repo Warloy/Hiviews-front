@@ -57,7 +57,7 @@ const BottomChildren = ({ router }: { router: Router }) => {
           fontSize="sm"
           color={colors.secondary}
           onPress={() => {
-            router.push("/(login)/register")
+            router.push("/register")
           }}
         >
           Regístrate aquí

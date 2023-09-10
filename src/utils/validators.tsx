@@ -13,8 +13,8 @@ export const nameValidator = (name: string) => {
   return RegExp.regName.test(name)
 }
 
-export const lastNameValidator = (lastname: string) => {
-  return RegExp.regLastName.test(lastname)
+export const lastNameValidator = (lastName: string) => {
+  return RegExp.regLastName.test(lastName)
 }
 
 export const usernameValidator = (username: string) => {

@@ -1,13 +1,13 @@
-import { Stack } from "expo-router";
 import Container from "@/components/Container";
 import RegisterForm from "@/components/LoginComponents/RegisterForm";
+import { Stack } from "expo-router";
 
 const RegisterPage = () => {
   return (
     <Container
       hiddenNavBar={true}
     >
-      <Stack.Screen name="register" />
+      <Stack.Screen options={{ headerShown: false }} />
       <RegisterForm />
     </Container>
   );
