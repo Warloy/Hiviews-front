@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode } from "react";
-import { TSession } from "../types/User.Type";
+import { TSession } from "@/types/User.Type";
 
 export interface IAuthState {
   isAuthenticated: boolean;

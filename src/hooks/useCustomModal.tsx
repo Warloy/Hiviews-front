@@ -1,7 +1,7 @@
 import { Modal, Text, Stack } from "native-base";
-import { colors } from "../constants/Colors";
-import { Icons } from "../constants/Icons";
-import { IIconProps, IModal } from "../interfaces/Modal.Interface";
+import { colors } from "@/constants/Colors";
+import { Icons } from "@/constants/Icons";
+import { IIconProps, IModal } from "@/interfaces/Modal.Interface";
 
 const CustomModal = ({
   header = undefined,

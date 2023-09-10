@@ -2,12 +2,12 @@ import { useState } from "react";
 import { TouchableOpacity, useWindowDimensions } from "react-native";
 import { Avatar, Button, Divider, HStack, Stack, Text, VStack } from "native-base";
 
-import { INavBarProps } from "../interfaces/NavBar.Interface";
-import useAuthContext from "../hooks/useAuthContext";
-import { setSession } from "../services/jwt";
+import { INavBarProps } from "@/interfaces/NavBar.Interface";
+import useAuthContext from "@/hooks/useAuthContext";
+import { setSession } from "@/services/jwt";
 
-import SVGImg from "../assets/images/logo.svg";
-import { colors } from "../constants/Colors";
+import SVGImg from "@/assets/images/logo.svg";
+import { colors } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import StyledModal from "./StyledModal";

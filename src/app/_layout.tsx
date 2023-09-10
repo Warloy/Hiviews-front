@@ -5,7 +5,7 @@ import { SplashScreen, Stack } from "expo-router";
 import { NativeBaseProvider } from "native-base";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
-import { AuthProvider } from "../context/AuthContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 export {
   // Catch any errors thrown by the Layout component.

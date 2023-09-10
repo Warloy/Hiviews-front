@@ -1,5 +1,5 @@
 import { Modal, Stack } from "native-base";
-import { IStyledModalProps } from "../interfaces/StyledModal.Interface";
+import { IStyledModalProps } from "@/interfaces/StyledModal.Interface";
 
 const StyledModal = ({
   size = "md",

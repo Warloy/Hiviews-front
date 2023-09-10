@@ -4894,6 +4894,11 @@ expo-asset@~8.10.1:
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
 
+expo-blur@~12.4.1:
+  version "12.4.1"
+  resolved "https://registry.yarnpkg.com/expo-blur/-/expo-blur-12.4.1.tgz#b391de84914ef9ece0702378e51e09461ad565ab"
+  integrity sha512-lGN8FS9LuGUlEriULTC62cCWyg5V7zSVQeJ6Duh1wSq8aAETinZ2/7wrT6o+Uhd/XVVxFNON2T25AGCOtMG6ew==
+
 expo-constants@~14.4.2:
   version "14.4.2"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-14.4.2.tgz#cac5e8b524069545739b8d8595ce96cc5be6578c"
@@ -4901,6 +4906,11 @@ expo-constants@~14.4.2:
   dependencies:
     "@expo/config" "~8.1.0"
     uuid "^3.3.2"
+
+expo-eas-client@~0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/expo-eas-client/-/expo-eas-client-0.6.0.tgz#b722dde0de1b8b56701b282a5fdf28d3d3e79ec4"
+  integrity sha512-FSPy0ThcJBvzEzOZVhpOrYyHgQ8U1jJ4v7u7tr1x0KOVRqyf25APEQZFxxRPn3zAYW0tQ+uDTCbrwNymFqhQfw==
 
 expo-file-system@~15.4.0, expo-file-system@~15.4.3:
   version "15.4.3"
@@ -4922,6 +4932,13 @@ expo-head@0.0.11:
   integrity sha512-nQ/DmxuLRLmCmnWFvfKoqG0/CA1SqEe4kvPlp7sAjsptLC7BHxOTViNchLznOlXTc/9yG05YYzZbWHvjIeE08Q==
   dependencies:
     react-helmet-async "^1.3.0"
+
+expo-insights@~0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/expo-insights/-/expo-insights-0.2.0.tgz#b31a1a6aee4e0f638bd097b237cf739e8dc41192"
+  integrity sha512-1TN1DALyCGXnohoxBO3hW+2T4X6h33StsmRUutw+Dp7Y4oDcrhB8ViDEhUzvVPPDWIRbYLmo6ZqzgvPltZUtJw==
+  dependencies:
+    expo-eas-client "~0.6.0"
 
 expo-keep-awake@~12.3.0:
   version "12.3.0"

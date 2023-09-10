@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
-import Container from "../../components/Container";
-import RegisterForm from "../../components/LoginComponents/RegisterForm";
+import Container from "@/components/Container";
+import RegisterForm from "@/components/LoginComponents/RegisterForm";
 
 const RegisterPage = () => {
   return (

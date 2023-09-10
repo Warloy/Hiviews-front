@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { Link } from "native-base";
-import IStyledLinkProps from "../interfaces/StyledLink.Interface";
-import { colors } from "../constants/Colors";
+import IStyledLinkProps from "@/interfaces/StyledLink.Interface";
+import { colors } from "@/constants/Colors";
 
 const StyledLink = forwardRef<any, IStyledLinkProps>((props, ref) => {
   const { text, url, ...rest } = props;

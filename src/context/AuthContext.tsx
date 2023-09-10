@@ -1,8 +1,8 @@
 import { createContext, useEffect, useReducer } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { IAuthAction, IAuthContextType, IAuthState, IAuthProviderProps } from "../interfaces/AuthContext.Interface";
-import { setSession } from "../services/jwt";
-import { SESSION_KEY } from "../constants/Session";
+import { IAuthAction, IAuthContextType, IAuthState, IAuthProviderProps } from "@/interfaces/AuthContext.Interface";
+import { setSession } from "@/services/jwt";
+import { SESSION_KEY } from "@/constants/Session";
 
 export const AuthContext = createContext<IAuthContextType>({} as IAuthContextType)
 

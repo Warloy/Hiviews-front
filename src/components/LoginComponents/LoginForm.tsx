@@ -12,20 +12,20 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 
-import SVGImg from "../../assets/images/logo.svg";
-import Cinema from "../../assets/resources/Movie-Night-Pink.svg"
-import { colors } from "../../constants/Colors";
-import useAuthContext from "../../hooks/useAuthContext";
-import useLoading from "../../hooks/useLoading";
-import useCustomToast from "../../hooks/useCustomToast";
-import { loginDefaultValues, loginSchema } from "../../schemas/LoginSchema";
-import { setSession } from "../../services/jwt";
+import SVGImg from "@/assets/images/logo.svg";
+import Cinema from "@/assets/resources/Movie-Night-Pink.svg"
+import { colors } from "@/constants/Colors";
+import useAuthContext from "@/hooks/useAuthContext";
+import useLoading from "@/hooks/useLoading";
+import useCustomToast from "@/hooks/useCustomToast";
+import { loginDefaultValues, loginSchema } from "@/schemas/LoginSchema";
+import { setSession } from "@/services/jwt";
 import CardContainer from "../CardContainer";
 import StyledField from "../StyledField";
-import { emailColor, passwordColor } from "../../utils/colorValidators";
+import { emailColor, passwordColor } from "@/utils/colorValidators";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
-import { TLogin } from "../../types/User.Type";
+import { TLogin } from "@/types/User.Type";
 import { Router, useRouter } from "expo-router";
 
 const BottomChildren = ({ router }: { router: Router }) => {

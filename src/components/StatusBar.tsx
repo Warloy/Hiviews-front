@@ -1,6 +1,6 @@
 import { SafeAreaView, StatusBar as Bar} from "react-native";
-import { IStatusBarProps } from "../interfaces/StatusBar.Interface";
-import { colors } from "../constants/Colors";
+import { IStatusBarProps } from "@/interfaces/StatusBar.Interface";
+import { colors } from "@/constants/Colors";
 import styles from "./styled-components/styles";
 
 const StatusBar = ({ backgroundColor = colors.primary, hidden = false, statusBarStyle = "default" }: IStatusBarProps) => {

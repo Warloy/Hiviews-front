@@ -1,7 +1,7 @@
 import { useWindowDimensions } from "react-native";
 import { View, KeyboardAvoidingView, Stack } from "native-base";
 
-import { ICardContainerProps } from "../interfaces/CardContainer.Interface";
+import { ICardContainerProps } from "@/interfaces/CardContainer.Interface";
 import styles from "./styled-components/styles";
 
 const CardContainer = ({

@@ -1,4 +1,4 @@
-import { colors } from "../constants/Colors";
+import { colors } from "@/constants/Colors";
 import { birthdayValidator, emailValidator, nameValidator, passwordValidator, usernameValidator } from "./validators";
 
 export const emailColor = (value: string): string => {

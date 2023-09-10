@@ -1,5 +1,5 @@
-import { colors } from "../constants/Colors";
-import { IContainerProps } from "../interfaces/Container.Interface";
+import { colors } from "@/constants/Colors";
+import { IContainerProps } from "@/interfaces/Container.Interface";
 import Background from "./Background";
 import NavBar from "./NavBar";
 import StatusBar from "./StatusBar";

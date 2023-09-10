@@ -8,19 +8,19 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import useLoading from "../../hooks/useLoading";
-import useCustomToast from "../../hooks/useCustomToast";
-import { registerDefaultValues, registerSchema } from "../../schemas/RegisterSchema";
-import { TRegister } from "../../types/User.Type";
+import useLoading from "@/hooks/useLoading";
+import useCustomToast from "@/hooks/useCustomToast";
+import { registerDefaultValues, registerSchema } from "@/schemas/RegisterSchema";
+import { TRegister } from "@/types/User.Type";
 import CardContainer from "../CardContainer";
 import StyledField from "../StyledField";
-import { emailValidator, lastNameValidator, nameValidator, passwordValidator, usernameValidator } from "../../utils/validators";
-import { birthdayColor, emailColor, nameColor, passwordColor, usernameColor } from "../../utils/colorValidators";
-import { formatDate, locale } from "../../utils/functions";
-import { colors } from "../../constants/Colors";
+import { emailValidator, lastNameValidator, nameValidator, passwordValidator, usernameValidator } from "@/utils/validators";
+import { birthdayColor, emailColor, nameColor, passwordColor, usernameColor } from "@/utils/colorValidators";
+import { formatDate, locale } from "@/utils/functions";
+import { colors } from "@/constants/Colors";
 import StyledModal from "../StyledModal";
 
-import SignUpSVG from "../../assets/resources/SignUp-amico.svg";
+import SignUpSVG from "@/assets/resources/SignUp-amico.svg";
 
 const RegisterForm = () => {
 

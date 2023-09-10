@@ -1,4 +1,4 @@
-import { TComment } from "../types"
+import { TComment } from "@/types/Post.Type"
 
 const comments: TComment[] = [
   {

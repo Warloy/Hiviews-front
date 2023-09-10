@@ -1,4 +1,4 @@
-import { TChangePassword, TLogin, TPasswordRecovery, TRegister } from "../types/User.Type";
+import { TChangePassword, TLogin, TPasswordRecovery, TRegister } from "@/types/User.Type";
 
 export const loginAdapter = (values: TLogin) => {
   const { email, password } = values;

@@ -1,9 +1,9 @@
 import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useToast, Avatar, Text, HStack, Icon } from "native-base";
-import { IToastProps } from "../interfaces/useCustomToast.Interface";
+import { IToastProps } from "@/interfaces/useCustomToast.Interface";
 import useUUID from "./useUUID";
-import { colors } from "../constants/Colors";
+import { colors } from "@/constants/Colors";
 
 const { width } = Dimensions.get("window");
 

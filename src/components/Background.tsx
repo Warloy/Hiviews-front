@@ -1,6 +1,6 @@
 import { StyleSheet, View, useWindowDimensions } from "react-native";
 import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
-import { IBackgroundProps } from "../interfaces/Background.Interface";
+import { IBackgroundProps } from "@/interfaces/Background.Interface";
 
 const Background = ({ topColor, bottomColor, children }: IBackgroundProps) => {
   const { height, width } = useWindowDimensions();

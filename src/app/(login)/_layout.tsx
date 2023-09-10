@@ -1,5 +1,5 @@
-import Container from "../../components/Container";
-import LoginForm from "../../components/LoginComponents/LoginForm";
+import Container from "@/components/Container";
+import LoginForm from "@/components/LoginComponents/LoginForm";
 
 const LoginPage = () => {
   return (

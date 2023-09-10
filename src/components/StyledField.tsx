@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { Input } from "native-base";
-import { IStyledFieldProps } from "../interfaces/StyledField.Interface";
-import { colors } from "../constants/Colors";
+import { IStyledFieldProps } from "@/interfaces/StyledField.Interface";
+import { colors } from "@/constants/Colors";
 
 const StyledField = forwardRef<any, IStyledFieldProps>((props, ref) => {
   return (

@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { TSession } from "../types/User.Type";
+import { TSession } from "@/types/User.Type";
 import { http } from "./http";
-import { SESSION_KEY } from "../constants/Session";
+import { SESSION_KEY } from "@/constants/Session";
 
 export const setSession = async ({ id, token }: TSession): Promise<void> => {
   try {

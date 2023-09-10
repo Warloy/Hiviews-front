@@ -27,3 +27,14 @@ export type TChangePassword = {
 export type TPasswordRecovery = {
   email: string;
 };
+
+export type TUser = {
+  id: number | string;
+  email: string;
+  name: string;
+  surname: string;
+  username: string;
+  bio: string;
+  birthday: Date;
+  avatar: string;
+};
