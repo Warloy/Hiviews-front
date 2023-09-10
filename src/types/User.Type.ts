@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from "react-native";
+
 export type TSession = {
   id: string | number | null;
   token: string | number | null;
@@ -36,5 +38,5 @@ export type TUser = {
   username: string;
   bio: string;
   birthday: Date;
-  avatar: string;
+  avatar: ImageSourcePropType;
 };

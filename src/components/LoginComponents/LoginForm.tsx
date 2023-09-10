@@ -88,35 +88,51 @@ const LoginForm = () => {
     reset,
     formState: { isValid, errors }
   } = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: yupResolver(loginSchema),
     defaultValues: loginDefaultValues
   })
 
   const onSubmit = async (values: TLogin) => {
     startLoading();
+
+    console.info("Login button is pressed");
+
     try {
-      showSuccessToast("¡Bienvenido a Hiviews!");
 
-      console.log("User data:", values);
+      if (!isValid) {
 
-      const USER_ID = 1, USER_TOKEN = "token";
+        errors.email && showErrorToast(errors.email.message);
+        errors.password && showErrorToast(errors.password.message);
 
-      await setSession({
-        id: USER_ID,
-        token: USER_TOKEN
-      });
-      dispatch(({
-        type: "LOGIN",
-        payload: {
-          user: {
-            id: USER_ID,
-            token: USER_TOKEN,
-            user: "User"
+      } else {
+
+        showSuccessToast("¡Bienvenido a Hiviews!");
+
+        console.log("User data:", values);
+
+        const USER_ID = 1, USER_TOKEN = "token";
+
+        await setSession({
+          id: USER_ID,
+          token: USER_TOKEN
+        });
+
+        dispatch(({
+          type: "LOGIN",
+          payload: {
+            user: {
+              id: USER_ID,
+              token: USER_TOKEN,
+              user: "User"
+            }
           }
-        }
-      }));
-      reset(loginDefaultValues);
+        }));
+
+        reset(loginDefaultValues);
+
+      }
+
     } catch (error) {
       showErrorToast(`Error: ${error}`);
     } finally {
@@ -158,16 +174,14 @@ const LoginForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={
-                  errors?.email && value !== ""
-                }
+                isInvalid={errors.email ? true : false}
                 h={75}
               >
                 <StyledField
                   ref={ref}
                   placeholder="Correo electrónico"
                   onChangeText={onChange}
-                  borderColor={emailColor(value)}
+                  borderColor={emailColor(value, errors.email)}
                   InputLeftElement={
                     <Stack
                       pl={2}
@@ -178,12 +192,12 @@ const LoginForm = () => {
                       <Ionicons
                         name="person"
                         size={20}
-                        color={emailColor(value)}
+                        color={emailColor(value, errors.email)}
                       />
                     </Stack>
                   }
                 />
-                {!errors?.email ? null : (
+                {errors?.email && (
                   <FormControl.ErrorMessage
                     leftIcon={
                       <WarningOutlineIcon
@@ -191,7 +205,7 @@ const LoginForm = () => {
                       />
                     }
                   >
-                    {errors?.email?.message}
+                    {errors.email.message}
                   </FormControl.ErrorMessage>
                 )}
               </FormControl>
@@ -203,9 +217,7 @@ const LoginForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={
-                  errors?.password && value !== ""
-                }
+                isInvalid={errors.password ? true : false}
                 h={75}
               >
                 <StyledField
@@ -223,7 +235,7 @@ const LoginForm = () => {
                       <Ionicons
                         name="lock-closed"
                         size={20}
-                        color={passwordColor(value)}
+                        color={passwordColor(value, errors.password)}
                       />
                     </Stack>
                   }
@@ -240,13 +252,13 @@ const LoginForm = () => {
                         <Ionicons
                           name={show ? "eye-outline" : "eye-off-outline"}
                           size={20}
-                          color={passwordColor(value)}
+                          color={passwordColor(value, errors.password)}
                         />
                       </TouchableOpacity>
                     </Stack>
                   }
                 />
-                {!errors?.password ? null : (
+                {errors.password && (
                   <FormControl.ErrorMessage
                     leftIcon={
                       <WarningOutlineIcon
@@ -254,7 +266,7 @@ const LoginForm = () => {
                       />
                     }
                   >
-                    {errors?.password?.message}
+                    {errors.password.message}
                   </FormControl.ErrorMessage>
                 )}
               </FormControl>
@@ -269,7 +281,7 @@ const LoginForm = () => {
             <Button
               w="100%"
               isLoading={isLoading}
-              isDisabled={isLoading || !isValid}
+              isDisabled={isLoading}
               onPress={handleSubmit(onSubmit)}
               borderRadius={50}
               style={{

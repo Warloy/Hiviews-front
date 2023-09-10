@@ -16,7 +16,7 @@ import CardContainer from "../CardContainer";
 import StyledField from "../StyledField";
 import { emailValidator, lastNameValidator, nameValidator, passwordValidator, usernameValidator } from "@/utils/validators";
 import { birthdayColor, emailColor, nameColor, passwordColor, usernameColor } from "@/utils/colorValidators";
-import { formatDate, locale } from "@/utils/functions";
+import { formatDate, locale } from "@/utils/formatters";
 import { colors } from "@/constants/Colors";
 import StyledModal from "../StyledModal";
 
