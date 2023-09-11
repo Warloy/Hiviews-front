@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons, Feather } from "@expo/vector-icons";
-import { Button, FormControl, HStack, ScrollView, Stack, Text, VStack, WarningOutlineIcon } from "native-base";
+import { Button, Divider, FormControl, HStack, ScrollView, Stack, Text, VStack, WarningOutlineIcon } from "native-base";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import CalendarPicker from "react-native-calendar-picker";
 
 import useLoading from "@/hooks/useLoading";
 import useCustomToast from "@/hooks/useCustomToast";
@@ -14,9 +15,8 @@ import { registerDefaultValues, registerSchema } from "@/schemas/RegisterSchema"
 import { TRegister } from "@/types/User.Type";
 import CardContainer from "../CardContainer";
 import StyledField from "../StyledField";
-import { emailValidator, lastNameValidator, nameValidator, passwordValidator, usernameValidator } from "@/utils/validators";
 import { birthdayColor, emailColor, nameColor, passwordColor, usernameColor } from "@/utils/colorValidators";
-import { formatDate, locale } from "@/utils/formatters";
+import { formatDate, locale, months, shortDays } from "@/utils/formatters";
 import { colors } from "@/constants/Colors";
 import StyledModal from "../StyledModal";
 
@@ -35,13 +35,15 @@ const RegisterForm = () => {
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { showSuccessToast, showErrorToast } = useCustomToast();
 
+  const { height, width } = useWindowDimensions();
+
   const {
     control,
     handleSubmit,
     formState: { isValid, errors },
     reset
   } = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: yupResolver(registerSchema),
     defaultValues: registerDefaultValues
   });
@@ -49,9 +51,20 @@ const RegisterForm = () => {
   const onSubmit = async (values: TRegister) => {
     startLoading();
     try {
-      console.log("Register values: ", values);
-      showSuccessToast("¡Excelente! Tú registro fue exitoso.");
-      reset(registerDefaultValues);
+
+      if (!isValid) {
+
+        errors.name && showErrorToast(errors.name.message);
+        errors.lastName && showErrorToast(errors.lastName.message);
+        errors.birthday && showErrorToast(errors.birthday.message);
+        errors.email && showErrorToast(errors.email.message)
+
+      } else {
+        console.log("Register values: ", values);
+        showSuccessToast("¡Excelente! Tú registro fue exitoso.");
+        reset(registerDefaultValues);
+      }
+
     } catch (error) {
       showErrorToast(`Error: ${error}`);
     } finally {
@@ -91,16 +104,14 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={
-                  !nameValidator(value) && value !== ""
-                }
+                isInvalid={errors.name ? true : false}
                 h={75}
               >
                 <StyledField
                   ref={ref}
                   placeholder="Nombre"
                   onChangeText={onChange}
-                  borderColor={nameColor(value)}
+                  borderColor={nameColor(value, errors.name)}
                   InputLeftElement={
                     <Stack
                       pl={2}
@@ -111,12 +122,12 @@ const RegisterForm = () => {
                       <Ionicons
                         name="person"
                         size={20}
-                        color={nameColor(value)}
+                        color={nameColor(value, errors.name)}
                       />
                     </Stack>
                   }
                 />
-                {nameValidator(value) ? null : (
+                {errors.name && (
                   <FormControl.ErrorMessage
                     leftIcon={
                       <WarningOutlineIcon
@@ -124,7 +135,7 @@ const RegisterForm = () => {
                       />
                     }
                   >
-                    {errors?.name?.message}
+                    {errors.name.message}
                   </FormControl.ErrorMessage>
                 )}
               </FormControl>
@@ -136,16 +147,14 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={
-                  !lastNameValidator(value) && value !== ""
-                }
+                isInvalid={errors.lastName ? true : false}
                 h={75}
               >
                 <StyledField
                   ref={ref}
                   placeholder="Apellido"
                   onChangeText={onChange}
-                  borderColor={nameColor(value)}
+                  borderColor={nameColor(value, errors.lastName)}
                   InputLeftElement={
                     <Stack
                       pl={2}
@@ -156,12 +165,12 @@ const RegisterForm = () => {
                       <Ionicons
                         name="person"
                         size={20}
-                        color={nameColor(value)}
+                        color={nameColor(value, errors.lastName)}
                       />
                     </Stack>
                   }
                 />
-                {lastNameValidator(value) ? null : (
+                {errors.lastName && (
                   <FormControl.ErrorMessage
                     leftIcon={
                       <WarningOutlineIcon
@@ -169,7 +178,7 @@ const RegisterForm = () => {
                       />
                     }
                   >
-                    {errors?.lastName?.message}
+                    {errors.lastName.message}
                   </FormControl.ErrorMessage>
                 )}
               </FormControl>
@@ -181,16 +190,14 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = new Date() } }) => (
               <FormControl
-                isInvalid={
-                  !birthdayColor(formatDate(value)) && formatDate(value) !== ""
-                }
+                isInvalid={errors.birthday ? true : false}
                 h={75}
               >
                 <StyledField
                   ref={ref}
                   placeholder="Fecha de nacimiento"
                   value={formatDate(value)}
-                  borderColor={birthdayColor(formatDate(value))}
+                  borderColor={birthdayColor(formatDate(value), errors.birthday)}
                   isReadOnly
                   InputLeftElement={
                     <TouchableOpacity
@@ -205,37 +212,66 @@ const RegisterForm = () => {
                         <Ionicons
                           name="calendar-outline"
                           size={20}
-                          color={birthdayColor(formatDate(value))}
+                          color={birthdayColor(formatDate(value), errors.birthday)}
                         />
                       </Stack>
                     </TouchableOpacity>
                   }
                 />
                 {showDatePicker &&
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    mode="date"
-                    is24Hour
-                    display="spinner"
-                    locale={locale}
-                    minimumDate={new Date(1923, 0, 1)}
-                    maximumDate={new Date()}
-                    positiveButton={{
-                      label: "Aceptar",
-                      textColor: colors.secondary
-                    }}
-                    negativeButton={{
-                      label: "Cancelar",
-                      textColor: colors.error.primary
-                    }}
-                    onChange={(event, date) => {
-                      onChange(date ?? new Date())
-                      setShowDatePicker(false)
-                    }}
-                    value={value}
-                  />
+                  <StyledModal
+                    size="xl"
+                    isOpen={showDatePicker}
+                  >
+                    <VStack
+                      justifyContent="center"
+                      alignItems="center"
+                      space={2}
+                    >
+                      <Text
+                        bold
+                        fontSize="md"
+                        textAlign="center"
+                        color="#8A2F62"
+                      >
+                        Fecha de nacimiento
+                      </Text>
+                      <Divider />
+                      <CalendarPicker
+                        width={width * .85}
+                        previousTitle="Anterior"
+                        nextTitle="Siguiente"
+                        selectMonthTitle="Seleccione el mes en "
+                        selectYearTitle="Selecione el año"
+                        minDate={new Date(
+                          new Date().getFullYear() - 100,
+                          new Date().getMonth(),
+                          new Date().getDate()
+                        )}
+                        maxDate={new Date()}
+                        initialDate={new Date()}
+                        months={months}
+                        weekdays={shortDays}
+                        todayBackgroundColor={colors.gray0}
+                        selectedDayColor={colors.secondary}
+                        onDateChange={(date) => onChange(new Date(date.toDate() ?? new Date()))}
+                      />
+                      <Divider />
+                      <Button
+                        w="60%"
+                        borderRadius={50}
+                        style={{
+                          backgroundColor: colors.secondary
+                        }}
+                        shadow={1}
+                        onPress={() => setShowDatePicker(false)}
+                      >
+                        Aceptar
+                      </Button>
+                    </VStack>
+                  </StyledModal>
                 }
-                {birthdayColor(formatDate(value)) ? null : (
+                {errors.birthday && (
                   <FormControl.ErrorMessage
                     leftIcon={
                       <WarningOutlineIcon
@@ -243,7 +279,7 @@ const RegisterForm = () => {
                       />
                     }
                   >
-                    {errors?.birthday?.message}
+                    {errors.birthday.message}
                   </FormControl.ErrorMessage>
                 )}
               </FormControl>
@@ -255,16 +291,14 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={
-                  !emailValidator(value) && value !== ""
-                }
+                isInvalid={errors.email ? true : false}
                 h={75}
               >
                 <StyledField
                   ref={ref}
                   placeholder="Correo electrónico"
                   onChangeText={onChange}
-                  borderColor={emailColor(value)}
+                  borderColor={emailColor(value, errors.email)}
                   InputLeftElement={
                     <Stack
                       pl={2}
@@ -275,12 +309,12 @@ const RegisterForm = () => {
                       <Ionicons
                         name="at-circle-outline"
                         size={20}
-                        color={emailColor(value)}
+                        color={emailColor(value, errors.email)}
                       />
                     </Stack>
                   }
                 />
-                {emailValidator(value) ? null : (
+                {errors.email && (
                   <FormControl.ErrorMessage
                     leftIcon={
                       <WarningOutlineIcon
@@ -288,7 +322,7 @@ const RegisterForm = () => {
                       />
                     }
                   >
-                    {errors?.email?.message}
+                    {errors.email.message}
                   </FormControl.ErrorMessage>
                 )}
               </FormControl>
@@ -301,9 +335,7 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={
-                  !usernameValidator(value) && value !== ""
-                }
+                isInvalid={errors.username ? true : false}
                 h={75}
               >
                 <StyledField
@@ -320,7 +352,7 @@ const RegisterForm = () => {
                       <Ionicons
                         name="people-outline"
                         size={20}
-                        color={usernameColor(value)}
+                        color={usernameColor(value, errors.username)}
                       />
                     </Stack>
                   }
@@ -339,7 +371,7 @@ const RegisterForm = () => {
                     </Stack>
                   }
                 />
-                {usernameValidator(value) ? null : (
+                {errors.username && (
                   <FormControl.ErrorMessage
                     leftIcon={
                       <WarningOutlineIcon
@@ -347,7 +379,7 @@ const RegisterForm = () => {
                       />
                     }
                   >
-                    {errors?.username?.message}
+                    {errors.username.message}
                   </FormControl.ErrorMessage>
                 )}
               </FormControl>
@@ -360,9 +392,7 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={
-                  !passwordValidator(value) && value !== ""
-                }
+                isInvalid={errors.password ? true : false}
                 h={75}
               >
                 <StyledField
@@ -380,7 +410,7 @@ const RegisterForm = () => {
                       <Ionicons
                         name="lock-closed"
                         size={20}
-                        color={passwordColor(value)}
+                        color={passwordColor(value, errors.password)}
                       />
                     </Stack>
                   }
@@ -397,13 +427,13 @@ const RegisterForm = () => {
                         <Ionicons
                           name={show ? "eye-outline" : "eye-off-outline"}
                           size={20}
-                          color={passwordColor(value)}
+                          color={passwordColor(value, errors.password)}
                         />
                       </TouchableOpacity>
                     </Stack>
                   }
                 />
-                {passwordValidator(value) ? null : (
+                {errors.password && (
                   <FormControl.ErrorMessage
                     leftIcon={
                       <WarningOutlineIcon
@@ -411,7 +441,7 @@ const RegisterForm = () => {
                       />
                     }
                   >
-                    {errors?.password?.message}
+                    {errors.password.message}
                   </FormControl.ErrorMessage>
                 )}
               </FormControl>
@@ -423,9 +453,7 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={
-                  !passwordValidator(value) && value !== ""
-                }
+                isInvalid={errors.passwordConfirm ? true : false}
                 h={75}
               >
                 <StyledField
@@ -443,7 +471,7 @@ const RegisterForm = () => {
                       <Ionicons
                         name="lock-closed"
                         size={20}
-                        color={passwordColor(value)}
+                        color={passwordColor(value, errors.passwordConfirm)}
                       />
                     </Stack>
                   }
@@ -460,13 +488,13 @@ const RegisterForm = () => {
                         <Ionicons
                           name={show ? "eye-outline" : "eye-off-outline"}
                           size={20}
-                          color={passwordColor(value)}
+                          color={passwordColor(value, errors.passwordConfirm)}
                         />
                       </TouchableOpacity>
                     </Stack>
                   }
                 />
-                {passwordValidator(value) ? null : (
+                {errors.passwordConfirm && (
                   <FormControl.ErrorMessage
                     leftIcon={
                       <WarningOutlineIcon
@@ -474,7 +502,7 @@ const RegisterForm = () => {
                       />
                     }
                   >
-                    {errors?.password?.message}
+                    {errors.passwordConfirm.message}
                   </FormControl.ErrorMessage>
                 )}
               </FormControl>
@@ -503,11 +531,8 @@ const RegisterForm = () => {
             <Button
               w="40%"
               isLoading={isLoading}
-              isDisabled={isLoading || !isValid}
-              onPress={() => {
-                handleSubmit(onSubmit);
-                setViewModal(true);
-              }}
+              isDisabled={isLoading}
+              onPress={handleSubmit(onSubmit)}
               borderRadius={50}
               style={{
                 backgroundColor: colors.secondary

@@ -1,4 +1,10 @@
+import { getDate, months } from "@/utils";
 import { object, string, date } from "yup";
+
+const { day, month, year } = getDate(new Date());
+const m = months.findIndex(item => item === month) ?? 1;
+const lastYear = year - 100;
+const firstYear = year - 18;
 
 export const registerSchema = object({
   email: string()
@@ -20,7 +26,11 @@ export const registerSchema = object({
     .required("El apellido es requerido"),
 
   birthday: date()
-    .required("La fecha de nacimiento es requerida"),
+    .required("La fecha de nacimiento es requerida")
+    .max(new Date(firstYear, m, day),
+      "La fecha de nacimiento debe ser mayor a 18 años")
+    .min(new Date(lastYear, m, day),
+      "La fecha de nacimiento debe ser menor a 100 años"),
 
   password: string()
     .required("El campo es requerido.")

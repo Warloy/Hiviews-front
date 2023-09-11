@@ -96,7 +96,7 @@ const LoginForm = () => {
   const onSubmit = async (values: TLogin) => {
     startLoading();
 
-    console.info("Login button is pressed");
+    console.log("Login button is pressed");
 
     try {
 

@@ -1,17 +1,39 @@
 /**
  * The locale for date and time formatting.
  */
-export const locale = 'es-VE'
+export const locale = "es-VE"
 
 /**
  * The time zone for date and time calculations.
  */
-export const timeZone = 'America/Caracas'
+export const timeZone = "America/Caracas"
 
 /**
  * The options for date and time formatting.
  */
 const options = { timeZone }
+
+/**
+ * The months in Spanish language.
+ */
+export const months = [
+  "Enero", "Febrero", "Marzo",
+  "Abril", "Mayo", "Junio",
+  "Julio", "Agosto", "Septiembre",
+  "Octubre", "Noviembre", "Diciembre"
+]
+
+/**
+ * Week days in Spanish language.
+ */
+export const days = [
+  "Domingo", "Lunes", "Martes", "Miércoles", "Jueves",
+  "Viernes", "Sábado"
+]
+
+export const shortDays = [
+  "Dom", "Lun", "Mar", "Miér", "Jue", "Vie", "Sáb"
+]
 
 /**
  * Method to get the hour from a date string or Date object.
@@ -22,12 +44,12 @@ const options = { timeZone }
 export const getHour = (date: string | Date | null): string => {
   try {
     if (!date) {
-      throw Error('The date value must exist in date or string format.')
+      throw Error("The date value must exist in date or string format.")
     }
 
     let localDate: Date
 
-    if (typeof date === 'string') {
+    if (typeof date === "string") {
       localDate = new Date(date)
     } else {
       localDate = date
@@ -45,19 +67,8 @@ export const getHour = (date: string | Date | null): string => {
  * @returns {Object | null} An object containing the day of the week, day of the month, month, and year.
  * @throws {Error} If there is an error while retrieving the date information.
  */
-export const getDate = (date: Date = new Date()): { dayWeek: string, day: number, month: string, year: number } | null => {
+export const getDate = (date: Date = new Date()): { dayWeek: string, day: number, month: string, year: number } => {
   try {
-    const months = [
-      'Enero', 'Febrero', 'Marzo',
-      'Abril', 'Mayo', 'Junio',
-      'Julio', 'Agosto', 'Septiembre',
-      'Octubre', 'Noviembre', 'Diciembre'
-    ]
-
-    const days = [
-      'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves',
-      'Viernes', 'Sábado'
-    ]
 
     const d = new Date(date)
 
@@ -68,8 +79,7 @@ export const getDate = (date: Date = new Date()): { dayWeek: string, day: number
       year: d.getFullYear()
     }
   } catch (error) {
-    console.log(`Error trying to get the date: ${error}`)
-    return null
+    throw new Error(`Error trying to get the date: ${error}`)
   }
 }
 
@@ -79,12 +89,12 @@ export const getDate = (date: Date = new Date()): { dayWeek: string, day: number
  * @param {number} maxLength - The maximum length of the text string (default: 255).
  * @returns {string} The truncated text string.
  */
-export const cutText = (text: string = '', maxLength: number = 255): string => {
-  return text.length > maxLength ? text.substring(0, maxLength - 3) + '...' : text
+export const cutText = (text: string = "", maxLength: number = 255): string => {
+  return text.length > maxLength ? text.substring(0, maxLength - 3) + "..." : text
 }
 
 /**
- * Method for reformatting the supplied date into 'dd/MM/yyyy' format.
+ * Method for reformatting the supplied date into "dd/MM/yyyy" format.
  * @param {string | Date | null} date - The date to be formatted.
  * @returns {string} The formatted date.
  * @throws {Error} If the date value is missing or in an invalid format.
@@ -92,11 +102,11 @@ export const cutText = (text: string = '', maxLength: number = 255): string => {
 export const formatDate = (date: string | Date | null): string => {
   try {
     if (!date) {
-      throw Error('The date value must exist in date or string format.')
+      throw Error("The date value must exist in date or string format.")
     }
 
-    if (typeof date === 'string') {
-      let newDate = date.split('T')[0].split('-')
+    if (typeof date === "string") {
+      let newDate = date.split("T")[0].split("-")
       let [year, month, day] = newDate
 
       day = Number(day) < 10 ? day[1] : day
@@ -120,12 +130,12 @@ export const formatDate = (date: string | Date | null): string => {
 export const before24hours = (date: string | Date | null): boolean => {
   try {
     if (!date) {
-      throw Error('The date value must exist in date or string format.')
+      throw Error("The date value must exist in date or string format.")
     }
 
     let postDate: Date
 
-    if (typeof date === 'string') {
+    if (typeof date === "string") {
       postDate = new Date(date)
     } else {
       postDate = date
@@ -148,12 +158,12 @@ export const before24hours = (date: string | Date | null): boolean => {
 export const legalAge = (date: string | Date | null): boolean => {
   try {
     if (!date) {
-      throw Error('The date value must exist in date or string format.')
+      throw Error("The date value must exist in date or string format.")
     }
 
     let postDate: Date
 
-    if (typeof date === 'string') {
+    if (typeof date === "string") {
       postDate = new Date(date)
     } else {
       postDate = date
