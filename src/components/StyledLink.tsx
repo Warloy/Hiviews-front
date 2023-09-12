@@ -1,14 +1,14 @@
-import React, { forwardRef } from 'react'
-import { Link } from 'native-base'
-
-import colors from '../styled-components/colors'
-import IStyledLinkProps from '../interfaces/StyledLink.Interface'
+import { forwardRef } from "react";
+import { Link } from "native-base";
+import IStyledLinkProps from "@/interfaces/StyledLink.Interface";
+import { colors } from "@/constants/Colors";
 
 const StyledLink = forwardRef<any, IStyledLinkProps>((props, ref) => {
-  const { text, url, ...rest } = props
+  const { text, url, ...rest } = props;
 
   return (
     <Link
+      ref={ref}
       _text={{
         color: colors.primary,
         bold: true
@@ -19,7 +19,7 @@ const StyledLink = forwardRef<any, IStyledLinkProps>((props, ref) => {
     >
       {text}
     </Link>
-  )
-})
+  );
+});
 
-export default StyledLink
+export default StyledLink;

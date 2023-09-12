@@ -1,11 +1,11 @@
-import axios from 'axios'
+import axios from "axios";
 
-export const URL = ''
+export const baseURL = "";
 
 export const http = axios.create({
-  baseURL: URL,
+  baseURL,
   headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
+    "Content-Type": "application/json",
+    "Accept": "application/json"
   }
-})
+});

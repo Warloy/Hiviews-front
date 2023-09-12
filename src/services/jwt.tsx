@@ -1,30 +1,30 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { TSession } from "@/types/User.Type";
+import { http } from "./http";
+import { SESSION_KEY } from "@/constants/Session";
 
-import { http } from './http'
+export const setSession = async ({ id, token }: TSession): Promise<void> => {
+  try {
 
-export const setSession = async (id: string | number | null, token: string | number | null) => {
-  if (id && token) {
-    let strId: string
-    let strToken: string
+    const [ID_KEY, TOKEN_KEY] = SESSION_KEY;
 
-    if (typeof id === 'number') {
-      strId = String(id)
-    } else {
-      strId = id
+    if (!id || !token) {
+      AsyncStorage.removeItem(ID_KEY);
+      AsyncStorage.removeItem(TOKEN_KEY);
+      delete http.defaults.headers.common["Authorization"];
+      return;
     }
+  
+    const strId = typeof id === "number" ? String(id) : id;
+    const strToken = typeof token === "number" ? String(token) : token;
+  
+    await AsyncStorage.setItem(ID_KEY, strId);
+    await AsyncStorage.setItem(TOKEN_KEY, strToken);
+    http.defaults.headers.common["Authorization"] = `Bearer ${strToken}`;
+    return;
 
-    if (typeof token === 'number') {
-      strToken = String(token)
-    } else {
-      strToken = token
-    }
-
-    await AsyncStorage.setItem('@id', strId)
-    await AsyncStorage.setItem('@token', strToken)
-    http.defaults.headers.common['Authorization'] = `Bearer ${token}`
-  } else {
-    await AsyncStorage.removeItem('@id')
-    await AsyncStorage.removeItem('@token')
-    delete http.defaults.headers.common['Authorization']
+  } catch (error) {
+    console.log(error);
+    return;
   }
 }

@@ -1,25 +1,29 @@
-import React from 'react'
-import { useWindowDimensions } from 'react-native'
+import { useWindowDimensions } from "react-native";
+import { View, KeyboardAvoidingView, Stack } from "native-base";
 
-import { View, Stack, KeyboardAvoidingView } from 'native-base'
+import { ICardContainerProps } from "@/interfaces/CardContainer.Interface";
+import styles from "./styled-components/styles";
 
-import styles from './styled-components/styles'
-import ICardContainerProps from '../interfaces/CardContainer.Interface'
+const CardContainer = ({
+  topChildren,
+  children,
+  bottomChildren,
+  h = 0.5,
+  top = "25%",
+  opacity = 0.95
+}: ICardContainerProps) => {
 
-
-const CardContainer = ({ topChildren, children, bottomChildren, h = 0.5, top = '25%', opacity = 0.95 }: ICardContainerProps) => {
-  
-  const { height } = useWindowDimensions()
+  const { height } = useWindowDimensions();
 
   return (
     <KeyboardAvoidingView>
       <View
         minH={height}
         maxH={height}
-        position='relative'
+        position="relative"
       >
         <View
-          bgColor='white'
+          bgColor="white"
           h={height * h}
           opacity={opacity}
           style={{
@@ -32,22 +36,22 @@ const CardContainer = ({ topChildren, children, bottomChildren, h = 0.5, top = '
         <Stack
           minH={height * 0.5}
           maxH={height * 0.5}
-          alignItems='center'
+          alignItems="center"
         >
           {topChildren}
         </Stack>
         <Stack
           minH={height * 0.5}
           maxH={height * 0.5}
-          bgColor='white'
-          justifyContent='flex-end'
-          alignItems='center'
+          alignItems="center"
+          bgColor="white"
+          justifyContent="flex-end"
         >
           {bottomChildren}
         </Stack>
       </View>
     </KeyboardAvoidingView>
-  )
-}
+  );
+};
 
-export default CardContainer
+export default CardContainer;

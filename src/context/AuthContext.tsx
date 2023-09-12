@@ -1,107 +1,114 @@
-import React, { createContext, useEffect, useReducer } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { IAuthContextType, IAuthState, IAuthAction, IAuthProviderProps } from '../interfaces/AuthContext.Interfaces'
-import { setSession } from '../services/jwt'
+import { createContext, useEffect, useReducer } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { IAuthAction, IAuthContextType, IAuthState, IAuthProviderProps } from "@/interfaces/AuthContext.Interface";
+import { setSession } from "@/services/jwt";
+import { SESSION_KEY } from "@/constants/Session";
 
 export const AuthContext = createContext<IAuthContextType>({} as IAuthContextType)
 
 const initialState: IAuthState = {
   isAuthenticated: false,
   isInitialized: false,
-  user: null,
-}
+  user: null
+};
 
 const stateReducer = (state: IAuthState, action: IAuthAction): IAuthState => {
-  const type = action.type
+  const { type } = action;
 
   switch (type) {
-    case 'INITIALIZE': {
-      const { isAuthenticated, user } = action.payload
+
+    case "INITIALIZE": {
+      const { isAuthenticated, user } = action.payload;
       return {
-        ...state,
+        ...isAuthenticated,
         isAuthenticated,
         isInitialized: true,
-        user,
-      }
-    }
+        user
+      };
+    };
 
-    case 'LOGIN': {
-      const { user } = action.payload
+    case "LOGIN": {
+      const { user } = action.payload;
       return {
         ...state,
         isAuthenticated: true,
-        user,
+        user
       }
-    }
+    };
 
-    case 'LOGOUT': {
+    case "LOGOUT": {
       return {
         ...state,
         isAuthenticated: false,
-        user: null,
+        user: null
       }
-    }
+    };
 
     default:
-      return state
-  }
-}
+      return state;
+  };
+};
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
-  const [state, dispatch] = useReducer(stateReducer, initialState)
+  const [state, dispatch] = useReducer(stateReducer, initialState);
 
   useEffect(() => {
     const initialize = async () => {
       try {
-        const accessID: string | null = await AsyncStorage.getItem('@id')
-        const accessToken: string | null = await AsyncStorage.getItem('@token')
+
+        const [ID_KEY, TOKEN_KEY] = SESSION_KEY;
+
+        const accessID: string | null = await AsyncStorage.getItem(ID_KEY);
+        const accessToken: string | null = await AsyncStorage.getItem(TOKEN_KEY);
 
         if (!accessToken) {
-          setSession(null, null)
+          setSession({ id: null, token: null });
           dispatch({
-            type: 'INITIALIZE',
+            type: "INITIALIZE",
             payload: {
               isAuthenticated: false,
-              user: null,
-            },
-          })
-          return
+              user: null
+            }
+          });
         }
 
-        await setSession(accessID, accessToken)
+        await setSession({ id: accessID, token: accessToken });
 
         dispatch({
-          type: 'INITIALIZE',
+          type: "INITIALIZE",
           payload: {
             isAuthenticated: true,
             user: {
               id: accessID,
-              token: accessToken,
-            },
-          },
-        })
+              token: accessToken
+            }
+          }
+        });
+
       } catch (error) {
-        setSession(null, null)
+        setSession({ id: null, token: null });
         dispatch({
-          type: 'INITIALIZE',
+          type: "INITIALIZE",
           payload: {
             isAuthenticated: false,
-            user: null,
-          },
-        })
-      }
-    }
-    initialize()
-  }, [])
+            user: null
+          }
+        });
+      };
+    };
+
+    initialize();
+  }, []);
 
   return (
     <AuthContext.Provider
       value={{
         state,
-        dispatch,
+        dispatch
       }}
     >
       {children}
     </AuthContext.Provider>
-  )
+  );
+  ;
 }

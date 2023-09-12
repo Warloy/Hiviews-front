@@ -1,64 +1,7 @@
-import { ComponentType } from 'react'
-import { IModalProps, Modal, Stack, Text } from 'native-base'
-import {
-  AntDesign,
-  Entypo,
-  EvilIcons,
-  Feather,
-  FontAwesome,
-  FontAwesome5,
-  Fontisto,
-  Foundation,
-  Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-  Octicons,
-  SimpleLineIcons,
-  Zocial
-} from '@expo/vector-icons'
-
-import { colors } from '../styled-components/colors'
-
-type IconGroup = {
-  [key: string]: ComponentType<any>
-}
-
-interface ICustomModal extends IModalProps {
-  header?: any
-  closeButton?: boolean
-  footer?: any
-  maxHeight?: string | number
-  maxH?: string | number
-  iconGroup?: 'AntDesign' | 'Entypo' | 'EvilIcons' | 'Feather' | 'FontAwesome' | 'FontAwesome5' | 'Fontisto' | 'Foundation' | 'Ionicons' | 'MaterialCommunityIcons' | 'MaterialIcons' | 'Octicons' | 'SimpleLineIcons' | 'Zocial'
-  iconName?: string
-  iconColor?: string
-  iconSize?: number
-  description?: string
-  children?: React.ReactNode
-}
-
-interface IIconProps {
-  name: string
-  color: string
-  size: number
-}
-
-const Icons: Readonly<IconGroup> = {
-  AntDesign,
-  Entypo,
-  EvilIcons,
-  Feather,
-  FontAwesome,
-  FontAwesome5,
-  Fontisto,
-  Foundation,
-  Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-  Octicons,
-  SimpleLineIcons,
-  Zocial
-}
+import { Modal, Text, Stack } from "native-base";
+import { colors } from "@/constants/Colors";
+import { Icons } from "@/constants/Icons";
+import { IIconProps, IModal } from "@/interfaces/Modal.Interface";
 
 const CustomModal = ({
   header = undefined,
@@ -73,15 +16,14 @@ const CustomModal = ({
   description = undefined,
   children,
   ...props
-}: ICustomModal) => {
-
-  const Icon = Icons[iconGroup ?? 'Ionicons']
+}: IModal) => {
+  const Icon = Icons[iconGroup ?? "Ionicons"];
 
   const iconProps: IIconProps = {
-    name: iconName ?? 'check',
+    name: iconName ?? "check",
     color: iconColor ?? colors.primary,
     size: iconSize ?? 30
-  }
+  };
 
   return (
     <Modal {...props} >
@@ -94,15 +36,15 @@ const CustomModal = ({
         <Modal.Body>
           <Stack
             space={2}
-            justifyContent='center'
-            alignItems='center'
+            justifyContent="center"
+            alignItems="center"
           >
             {iconGroup && <Icon {...iconProps} />}
             {description &&
               <Text
-                fontSize='sm'
+                fontSize="sm"
                 color={colors.gray3}
-                textAlign='center'
+                textAlign="center"
               >
                 {description}
               </Text>
@@ -113,8 +55,9 @@ const CustomModal = ({
         {footer && <Modal.Footer>{footer}</Modal.Footer>}
       </Modal.Content>
     </Modal >
-  )
+  );
 }
+
 
 const useCustomModal = () => {
 
@@ -124,14 +67,14 @@ const useCustomModal = () => {
     footer = undefined,
     maxH = undefined,
     maxHeight = undefined,
-    iconGroup = 'AntDesign',
-    iconName = 'checkcircleo',
+    iconGroup = "AntDesign",
+    iconName = "checkcircleo",
     iconColor = colors.primary,
     iconSize = undefined,
     description = undefined,
     children,
     ...props
-  }: ICustomModal) => {
+  }: IModal) => {
     return (
       <CustomModal
         header={header}
@@ -157,14 +100,14 @@ const useCustomModal = () => {
     footer = undefined,
     maxH = undefined,
     maxHeight = undefined,
-    iconGroup = 'AntDesign',
-    iconName = 'warning',
+    iconGroup = "AntDesign",
+    iconName = "warning",
     iconColor = colors.error.warning,
     iconSize = undefined,
     description = undefined,
     children,
     ...props
-  }: ICustomModal) => (
+  }: IModal) => (
     <CustomModal
       header={header}
       closeButton={closeButton}
@@ -188,14 +131,14 @@ const useCustomModal = () => {
     footer = undefined,
     maxH = undefined,
     maxHeight = undefined,
-    iconGroup = 'SimpleLineIcons',
-    iconName = 'info',
+    iconGroup = "SimpleLineIcons",
+    iconName = "info",
     iconColor = colors.secondary,
     iconSize = undefined,
     description = undefined,
     children,
     ...props
-  }: ICustomModal) => (
+  }: IModal) => (
     <CustomModal
       header={header}
       closeButton={closeButton}
@@ -219,14 +162,14 @@ const useCustomModal = () => {
     footer = undefined,
     maxH = undefined,
     maxHeight = undefined,
-    iconGroup = 'MaterialIcons',
-    iconName = 'error-outline',
+    iconGroup = "MaterialIcons",
+    iconName = "error-outline",
     iconColor = colors.error.primary,
     iconSize = undefined,
     description = undefined,
     children,
     ...props
-  }: ICustomModal) => (
+  }: IModal) => (
     <CustomModal
       header={header}
       closeButton={closeButton}
@@ -242,14 +185,14 @@ const useCustomModal = () => {
     >
       {children}
     </CustomModal>
-  )
+  );
 
   return {
     SuccessModal,
     InfoModal,
     WarningModal,
     ErrorModal
-  }
+  };
 }
 
-export default useCustomModal
+export default useCustomModal;

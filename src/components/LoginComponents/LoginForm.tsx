@@ -1,346 +1,336 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from "react";
 import {
+  Button,
+  FormControl,
+  HStack,
+  Stack,
   Text,
   VStack,
-  Image,
-  Stack,
-  HStack,
-  FormControl,
-  Icon,
-  WarningOutlineIcon,
-  Button,
-} from 'native-base'
+  WarningOutlineIcon
+} from "native-base";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 
-import { NavigationProp } from '@react-navigation/native'
+import SVGImg from "@/assets/images/logo.svg";
+import Cinema from "@/assets/resources/Movie-Night-Pink.svg"
+import { colors } from "@/constants/Colors";
+import useAuthContext from "@/hooks/useAuthContext";
+import useLoading from "@/hooks/useLoading";
+import useCustomToast from "@/hooks/useCustomToast";
+import { loginDefaultValues, loginSchema } from "@/schemas/LoginSchema";
+import { setSession } from "@/services/jwt";
+import CardContainer from "../CardContainer";
+import StyledField from "../StyledField";
+import { emailColor, passwordColor } from "@/utils/colorValidators";
+import { Ionicons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
+import { TLogin } from "@/types/User.Type";
+import { Router, useRouter } from "expo-router";
 
-import { Ionicons } from '@expo/vector-icons'
-
-import { Controller, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { loginDefaultValues, loginSchema } from '../../schemas/loginSchema'
-
-import colors from '../../styled-components/colors'
-
-import Cinema from '../../assets/Movie-Night-Pink.svg'
-import CardContainer from '../CardContainer'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import useLoading from '../../hooks/useLoading'
-import useCustomToast from '../../hooks/useCustomToast'
-import StyledField from '../StyledField'
-import { TouchableOpacity } from 'react-native'
-import { emailValidator, passwordValidator } from '../../utils/validators'
-import useAuthContext from '../../hooks/useAuthContext'
-import { setSession } from '../../services/jwt'
-import SVGImg from '../../assets/1-hilogo-oficial.svg';
-import useCustomModal from '../../hooks/useCustomModal'
-
-
-interface ILoginForm {
-  navigation?: NavigationProp<any>
-}
-
-const BottomChildren = ({ navigation }: ILoginForm) => {
+const BottomChildren = ({ router }: { router: Router }) => {
   return (
     <Stack
-      w='100%'
-      h='55%'
+      w="100%"
+      h="55%"
       space={3}
-      alignItems='center'
-      justifyContent='center'
+      alignItems="center"
+      justifyContent="center"
     >
-
       <SVGImg
         width={60}
         height={60}
       />
-
       <HStack
-        w='100%'
-        justifyContent='center'
-        alignItems='center'
+        w="100%"
+        justifyContent="center"
+        alignItems="center"
         space={1}
       >
         <Text
-          fontSize='sm'
+          fontSize="sm"
           color={colors.gray4}
         >
           ¿Eres nuevo?
         </Text>
         <Text
-          fontSize='sm'
+          fontSize="sm"
           color={colors.secondary}
           onPress={() => {
-            console.log('Register')
-            navigation?.navigate('RegisterPage')
+            router.push("/register")
           }}
         >
           Regístrate aquí
         </Text>
       </HStack>
     </Stack>
-  )
-}
+  );
+};
 
-const LoginForm = ({ navigation }: ILoginForm) => {
+const LoginForm = () => {
 
-  const ref = useRef()
+  const ref = useRef();
 
-  const [show, setShow] = useState(false)
+  const router = useRouter();
 
-  const { dispatch } = useAuthContext()
+  const [show, setShow] = useState(false);
 
-  const { isLoading, startLoading, stopLoading } = useLoading()
-  const { showSuccessToast, showErrorToast } = useCustomToast()
+  const {
+    dispatch
+  } = useAuthContext();
 
-  const emailVal = (value: string): string => {
-    if (!emailValidator(value) && value !== '') {
-      return colors.error.primary
-    } else if (emailValidator(value) && value !== '') {
-      return colors.primary
-    } else {
-      return colors.gray0
-    }
-  }
-
-  const passVal = (value: string): string => {
-    if (!passwordValidator(value) && value !== '') {
-      return colors.error.primary
-    } else if (passwordValidator(value) && value !== '') {
-      return colors.primary
-    } else {
-      return colors.gray0
-    }
-  }
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { showSuccessToast, showErrorToast } = useCustomToast();
 
   const {
     control,
     handleSubmit,
-    formState: { isValid, errors },
-    reset
+    reset,
+    formState: { isValid, errors }
   } = useForm({
-    mode: 'onChange',
+    mode: "onSubmit",
     resolver: yupResolver(loginSchema),
     defaultValues: loginDefaultValues
   })
 
-  const onSubmit = async (values: any) => {
-    startLoading()
+  const onSubmit = async (values: TLogin) => {
+    startLoading();
+
+    console.log("Login button is pressed");
+
     try {
-      showSuccessToast(`¡Bienvenido a Hiviews!`)
-      await setSession('1', 'token')
-      dispatch({
-        type: 'LOGIN',
-        payload: {
-          user: {
-            id: '1',
-            token: 'token',
-            user: 'user'
+
+      if (!isValid) {
+
+        errors.email && showErrorToast(errors.email.message);
+        errors.password && showErrorToast(errors.password.message);
+
+      } else {
+
+        showSuccessToast("¡Bienvenido a Hiviews!");
+
+        console.log("User data:", values);
+
+        const USER_ID = 1, USER_TOKEN = "token";
+
+        await setSession({
+          id: USER_ID,
+          token: USER_TOKEN
+        });
+
+        dispatch(({
+          type: "LOGIN",
+          payload: {
+            user: {
+              id: USER_ID,
+              token: USER_TOKEN,
+              user: "User"
+            }
           }
-        }
-      })
-      reset(loginDefaultValues)
+        }));
+
+        reset(loginDefaultValues);
+
+      }
+
     } catch (error) {
-      showErrorToast(`Error: ${error}`)
+      showErrorToast(`Error: ${error}`);
+    } finally {
+      stopLoading();
     }
-    stopLoading()
   }
 
   return (
     <KeyboardAwareScrollView>
       <CardContainer
-      topChildren={
-        <Cinema
-          height='65%'
-          width='65%'
-        />
-      }
-      bottomChildren={
-        <BottomChildren
-          navigation={navigation}
-        />
-      }
-    >
-      <VStack
-        minH='100%'
-        maxH='100%'
-        w='100%'
-        space={1}
+        topChildren={
+          <Cinema
+            height="65%"
+            width="65%"
+          />
+        }
+        bottomChildren={
+          <BottomChildren
+            router={router}
+          />
+        }
       >
-        <Text
-          bold
-          fontSize='xl'
-          pb={5}
-        >
-          ¡BIENVENIDO!
-        </Text>
-
-        <Controller
-          name='email'
-          control={control}
-          render={({ field: { onChange, value = '' } }) => (
-            <FormControl
-              isInvalid={
-                errors?.email && value !== ''
-              }
-              h={75}
-            >
-              <StyledField
-                ref={ref}
-                placeholder='Correo electrónico'
-                onChangeText={onChange}
-                borderColor={emailVal(value)}
-                InputLeftElement={
-                  <Stack
-                    pl={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Ionicons
-                      name='person'
-                      size={20}
-                      color={emailVal(value)}
-                    />
-                  </Stack>
-                }
-              />
-              {!errors?.email ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  {errors?.email?.message}
-                </FormControl.ErrorMessage>
-              )}
-            </FormControl>
-          )}
-        />
-
-        <Controller
-          name='password'
-          control={control}
-          render={({ field: { onChange, value = '' } }) => (
-            <FormControl
-              isInvalid={
-                errors?.password && value !== ''
-              }
-              h={75}
-            >
-              <StyledField
-                ref={ref}
-                placeholder='Contraseña'
-                onChangeText={onChange}
-                secureTextEntry={!show}
-                InputLeftElement={
-                  <Stack
-                    pl={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <Ionicons
-                      name='lock-closed'
-                      size={20}
-                      color={passVal(value)}
-                    />
-                  </Stack>
-                }
-                InputRightElement={
-                  <Stack
-                    pr={2}
-                    h='full'
-                    justifyContent='center'
-                    alignItems='center'
-                  >
-                    <TouchableOpacity
-                      onPress={() => setShow(!show)}
-                    >
-                      <Ionicons
-                        name={show ? 'eye-outline' : 'eye-off-outline'}
-                        size={20}
-                        color={passVal(value)}
-                      />
-                    </TouchableOpacity>
-                  </Stack>
-                }
-              />
-              {!errors?.password ? null : (
-                <FormControl.ErrorMessage
-                  leftIcon={
-                    <WarningOutlineIcon
-                      size='xs'
-                    />
-                  }
-                >
-                  {errors?.password?.message}
-                </FormControl.ErrorMessage>
-              )}
-            </FormControl>
-          )}
-        />
-
-        <Stack
-          w='100%'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <Button
-            w='100%'
-            isLoading={isLoading}
-            isDisabled={isLoading || !isValid}
-            onPress={handleSubmit(onSubmit)}
-            borderRadius={50}
-            style={{
-              backgroundColor: colors.secondary
-            }}
-            shadow={1}
-          >
-            Ingresar
-          </Button>
-        </Stack>
-
         <VStack
-          pt={5}
-          w='100%'
-          justifyContent='center'
-          alignItems='center'
-          space={0}
+          minH="100%"
+          maxH="100%"
+          w="100%"
+          space={1}
         >
           <Text
-            textAlign='center'
-            color={colors.gray4}
-            fontSize='xs'
+            bold
+            fontSize="xl"
+            pb={5}
           >
-            ¿No recuerdas alguno de tus datos?
+            ¡BIENVENIDO!
           </Text>
-          <HStack
-            justifyContent='center'
-            space={1}
+
+          <Controller
+            name="email"
+            control={control}
+            render={({ field: { onChange, value = "" } }) => (
+              <FormControl
+                isInvalid={errors.email ? true : false}
+                h={75}
+              >
+                <StyledField
+                  ref={ref}
+                  placeholder="Correo electrónico"
+                  onChangeText={onChange}
+                  borderColor={emailColor(value, errors.email)}
+                  InputLeftElement={
+                    <Stack
+                      pl={2}
+                      h="full"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Ionicons
+                        name="person"
+                        size={20}
+                        color={emailColor(value, errors.email)}
+                      />
+                    </Stack>
+                  }
+                />
+                {errors?.email && (
+                  <FormControl.ErrorMessage
+                    leftIcon={
+                      <WarningOutlineIcon
+                        size="xs"
+                      />
+                    }
+                  >
+                    {errors.email.message}
+                  </FormControl.ErrorMessage>
+                )}
+              </FormControl>
+            )}
+          />
+
+          <Controller
+            name="password"
+            control={control}
+            render={({ field: { onChange, value = "" } }) => (
+              <FormControl
+                isInvalid={errors.password ? true : false}
+                h={75}
+              >
+                <StyledField
+                  ref={ref}
+                  placeholder="Contraseña"
+                  onChangeText={onChange}
+                  secureTextEntry={!show}
+                  InputLeftElement={
+                    <Stack
+                      pl={2}
+                      h="full"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Ionicons
+                        name="lock-closed"
+                        size={20}
+                        color={passwordColor(value, errors.password)}
+                      />
+                    </Stack>
+                  }
+                  InputRightElement={
+                    <Stack
+                      pr={2}
+                      h="full"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <TouchableOpacity
+                        onPress={() => setShow(!show)}
+                      >
+                        <Ionicons
+                          name={show ? "eye-outline" : "eye-off-outline"}
+                          size={20}
+                          color={passwordColor(value, errors.password)}
+                        />
+                      </TouchableOpacity>
+                    </Stack>
+                  }
+                />
+                {errors.password && (
+                  <FormControl.ErrorMessage
+                    leftIcon={
+                      <WarningOutlineIcon
+                        size="xs"
+                      />
+                    }
+                  >
+                    {errors.password.message}
+                  </FormControl.ErrorMessage>
+                )}
+              </FormControl>
+            )}
+          />
+
+          <Stack
+            w="100%"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Button
+              w="100%"
+              isLoading={isLoading}
+              isDisabled={isLoading}
+              onPress={handleSubmit(onSubmit)}
+              borderRadius={50}
+              style={{
+                backgroundColor: colors.secondary
+              }}
+              shadow={1}
+            >
+              Ingresar
+            </Button>
+          </Stack>
+
+          <VStack
+            pt={5}
+            w="100%"
+            justifyContent="center"
+            alignItems="center"
+            space={0}
           >
             <Text
-              textAlign='center'
+              textAlign="center"
               color={colors.gray4}
-              fontSize='xs'
+              fontSize="xs"
             >
-              No te preocupes,
+              ¿No recuerdas alguno de tus datos?
             </Text>
-            <Text
-              fontSize='xs'
-              color={colors.secondary}
-              onPress={() => navigation?.navigate('PasswRecoveryPage')}
+            <HStack
+              justifyContent="center"
+              space={1}
             >
-              ingresa aquí
-            </Text>
-          </HStack>
+              <Text
+                textAlign="center"
+                color={colors.gray4}
+                fontSize="xs"
+              >
+                No te preocupes,
+              </Text>
+              <Text
+                fontSize="xs"
+                color={colors.secondary}
+                onPress={() => console.log("PasswRecoveryPage")}
+              >
+                ingresa aquí
+              </Text>
+            </HStack>
+          </VStack>
         </VStack>
-      </VStack>
-    </CardContainer>
-  </KeyboardAwareScrollView>  
-  )
+      </CardContainer>
+    </KeyboardAwareScrollView>
+  );
+};
 
-}
-
-export default LoginForm
+export default LoginForm;

@@ -1,10 +1,12 @@
-import { ReactNode } from 'react'
+import { ReactNode } from "react";
+import { DimensionValue } from "react-native";
 
-export default interface ICardContainerProps {
-  topChildren?: ReactNode
-  children: ReactNode
-  bottomChildren?: ReactNode
-  h?: number
-  top?: string | number
-  opacity?: number
+export interface ICardContainerProps {
+  topChildren?: ReactNode;
+  children: ReactNode;
+  bottomChildren?: ReactNode;
+  h?: number;
+  top?: DimensionValue;
+  opacity?: number;
 }
+

@@ -1,7 +1,7 @@
-import { StatusBarStyle } from 'react-native'
+import { StatusBarStyle } from "react-native";
 
 export interface IStatusBarProps {
-  backgroundColor?: string
-  hidden?: boolean
+  backgroundColor?: string;
+  hidden?: boolean;
   statusBarStyle?: StatusBarStyle
 }

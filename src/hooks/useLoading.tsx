@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 const useLoading = () => {
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false);
 
-  const startLoading = () => setLoading(true)
+  const startLoading = () => setLoading(true);
 
-  const stopLoading = () => setLoading(false)
+  const stopLoading = () => setLoading(false);
 
   return {
     isLoading,
@@ -14,4 +14,4 @@ const useLoading = () => {
   }
 }
 
-export default useLoading
+export default useLoading;

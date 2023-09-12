@@ -1,5 +1,5 @@
-import { IInputProps } from 'native-base'
+import { IInputProps } from "native-base";
 
-export default interface IStyledFieldProps extends IInputProps {
+export interface IStyledFieldProps extends IInputProps {
 
-}
+} 

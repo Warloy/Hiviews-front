@@ -1,13 +1,14 @@
 {
   "expo": {
     "name": "Hiviews",
-    "slug": "Hiviews-front",
+    "slug": "hiviews-front",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/1-hilogo-oficial.png",
+    "icon": "./assets/images/icon.png",
+    "scheme": "Hiviews",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./src/assets/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,18 +20,22 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/1-hilogo-oficial.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.Entropy.Hiviews"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "56f6cc63-2610-40ae-bb30-03f73f8c6557"
-      }
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "tsconfigPaths": true
     }
   }
 }
