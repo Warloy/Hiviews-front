@@ -84,20 +84,21 @@ const RegisterForm = () => {
           />
         }
       >
-        <ScrollView
-          minH="100%"
-          maxH="100%"
-          w="100%"
-        >
-          <Text
+        <Text
             bold
             fontSize="xl"
             textAlign="center"
             color="#8A2F62"
-            pb={5}
-          >
+            pb={2}
+        >
             Registro de usuarios
-          </Text>
+        </Text>
+        <Divider/>
+        <ScrollView
+          maxH="100%"
+          w="100%"
+          pt={2}
+        >
 
           <Controller
             name="name"
@@ -508,42 +509,6 @@ const RegisterForm = () => {
               </FormControl>
             )}
           />
-
-          <HStack
-            w="100%"
-            justifyContent="center"
-            alignItems="center"
-            space={2}
-          >
-            <Button
-              w="40%"
-              onPress={() => router.back()}
-              borderRadius={50}
-              style={{
-                backgroundColor: colors.tertiary
-              }}
-              shadow={1}
-            >
-              Cancelar
-            </Button>
-
-
-            <Button
-              w="40%"
-              isLoading={isLoading}
-              isDisabled={isLoading}
-              onPress={handleSubmit(onSubmit)}
-              borderRadius={50}
-              style={{
-                backgroundColor: colors.secondary
-              }}
-              shadow={1}
-            >
-              Registrarse
-            </Button>
-
-
-          </HStack>
           <StyledModal
             isOpen={viewModal}
             onClose={() => setViewModal(false)}
@@ -576,25 +541,42 @@ const RegisterForm = () => {
               </Button>
             </VStack>
           </StyledModal>
-
-
-          <VStack
-            pt={5}
+        </ScrollView>
+        <Divider my={2}/>
+        <HStack
             w="100%"
             justifyContent="center"
             alignItems="center"
-            space={0}
+            space={2}
+            pb={3}
           >
-            <HStack
-              justifyContent="center"
-              space={1}
+            <Button
+              w="40%"
+              onPress={() => router.back()}
+              borderRadius={50}
+              style={{
+                backgroundColor: colors.tertiary
+              }}
+              shadow={1}
             >
+              Cancelar
+            </Button>
+            <Button
+              w="40%"
+              isLoading={isLoading}
+              isDisabled={isLoading}
+              onPress={handleSubmit(onSubmit)}
+              borderRadius={50}
+              style={{
+                backgroundColor: colors.secondary
+              }}
+              shadow={1}
+            >
+              Registrarse
+            </Button>
 
-            </HStack>
-          </VStack>
 
-
-        </ScrollView>
+          </HStack>
       </CardContainer>
     </KeyboardAwareScrollView>
   );
