@@ -30,6 +30,11 @@ export type TPasswordRecovery = {
   email: string;
 };
 
+export type TPasswordRestore = {
+  newPassword: string;
+  newPasswordConfirm: string;
+}
+
 export type TUser = {
   id: number | string;
   email: string;

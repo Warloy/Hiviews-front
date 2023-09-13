@@ -163,11 +163,13 @@ const LoginForm = () => {
         >
           <Text
             bold
-            fontSize="xl"
+            fontSize='xl'
+            textAlign='center'
+            color= '#8A2F62'
             pb={5}
-          >
+        >
             ¡BIENVENIDO!
-          </Text>
+        </Text>
 
           <Controller
             name="email"
@@ -321,7 +323,11 @@ const LoginForm = () => {
               <Text
                 fontSize="xs"
                 color={colors.secondary}
-                onPress={() => console.log("PasswRecoveryPage")}
+                onPress={
+                  () => {
+                    router.push("/recovery")
+                    } 
+                  }
               >
                 ingresa aquí
               </Text>

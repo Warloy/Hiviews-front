@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.entropy.hiviews",
+      "sha256_cert_fingerprints": [
+        "C0:A6:AA:55:A7:BD:8C:7F:52:61:96:46:B0:97:BF:8C:8C:7A:99:E6:44:DA:DE:F8:91:F2:58:3F:23:68:11:20"
+      ]
+    }
+  }
+]
