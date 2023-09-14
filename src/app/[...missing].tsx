@@ -1,19 +1,36 @@
 import { Link, Stack, useRouter } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '@/components/Themed';
+import useAuthContext from '@/hooks/useAuthContext';
 
 export default function NotFoundScreen() {
 
+  const {
+    state: { isAuthenticated }
+  } = useAuthContext();
+
+  const router = useRouter();
+
+  const handleRoute = () => {
+    if (isAuthenticated) {
+      router.replace("/feed");
+    } else {
+      router.replace("/login");
+    }
+  }
+
   return (
     <>
-      <Stack.Screen options={{ title: 'Lo sentimos!' }} />
+      <Stack.Screen options={{ title: '¡Lo sentimos!' }} />
       <View style={styles.container}>
         <Text style={styles.title}>No se pudo encontrar la página.</Text>
 
-        <Link href="/" style={styles.link}>
+        <TouchableOpacity
+          onPress={handleRoute}
+        >
           <Text style={styles.linkText}>Volver al inicio</Text>
-        </Link>
+        </TouchableOpacity>
       </View>
     </>
   );

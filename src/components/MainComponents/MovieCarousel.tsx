@@ -42,6 +42,7 @@ const MovieCarousel = () => {
       {movies.map((movie, index) => {
         <MovieComponent
           key={index}
+          id={index}
           image={movie.image}
           alt={movie.name}
         />
