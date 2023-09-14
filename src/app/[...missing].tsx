@@ -14,7 +14,7 @@ export default function NotFoundScreen() {
 
   const handleRoute = () => {
     if (isAuthenticated) {
-      router.replace("/feed");
+      router.replace("/(tabs)/feed");
     } else {
       router.replace("/login");
     }
