@@ -4,8 +4,9 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { NativeBaseProvider } from "native-base";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { SafeAreaView, useColorScheme } from "react-native";
 import { AuthProvider } from "@/context/AuthContext";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -14,7 +15,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(login)",
+  initialRouteName: "(auth)",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -50,13 +51,17 @@ function RootLayoutNav() {
 
   return (
     <NativeBaseProvider>
-      <AuthProvider>
-        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="(login)" options={{ headerShown: false }} />
-          </Stack>
-        </ThemeProvider>
-      </AuthProvider>
+      <SafeAreaProvider>
+        <AuthProvider>
+          <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+            <SafeAreaView style={{ flex: 1 }}>
+              <Stack>
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              </Stack>
+            </SafeAreaView>
+          </ThemeProvider>
+        </AuthProvider>
+      </SafeAreaProvider>
     </NativeBaseProvider>
   );
 }

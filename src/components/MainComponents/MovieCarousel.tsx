@@ -39,13 +39,14 @@ const MovieCarousel = () => {
       minH={130}
       maxH={130}
     >
-      {movies.map((movie, index) => {
+      {movies.map((movie, index) => (
         <MovieComponent
           key={index}
+          id={index}
           image={movie.image}
           alt={movie.name}
         />
-      })}
+      ))}
     </ScrollView>
   );
 }

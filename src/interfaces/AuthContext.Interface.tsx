@@ -12,6 +12,11 @@ export interface IAuthAction {
   payload?: any;
 }
 
+export interface IAuthContext {
+  user: TSession | null;
+  setUser: (user: TSession | null) => void;
+}
+
 export interface IAuthContextType {
   state: IAuthState;
   dispatch: Dispatch<IAuthAction>;

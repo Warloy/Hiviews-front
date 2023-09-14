@@ -131,7 +131,7 @@ const LoginForm = () => {
 
         reset(loginDefaultValues);
 
-        router.replace("/feed");
+        router.replace("/(tabs)/_layout");
 
       }
 
