@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseURL = "";
+export const baseURL = "/api/v1";
 
 export const http = axios.create({
   baseURL,
@@ -9,3 +9,10 @@ export const http = axios.create({
     "Accept": "application/json"
   }
 });
+
+export type TResponseData = {
+  message?: string;
+  error?: string;
+  statusCode?: number
+  data?: any;
+};

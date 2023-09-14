@@ -5,7 +5,6 @@ import { Ionicons, Feather } from "@expo/vector-icons";
 import { Button, Divider, FormControl, HStack, ScrollView, Stack, Text, VStack, WarningOutlineIcon } from "native-base";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import CalendarPicker from "react-native-calendar-picker";
 
@@ -16,7 +15,7 @@ import { TRegister } from "@/types/User.Type";
 import CardContainer from "../CardContainer";
 import StyledField from "../StyledField";
 import { birthdayColor, emailColor, nameColor, passwordColor, usernameColor } from "@/utils/colorValidators";
-import { formatDate, locale, months, shortDays } from "@/utils/formatters";
+import { formatDate, months, shortDays } from "@/utils/formatters";
 import { colors } from "@/constants/Colors";
 import StyledModal from "../StyledModal";
 
@@ -28,6 +27,7 @@ const RegisterForm = () => {
 
   const ref = useRef();
   const [viewModal, setViewModal] = useState(false);
+  const [username, setUsername] = useState("");
 
   const [show, setShow] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -35,7 +35,7 @@ const RegisterForm = () => {
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { showSuccessToast, showErrorToast } = useCustomToast();
 
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const {
     control,
@@ -60,6 +60,7 @@ const RegisterForm = () => {
         errors.email && showErrorToast(errors.email.message)
 
       } else {
+        setViewModal(true);
         console.log("Register values: ", values);
         showSuccessToast("¡Excelente! Tú registro fue exitoso.");
         reset(registerDefaultValues);
@@ -105,7 +106,7 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={errors.name ? true : false}
+                isInvalid={Boolean(errors.name)}
                 h={75}
               >
                 <StyledField
@@ -148,7 +149,7 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={errors.lastName ? true : false}
+                isInvalid={Boolean(errors.lastName)}
                 h={75}
               >
                 <StyledField
@@ -191,7 +192,7 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = new Date() } }) => (
               <FormControl
-                isInvalid={errors.birthday ? true : false}
+                isInvalid={Boolean(errors.birthday)}
                 h={75}
               >
                 <StyledField
@@ -292,7 +293,7 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={errors.email ? true : false}
+                isInvalid={Boolean(errors.email)}
                 h={75}
               >
                 <StyledField
@@ -336,13 +337,16 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={errors.username ? true : false}
+                isInvalid={Boolean(errors.username)}
                 h={75}
               >
                 <StyledField
                   ref={ref}
                   placeholder="Nombre de usuario"
-                  onChangeText={onChange}
+                  onChangeText={(value) => {
+                    onChange(value);
+                    setUsername(value);
+                  }}
                   InputLeftElement={
                     <Stack
                       pl={2}
@@ -393,7 +397,7 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={errors.password ? true : false}
+                isInvalid={Boolean(errors.password)}
                 h={75}
               >
                 <StyledField
@@ -454,7 +458,7 @@ const RegisterForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={errors.passwordConfirm ? true : false}
+                isInvalid={Boolean(errors.passwordConfirm)}
                 h={75}
               >
                 <StyledField
@@ -512,30 +516,41 @@ const RegisterForm = () => {
           <StyledModal
             isOpen={viewModal}
             onClose={() => setViewModal(false)}
+            header="Registro completado"
+            size="xl"
           >
             <VStack
               justifyContent="center"
               alignItems="center"
-              space={3}
+              space={1}
             >
               <Feather
                 name="check-circle"
                 size={20}
                 color={colors.primary}
               />
-
-              <Text textAlign={"center"} fontSize="lg" bold color={"#863A6F"}>Registro completado.</Text>
-              <Text textAlign={"center"}>
-                Se ha enviado un código de verificación a tu dirección de correo electrónico.
+              <Text
+                mt={2}
+                fontSize="sm"
+                textAlign="center"
+              >
+                Cuando puedas, confirma tu correo electrónico con el enlace que te hemos enviado.
+              </Text>
+              <Text
+                fontSize="sm"
+                textAlign="center"
+              >
+                ¡Bienvenido <Text bold>{username}</Text> a Hiviews!
               </Text>
               <Button
+                mt={3}
                 w="60%"
                 borderRadius={50}
                 style={{
                   backgroundColor: colors.secondary
                 }}
                 shadow={1}
-                onPress={() => router.push("/(login)/_layout")}
+                onPress={() => router.push("/login")}
               >
                 Aceptar
               </Button>

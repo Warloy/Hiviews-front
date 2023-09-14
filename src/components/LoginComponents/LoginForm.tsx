@@ -131,6 +131,8 @@ const LoginForm = () => {
 
         reset(loginDefaultValues);
 
+        router.replace("/feed");
+
       }
 
     } catch (error) {
@@ -176,7 +178,7 @@ const LoginForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={errors.email ? true : false}
+                isInvalid={Boolean(errors.email)}
                 h={75}
               >
                 <StyledField
@@ -219,7 +221,7 @@ const LoginForm = () => {
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={errors.password ? true : false}
+                isInvalid={Boolean(errors.password)}
                 h={75}
               >
                 <StyledField

@@ -21,6 +21,12 @@ export type TReview = {
   tags: TTag[]
 };
 
+export type TMovie = {
+  id: string | number;
+  name: string;
+  image: ImageSourcePropType;
+};
+
 export type TThread = {
   id: string | number;
   author: string;
