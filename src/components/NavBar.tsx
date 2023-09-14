@@ -34,6 +34,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
     <>
       {!hidden &&
         <HStack
+          mt={5}
           p={2}
           minW={width}
           alignItems="center"
@@ -167,6 +168,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
             <StyledModal
               isOpen={logoutModal}
               onClose={() => setLogoutModal(false)}
+              size="lg"
             >
               <VStack
                 justifyContent="center"
