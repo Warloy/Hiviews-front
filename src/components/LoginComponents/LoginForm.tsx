@@ -57,7 +57,7 @@ const BottomChildren = ({ router }: { router: Router }) => {
           fontSize="sm"
           color={colors.secondary}
           onPress={() => {
-            router.push("/register")
+            router.push("/(auth)/register")
           }}
         >
           Regístrate aquí
@@ -129,15 +129,12 @@ const LoginForm = () => {
           }
         }));
 
-        reset(loginDefaultValues);
-
-        router.replace("/(tabs)/feed");
-
       }
 
     } catch (error) {
       showErrorToast(`Error: ${error}`);
     } finally {
+      reset(loginDefaultValues);
       stopLoading();
     }
   }
@@ -327,7 +324,7 @@ const LoginForm = () => {
                 color={colors.secondary}
                 onPress={
                   () => {
-                    router.push("/recovery")
+                    router.push("/(auth)/recovery")
                     } 
                   }
               >

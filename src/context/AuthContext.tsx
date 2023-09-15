@@ -1,4 +1,5 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
+import { useRootNavigation, useRouter, useSegments } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IAuthAction, IAuthContextType, IAuthState, IAuthProviderProps } from "@/interfaces/AuthContext.Interface";
 import { setSession } from "@/services/jwt";
@@ -51,6 +52,23 @@ const stateReducer = (state: IAuthState, action: IAuthAction): IAuthState => {
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [state, dispatch] = useReducer(stateReducer, initialState);
+  const [authInitialized, setAuthInitialized ] = useState<boolean>(false);
+  const segments = useSegments();
+  const router = useRouter();
+  const inAuthGroup = segments[0]===`(auth)`;
+  const [isNavigationReady, setNavigationReady] = useState(false);
+  const rootNavigation = useRootNavigation();
+
+  useEffect (() => {
+    const unsubscribe = rootNavigation?.addListener("state", (event) => {
+      setNavigationReady(true)
+    });
+    return function cleanup() {
+      if (unsubscribe){
+        unsubscribe();
+      }
+    };
+  }, [rootNavigation]);
 
   useEffect(() => {
     const initialize = async () => {
@@ -85,6 +103,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
           }
         });
 
+        setAuthInitialized(true);
+
       } catch (error) {
         setSession({ id: null, token: null });
         dispatch({
@@ -94,11 +114,26 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
             user: null
           }
         });
+        setAuthInitialized(true);
       };
     };
 
     initialize();
   }, []);
+
+  useEffect (() => {
+
+    if (!authInitialized) return;
+    
+    if (
+      !state.user &&
+      !inAuthGroup
+    ) {
+      router.push(`/(auth)/login`);
+    } else if ( state.user && inAuthGroup ){
+      router.push(`/(tabs)/feed`);
+    }
+  },[state, segments, authInitialized, isNavigationReady])
 
   return (
     <AuthContext.Provider
