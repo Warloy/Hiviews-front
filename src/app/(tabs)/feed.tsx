@@ -1,8 +1,8 @@
 
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { ActivityIndicator, RefreshControl } from "react-native";
 import { Stack as StackRouter, useFocusEffect } from "expo-router";
-import { Divider, Text, VStack, Stack, FlatList } from "native-base";
+import { Divider, VStack, Stack, FlatList, Box, ScrollView, Text } from "native-base";
 
 import Container from "@/components/Container";
 import MovieCarousel from "@/components/MainComponents/MovieCarousel";
@@ -10,8 +10,9 @@ import { colors } from "@/constants/Colors";
 import useLoading from "@/hooks/useLoading";
 import reviewsData from "@/static/reviewsData";
 import { TReview, TTag } from "@/types/Post.Type";
-import TagCarousel from "@/components/MainComponents/Feed/TagCarousel";
 import ReviewCard from "@/components/MainComponents/Feed/ReviewCard";
+import useCustomToast from "@/hooks/useCustomToast";
+import { TouchableOpacity } from "react-native";
 
 const FeedPage = () => {
 
@@ -48,34 +49,32 @@ const FeedPage = () => {
 
   const [reviews, setReviews] = useState(reviewsData);
   const [badges, setBadges] = useState<TTag[]>(tags);
-  const [categoriesSelected, setCategoriesSelected] = useState([tags[0]]);
+  const [categorySelected, setCategorySelected] = useState<TTag>(tags[0]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isNextPage, setIsNextPage] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  const { isLoading } = useLoading();
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { showErrorToast } = useCustomToast();
 
-  const handleCategories = (item: TTag) => {
-    setCategoriesSelected([item]);
+  const handleCategory = (item: TTag) => {
+    setCategorySelected(item);
     setCurrentPage(1);
     setIsNextPage(true);
   };
 
   const onRefresh = useCallback(() => {
-    setReviews(reviewsData);
+    getData().catch(err => showErrorToast(err));
     setCurrentPage(1);
     setIsNextPage(true);
   }, [])
 
-  const getCategory = (value: TTag) => {
-    return categoriesSelected.find(item => item.name === value.name);
-  };
-
   useFocusEffect(
     useCallback(() => {
-      setReviews(reviewsData)
-    }, [currentPage, categoriesSelected])
+      getData()
+        .catch(err => showErrorToast(err));
+    }, [currentPage, categorySelected])
   );
 
   const renderItem = ({ item }: { item: TReview }) => {
@@ -108,6 +107,22 @@ const FeedPage = () => {
     }
   };
 
+  const getData = async () => {
+    startLoading();
+    try {
+      let data = categorySelected.name === "Todo" ?
+        reviewsData :
+        reviewsData.filter(item => item.tags.find(tag =>
+          tag.name === categorySelected.name));
+
+      setReviews(data);
+    } catch (error: any) {
+      showErrorToast(error);
+    } finally {
+      stopLoading();
+    }
+  }
+
   return (
     <Container
       statusBarStyle="dark-content"
@@ -125,31 +140,75 @@ const FeedPage = () => {
         <Divider bgColor={colors.divider} />
         <MovieCarousel />
         <Divider bgColor={colors.divider} />
-        <TagCarousel
-          tags={badges}
-          handleCategories={handleCategories}
-          getCategory={getCategory}
-          selectedTags={categoriesSelected}
-        />
-        <Divider bgColor={colors.divider} />
 
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          minH={7}
+          maxH={7}
+        >
+          {badges.map((tag, index) => (
+            <Stack
+              key={index}
+              m={1}
+            >
+              <TouchableOpacity
+                activeOpacity={.9}
+                onPress={() => handleCategory(tag)}
+              >
+                <Box
+                  h={5}
+                  w="full"
+                  px={5}
+                  bgColor={tag.id === categorySelected.id ? colors.badge.primary : colors.white}
+                  borderRadius={50}
+                  shadow={3}
+                >
+                  <Text
+                    bold
+                    fontSize="xs"
+                    color={tag.id === categorySelected.id ? colors.white : colors.secondary}
+                    textAlign="center"
+                  >
+                    {tag.name}
+                  </Text>
+                </Box>
+              </TouchableOpacity>
+            </Stack>
+          ))}
+        </ScrollView>
+
+        <Divider bgColor={colors.divider} />
+        {isLoading ?
+
+          <Stack
+            my={2}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <ActivityIndicator
+              size="large"
+              color={colors.secondary}
             />
-          }
-          showsVerticalScrollIndicator={false}
-          data={reviews}
-          px={3}
-          pb={7}
-          maxH="68%"
-          keyExtractor={(item, key) => `${item.id}${new Date().toISOString()}${key}`}
-          renderItem={renderItem}
-          ListFooterComponent={renderLoader}
-          onEndReached={loadMoreItem}
-        />
+          </Stack> :
+          <FlatList
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+              />
+            }
+            showsVerticalScrollIndicator={false}
+            data={reviews}
+            px={3}
+            pb={7}
+            maxH="68%"
+            keyExtractor={(item, key) => `${item.id}${new Date().toISOString()}${key}`}
+            renderItem={renderItem}
+            ListFooterComponent={renderLoader}
+            onEndReached={loadMoreItem}
+          />
+        }
 
       </VStack>
     </Container>
