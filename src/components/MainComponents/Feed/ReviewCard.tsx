@@ -1,19 +1,122 @@
 
 import { useState } from "react";
+import { TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
+import { AirbnbRating } from "react-native-elements";
 import { Box, HStack, Image, ScrollView, Text, VStack, Stack } from "native-base";
 
 import { colors } from "@/constants/Colors";
 import useCustomToast from "@/hooks/useCustomToast";
 import { IReviewCard } from "@/interfaces/ReviewCard.Interface";
-import { TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
-import { formatDate, getHour } from "@/utils";
+import { before24hours, formatDate, getHour } from "@/utils";
+import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 
-const ReviewCard = ({ review }: IReviewCard) => {
+const ButtonsUp = ({ review }: IReviewCard) => {
 
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const { showSuccessToast } = useCustomToast();
+
+  return (
+    (review.author === "Manuel" && before24hours(review.date)) &&
+    <>
+      <TouchableOpacity
+        onPress={() => console.info("Delete pressed")}
+      >
+        <HStack
+          alignItems="center"
+          pr={2}
+        >
+          <AntDesign
+            name="delete"
+            size={14}
+            color={colors.primary}
+          />
+        </HStack>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => console.info("Edit pressed")}
+      >
+        <HStack
+          alignItems="center"
+          pr={2}
+        >
+          <Feather
+            name="edit"
+            size={14}
+            color={colors.primary}
+          />
+        </HStack>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          showSuccessToast(!bookmark ? "Añadido a favoritos" : "Eliminado de favoritos");
+          setBookmark(value => !value);
+        }}
+      >
+        <HStack
+          alignItems="center"
+          mr={2}
+        >
+          <Ionicons
+            name={bookmark ? "ios-bookmark" : "ios-bookmark-outline"}
+            size={14}
+            color={colors.primary}
+          />
+        </HStack>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => console.info("Comment pressed")}
+      >
+        <HStack
+          alignItems="center"
+          space={1}
+          mr={1}
+        >
+          <FontAwesome5
+            name="comment-alt"
+            size={12}
+            color={colors.primary}
+          />
+          <Text
+            fontSize={10}
+            color={colors.primary}
+          >
+            {review.comments}
+          </Text>
+        </HStack>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          setLike(value => !value)
+        }}
+      >
+        <HStack
+          alignItems="center"
+          space={1}
+        >
+          <AntDesign
+            name={like ? "like1" : "like2"}
+            size={13}
+            color={colors.primary}
+          />
+          <Text
+            fontSize={10}
+            color={colors.primary}
+          >
+            {like ? review.likes + 1 : review.likes}
+          </Text>
+        </HStack>
+      </TouchableOpacity>
+    </>
+  );
+};
+
+const ReviewCard = ({ review }: IReviewCard) => {
 
   const router = useRouter();
 
@@ -156,8 +259,15 @@ const ReviewCard = ({ review }: IReviewCard) => {
                   </Text>
                 </TouchableOpacity>
               </HStack>
+              <AirbnbRating
+                count={5}
+                showRating={false}
+                size={10}
+                defaultRating={review.rate}
+                isDisabled={true}
+                selectedColor={colors.tertiary}
+              />
 
-              
             </VStack>
           </VStack>
         </Box>
@@ -168,8 +278,13 @@ const ReviewCard = ({ review }: IReviewCard) => {
           py={1}
           px={2}
         >
-          <HStack>
-            
+          <HStack
+            px={2}
+            space={3}
+          >
+            <ButtonsUp
+              review={review}
+            />
           </HStack>
         </HStack>
       </VStack>
