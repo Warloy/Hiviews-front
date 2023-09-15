@@ -86,15 +86,15 @@ const RegisterForm = () => {
         }
       >
         <Text
-            bold
-            fontSize="xl"
-            textAlign="center"
-            color="#8A2F62"
-            pb={2}
+          bold
+          fontSize="xl"
+          textAlign="center"
+          color="#8A2F62"
+          pb={2}
         >
-            Registro de usuarios
+          Registro de usuarios
         </Text>
-        <Divider/>
+        <Divider />
         <ScrollView
           maxH="100%"
           w="100%"
@@ -557,41 +557,43 @@ const RegisterForm = () => {
             </VStack>
           </StyledModal>
         </ScrollView>
-        <Divider my={2}/>
+
+        <Divider mb={2} />
+        
         <HStack
-            w="100%"
-            justifyContent="center"
-            alignItems="center"
-            space={2}
-            pb={3}
+          w="100%"
+          justifyContent="center"
+          alignItems="center"
+          space={2}
+          pb={3}
+        >
+          <Button
+            w="40%"
+            onPress={() => router.back()}
+            borderRadius={50}
+            style={{
+              backgroundColor: colors.tertiary
+            }}
+            shadow={1}
           >
-            <Button
-              w="40%"
-              onPress={() => router.back()}
-              borderRadius={50}
-              style={{
-                backgroundColor: colors.tertiary
-              }}
-              shadow={1}
-            >
-              Cancelar
-            </Button>
-            <Button
-              w="40%"
-              isLoading={isLoading}
-              isDisabled={isLoading}
-              onPress={handleSubmit(onSubmit)}
-              borderRadius={50}
-              style={{
-                backgroundColor: colors.secondary
-              }}
-              shadow={1}
-            >
-              Registrarse
-            </Button>
+            Cancelar
+          </Button>
+          <Button
+            w="40%"
+            isLoading={isLoading}
+            isDisabled={isLoading}
+            onPress={handleSubmit(onSubmit)}
+            borderRadius={50}
+            style={{
+              backgroundColor: colors.secondary
+            }}
+            shadow={1}
+          >
+            Registrarse
+          </Button>
 
 
-          </HStack>
+        </HStack>
       </CardContainer>
     </KeyboardAwareScrollView>
   );

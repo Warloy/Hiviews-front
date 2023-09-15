@@ -1,16 +1,16 @@
 import Container from "@/components/Container";
-import PasswRecoveryForm from "@/components/LoginComponents/PasswRecoveryForm";
+import PasswordRecoveryForm from "@/components/LoginComponents/PasswordRecoveryForm";
 import { Stack } from "expo-router";
 
-const PasswRecoveryPage = () => {
+const PasswordRecoveryPage = () => {
   return (
     <Container
       hiddenNavBar={true}
     >
       <Stack.Screen options={{ headerShown: false }} />
-      <PasswRecoveryForm />
+      <PasswordRecoveryForm />
     </Container>
   );
 };
 
-export default PasswRecoveryPage;
+export default PasswordRecoveryPage;

@@ -11,20 +11,22 @@ import { colors } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import StyledModal from "./StyledModal";
+import useCustomToast from "@/hooks/useCustomToast";
 
 const NavBar = ({ hidden = false }: INavBarProps) => {
   const { width } = useWindowDimensions();
-
   const router = useRouter();
+  const { showSuccessToast } = useCustomToast()
 
   const {
     dispatch
   } = useAuthContext();
 
   const logoutButton = () => {
-    console.info("Logout Button on NavBar is pressed...")
-    setSession({ id: null, token: null })
+    console.info("Logout Button on NavBar is pressed...");
+    showSuccessToast("Esperamos verte pronto,¡hasta luego!")
     dispatch({ type: "LOGOUT" });
+    setSession(null);
   };
 
   const [viewModal, setViewModal] = useState(false);
@@ -168,12 +170,13 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
             <StyledModal
               isOpen={logoutModal}
               onClose={() => setLogoutModal(false)}
-              size="lg"
+              size="xl"
             >
               <VStack
                 justifyContent="center"
                 alignItems="center"
                 space={2}
+                w="100%"
               >
                 <Text>
                   ¿Está seguro que desea cerrar sesión?
@@ -181,7 +184,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
 
                 <Button.Group space={2}>
                   <Button
-                    w="40"
+                    w="50%"
                     borderRadius={50}
                     style={{
                       backgroundColor: colors.tertiary
@@ -192,7 +195,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
                     No
                   </Button>
                   <Button
-                    w="40"
+                    w="50%"
                     borderRadius={50}
                     style={{
                       backgroundColor: colors.secondary

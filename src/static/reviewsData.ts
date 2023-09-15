@@ -1,6 +1,6 @@
 import { TReview } from '@/types/Post.Type'
 
-const reviews: TReview[] = [
+const reviewsData: TReview[] = [
   {
     id: 1,
     author: 'Simón Bolívar',
@@ -143,6 +143,6 @@ const reviews: TReview[] = [
       },
     ]
   }
-]
+];
 
-export default reviews
+export default reviewsData;

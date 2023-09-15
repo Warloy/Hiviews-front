@@ -14,22 +14,22 @@ const initialState: IAuthState = {
 };
 
 const stateReducer = (state: IAuthState, action: IAuthAction): IAuthState => {
-  const { type } = action;
+  const { type, payload } = action;
 
   switch (type) {
 
     case "INITIALIZE": {
-      const { isAuthenticated, user } = action.payload;
+      const { isAuthenticated, user } = payload;
       return {
-        ...isAuthenticated,
-        isAuthenticated,
+        ...state,
         isInitialized: true,
+        isAuthenticated,
         user
       };
     };
 
     case "LOGIN": {
-      const { user } = action.payload;
+      const { user } = payload;
       return {
         ...state,
         isAuthenticated: true,
@@ -51,23 +51,30 @@ const stateReducer = (state: IAuthState, action: IAuthAction): IAuthState => {
 };
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
+
   const [state, dispatch] = useReducer(stateReducer, initialState);
-  const [authInitialized, setAuthInitialized ] = useState<boolean>(false);
+
   const segments = useSegments();
   const router = useRouter();
-  const inAuthGroup = segments[0]===`(auth)`;
-  const [isNavigationReady, setNavigationReady] = useState(false);
   const rootNavigation = useRootNavigation();
 
-  useEffect (() => {
-    const unsubscribe = rootNavigation?.addListener("state", (event) => {
+  const [authInitialized, setAuthInitialized] = useState<boolean>(false);
+  const [isNavigationReady, setNavigationReady] = useState(false);
+
+  const inAuthGroup = segments[0] === "(auth)";
+
+  useEffect(() => {
+
+    const unsubscribe = rootNavigation?.addListener("state", () => {
       setNavigationReady(true)
     });
+
     return function cleanup() {
-      if (unsubscribe){
+      if (unsubscribe) {
         unsubscribe();
       }
     };
+
   }, [rootNavigation]);
 
   useEffect(() => {
@@ -79,15 +86,17 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         const accessID: string | null = await AsyncStorage.getItem(ID_KEY);
         const accessToken: string | null = await AsyncStorage.getItem(TOKEN_KEY);
 
-        if (!accessToken) {
-          setSession({ id: null, token: null });
+        if (!accessID || !accessToken) {
+          setSession(null);
           dispatch({
             type: "INITIALIZE",
             payload: {
+              isInitialized: true,
               isAuthenticated: false,
               user: null
             }
           });
+          return;
         }
 
         await setSession({ id: accessID, token: accessToken });
@@ -95,6 +104,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         dispatch({
           type: "INITIALIZE",
           payload: {
+            isInitialized: true,
             isAuthenticated: true,
             user: {
               id: accessID,
@@ -106,14 +116,17 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         setAuthInitialized(true);
 
       } catch (error) {
-        setSession({ id: null, token: null });
+
+        setSession(null);
         dispatch({
           type: "INITIALIZE",
           payload: {
+            isInitialized: true,
             isAuthenticated: false,
             user: null
           }
         });
+
         setAuthInitialized(true);
       };
     };
@@ -121,19 +134,17 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     initialize();
   }, []);
 
-  useEffect (() => {
+  useEffect(() => {
 
     if (!authInitialized) return;
-    
-    if (
-      !state.user &&
-      !inAuthGroup
-    ) {
+
+    if (!state.user && !inAuthGroup) {
       router.push(`/(auth)/login`);
-    } else if ( state.user && inAuthGroup ){
+    } else if (state.user && inAuthGroup) {
       router.push(`/(tabs)/feed`);
     }
-  },[state, segments, authInitialized, isNavigationReady])
+
+  }, [state, segments, authInitialized, isNavigationReady])
 
   return (
     <AuthContext.Provider
