@@ -1,4 +1,7 @@
 import { useRef, useState } from "react";
+import { TouchableOpacity } from "react-native";
+import { Router, useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 import {
   Button,
   FormControl,
@@ -23,10 +26,8 @@ import { setSession } from "@/services/jwt";
 import CardContainer from "../CardContainer";
 import StyledField from "../StyledField";
 import { emailColor, passwordColor } from "@/utils/colorValidators";
-import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native";
 import { TLogin } from "@/types/User.Type";
-import { Router, useRouter } from "expo-router";
+import { loginAdapter } from "@/adapters/UserAdapter";
 
 const BottomChildren = ({ router }: { router: Router }) => {
   return (
@@ -109,7 +110,7 @@ const LoginForm = () => {
 
         showSuccessToast("¡Bienvenido a Hiviews!");
 
-        console.log("User data:", values);
+        console.log("User data:", loginAdapter(values));
 
         const USER_ID = 1, USER_TOKEN = "token";
 
@@ -123,8 +124,7 @@ const LoginForm = () => {
           payload: {
             user: {
               id: USER_ID,
-              token: USER_TOKEN,
-              user: "User"
+              token: USER_TOKEN
             }
           }
         }));
@@ -164,11 +164,11 @@ const LoginForm = () => {
             bold
             fontSize='xl'
             textAlign='center'
-            color= '#8A2F62'
+            color='#8A2F62'
             pb={5}
-        >
+          >
             ¡BIENVENIDO!
-        </Text>
+          </Text>
 
           <Controller
             name="email"
@@ -322,11 +322,7 @@ const LoginForm = () => {
               <Text
                 fontSize="xs"
                 color={colors.secondary}
-                onPress={
-                  () => {
-                    router.push("/(auth)/recovery")
-                    } 
-                  }
+                onPress={() => router.push("/(auth)/recovery")}
               >
                 ingresa aquí
               </Text>

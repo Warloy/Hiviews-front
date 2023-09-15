@@ -1,13 +1,14 @@
-import { Link, Stack, useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '@/components/Themed';
 import useAuthContext from '@/hooks/useAuthContext';
+import { useEffect } from 'react';
 
 export default function NotFoundScreen() {
 
   const {
-    state: { isAuthenticated }
+    state: { isAuthenticated, user }
   } = useAuthContext();
 
   const router = useRouter();
@@ -25,7 +26,6 @@ export default function NotFoundScreen() {
       <Stack.Screen options={{ title: '¡Lo sentimos!' }} />
       <View style={styles.container}>
         <Text style={styles.title}>No se pudo encontrar la página.</Text>
-
         <TouchableOpacity
           onPress={handleRoute}
         >

@@ -10,18 +10,13 @@ export interface IAuthState {
 export interface IAuthAction {
   type: "INITIALIZE" | "LOGIN" | "LOGOUT" | null;
   payload?: any;
-}
-
-export interface IAuthContext {
-  user: TSession | null;
-  setUser: (user: TSession | null) => void;
-}
+};
 
 export interface IAuthContextType {
   state: IAuthState;
   dispatch: Dispatch<IAuthAction>;
-}
+};
 
 export interface IAuthProviderProps {
   children: ReactNode;
-}
+};
