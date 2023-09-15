@@ -161,7 +161,7 @@ const PasswRecoveryForm = () => {
           textAlign='center'
           color={colors.secondary}
           onPress={() => {
-            router.push("/recovery/Goose")
+            router.push("/(auth)/recovery/Goose")
           }}
         >
           Dominio total del mundo

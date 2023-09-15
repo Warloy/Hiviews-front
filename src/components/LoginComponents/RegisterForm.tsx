@@ -550,7 +550,7 @@ const RegisterForm = () => {
                   backgroundColor: colors.secondary
                 }}
                 shadow={1}
-                onPress={() => router.push("/login")}
+                onPress={() => router.push("/(auth)/login")}
               >
                 Aceptar
               </Button>
