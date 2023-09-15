@@ -114,11 +114,6 @@ const LoginForm = () => {
 
         const USER_ID = 1, USER_TOKEN = "token";
 
-        await setSession({
-          id: USER_ID,
-          token: USER_TOKEN
-        });
-
         dispatch(({
           type: "LOGIN",
           payload: {
@@ -128,6 +123,13 @@ const LoginForm = () => {
             }
           }
         }));
+        
+        await setSession({
+          id: USER_ID,
+          token: USER_TOKEN
+        });
+
+        router.replace("/(tabs)/feed");
 
       }
 
