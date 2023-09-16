@@ -1,4 +1,3 @@
-
 import { useCallback, useState } from "react";
 import { ActivityIndicator, RefreshControl } from "react-native";
 import { Stack as StackRouter, useFocusEffect } from "expo-router";
@@ -11,10 +10,21 @@ import reviewsData from "@/static/reviewsData";
 import { TReview } from "@/types/Post.Type";
 import ReviewCard from "@/components/MainComponents/Feed/ReviewCard";
 import useCustomToast from "@/hooks/useCustomToast";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import useConnection from "@/hooks/useConnection";
+
+import { updateReviews } from "@/features/reviews/reviewSlice";
 
 const FeedPage = () => {
 
-  const [reviews, setReviews] = useState(reviewsData);
+  const { timelineView } = useAppSelector(state => state.config);
+  const cacheReviews = useAppSelector(state => state.reviews).reviews;
+
+  const dispatch = useAppDispatch();
+
+  const { isConnected } = useConnection();
+
+  const [reviews, setReviews] = useState<TReview[]>(cacheReviews);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isNextPage, setIsNextPage] = useState(false);
@@ -31,9 +41,8 @@ const FeedPage = () => {
 
   useFocusEffect(
     useCallback(() => {
-      getData()
-        .catch(err => showErrorToast(err));
-    }, [currentPage])
+      getData().catch(err => showErrorToast(err));
+    }, [currentPage, timelineView, isConnected])
   );
 
   const renderItem = ({ item }: { item: TReview }) => {
@@ -69,11 +78,31 @@ const FeedPage = () => {
   const getData = async () => {
     startLoading();
     try {
-      setReviews(reviewsData);
+      setReviews([]);
+      if (isConnected) {
+
+        let data: TReview[] = []
+
+        await reviewsData.forEach(value => {
+          if (!timelineView) {
+            if (value.author === "Wilder") {
+              return data.push(value);
+            }
+          } else {
+            return data.push(value);
+          }
+        });
+
+        await setReviews(data);
+        dispatch(updateReviews(data));
+
+      } else {
+        setReviews(cacheReviews);
+      }
+
+      stopLoading();
     } catch (error: any) {
       showErrorToast(error);
-    } finally {
-      stopLoading();
     }
   }
 
@@ -89,19 +118,9 @@ const FeedPage = () => {
         w="100%"
         maxH="100%"
         minH="100%"
-        py={1}
+        pb={1}
       >
-        {isLoading ?
-          <Stack
-            my={2}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <ActivityIndicator
-              size="large"
-              color={colors.secondary}
-            />
-          </Stack> :
+        {!isLoading && isConnected ?
           <FlatList
             refreshControl={
               <RefreshControl
@@ -118,7 +137,17 @@ const FeedPage = () => {
             renderItem={renderItem}
             ListFooterComponent={renderLoader}
             onEndReached={loadMoreItem}
-          />
+          /> :
+          <Stack
+            my={2}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <ActivityIndicator
+              size="large"
+              color={colors.secondary}
+            />
+          </Stack>
         }
       </VStack>
     </Container>

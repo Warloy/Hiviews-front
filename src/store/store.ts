@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import configReducer from "@/features/config/configSlice";
+import reviewReducer from "@/features/reviews/reviewSlice";
 
 export const store = configureStore({
   reducer: {
-    config: configReducer
+    config: configReducer,
+    reviews: reviewReducer
   }
 });
 

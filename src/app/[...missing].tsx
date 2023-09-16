@@ -1,4 +1,4 @@
-import { Stack, useFocusEffect, useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '@/components/Themed';
