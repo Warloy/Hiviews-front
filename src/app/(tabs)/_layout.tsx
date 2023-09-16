@@ -45,22 +45,6 @@ const TabsLayout = () => {
       }
     },
     {
-      name: "forum",
-      options: {
-        href: "/forum",
-        title: "forum",
-        tabBarShowLabel: true,
-        tabBarLabel: "Foro",
-        tabBarIcon: ({ color, size }: { color: string, size: number }) => (
-          <MaterialCommunityIcons
-            name={color === colors.secondary ? "forum" : "forum-outline"}
-            color={colors.secondary}
-            size={size}
-          />
-        )
-      }
-    },
-    {
       name: "post",
       options: {
         href: "/post",
@@ -81,31 +65,15 @@ const TabsLayout = () => {
       }
     },
     {
-      name: "search",
+      name: "forum",
       options: {
-        href: "/search",
-        title: "search",
+        href: "/forum",
+        title: "forum",
         tabBarShowLabel: true,
-        tabBarLabel: "Explorar",
+        tabBarLabel: "Foro",
         tabBarIcon: ({ color, size }: { color: string, size: number }) => (
-          <Ionicons
-            name={color === colors.secondary ? "compass" : "compass-outline"}
-            color={colors.secondary}
-            size={size}
-          />
-        )
-      }
-    },
-    {
-      name: "trending",
-      options: {
-        href: "/trending",
-        title: "trending",
-        tabBarShowLabel: true,
-        tabBarLabel: "Trending",
-        tabBarIcon: ({ color, size }: { color: string, size: number }) => (
-          <Ionicons
-            name={color === colors.secondary ? "flame" : "flame-outline"}
+          <MaterialCommunityIcons
+            name={color === colors.secondary ? "forum" : "forum-outline"}
             color={colors.secondary}
             size={size}
           />
