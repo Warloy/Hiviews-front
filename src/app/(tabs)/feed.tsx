@@ -1,53 +1,20 @@
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { ActivityIndicator, RefreshControl } from "react-native";
 import { Stack as StackRouter, useFocusEffect } from "expo-router";
-import { VStack, Stack, FlatList, Box, ScrollView, Text } from "native-base";
+import { VStack, Stack, FlatList } from "native-base";
 
 import Container from "@/components/Container";
 import { colors } from "@/constants/Colors";
 import useLoading from "@/hooks/useLoading";
 import reviewsData from "@/static/reviewsData";
-import { TReview, TTag } from "@/types/Post.Type";
+import { TReview } from "@/types/Post.Type";
 import ReviewCard from "@/components/MainComponents/Feed/ReviewCard";
 import useCustomToast from "@/hooks/useCustomToast";
-import { TouchableOpacity } from "react-native";
 
 const FeedPage = () => {
 
-  const tags: TTag[] = [
-    {
-      id: -1,
-      name: 'Todo'
-    },
-    {
-      id: 1,
-      name: 'Acción'
-    },
-    {
-      id: 2,
-      name: 'Ciencia Ficción'
-    },
-    {
-      id: 3,
-      name: 'Aventura'
-    },
-    {
-      id: 4,
-      name: 'Drama'
-    },
-    {
-      id: 5,
-      name: 'Terror'
-    },
-    {
-      id: 6,
-      name: 'Suspenso'
-    }
-  ];
-
   const [reviews, setReviews] = useState(reviewsData);
-  const [categorySelected, setCategorySelected] = useState<TTag>(tags[0]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isNextPage, setIsNextPage] = useState(false);
@@ -66,7 +33,7 @@ const FeedPage = () => {
     useCallback(() => {
       getData()
         .catch(err => showErrorToast(err));
-    }, [currentPage, categorySelected])
+    }, [currentPage])
   );
 
   const renderItem = ({ item }: { item: TReview }) => {
@@ -102,12 +69,7 @@ const FeedPage = () => {
   const getData = async () => {
     startLoading();
     try {
-      let data = categorySelected.name === "Todo" ?
-        reviewsData :
-        reviewsData.filter(item => item.tags.find(tag =>
-          tag.name === categorySelected.name));
-
-      setReviews(data);
+      setReviews(reviewsData);
     } catch (error: any) {
       showErrorToast(error);
     } finally {
@@ -129,9 +91,7 @@ const FeedPage = () => {
         minH="100%"
         py={1}
       >
-
         {isLoading ?
-
           <Stack
             my={2}
             alignItems="center"
@@ -160,7 +120,6 @@ const FeedPage = () => {
             onEndReached={loadMoreItem}
           />
         }
-
       </VStack>
     </Container>
   );

@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import StyledModal from "./StyledModal";
 import useCustomToast from "@/hooks/useCustomToast";
+import StyledTwoButtons from "./StyledTwoButtons";
 
 const NavBar = ({ hidden = false }: INavBarProps) => {
   const { width } = useWindowDimensions();
@@ -69,6 +70,10 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
             alignItems="center"
             space={2}
           >
+            <StyledTwoButtons 
+            
+            />
+
             <TouchableOpacity
               onPress={() => console.log("Search Nav Button is pressed...")}
             >
