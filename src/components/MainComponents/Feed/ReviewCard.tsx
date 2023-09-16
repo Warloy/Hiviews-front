@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { Share, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { AirbnbRating } from "react-native-elements";
 import { Box, HStack, Image, ScrollView, Text, VStack, Stack } from "native-base";
@@ -10,6 +10,8 @@ import useCustomToast from "@/hooks/useCustomToast";
 import { IReviewCard } from "@/interfaces/ReviewCard.Interface";
 import { before24hours, formatDate, getHour } from "@/utils";
 import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import Animated, { Extrapolate, SharedValue, interpolate, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import { StyleSheet } from "react-native";
 
 const ButtonsUp = ({ review }: IReviewCard) => {
 
@@ -17,54 +19,108 @@ const ButtonsUp = ({ review }: IReviewCard) => {
   const [bookmark, setBookmark] = useState(false);
   const { showSuccessToast } = useCustomToast();
 
+  const bookmarked = useSharedValue(0);
+  const liked = useSharedValue(0);
+
+  const outlineStyle = (style: SharedValue<number>) => useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: interpolate(style.value, [0, 1], [1, 0], Extrapolate.CLAMP)
+        }
+      ]
+    };
+  });
+
+  const fillStyle = (style: SharedValue<number>) => useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: style.value,
+        }
+      ],
+      opacity: style.value
+    };
+  });
+
+  const handleLiked = () => {
+    liked.value = withSpring(liked.value ? 0 : 1);
+    setLike(value => !value);
+  };
+
+  const handleBookmarked = () => {
+    bookmarked.value = withSpring(bookmarked.value ? 0 : 1);
+    setBookmark(!bookmark);
+    //showSuccessToast(!bookmark ? "Añadido a favoritos" : "Eliminado de favoritos");
+  };
+
   return (
-    (review.author === "Manuel" && before24hours(review.date)) &&
     <>
-      <TouchableOpacity
-        onPress={() => console.info("Delete pressed")}
-      >
-        <HStack
-          alignItems="center"
-          pr={2}
-        >
-          <AntDesign
-            name="delete"
-            size={14}
-            color={colors.primary}
-          />
-        </HStack>
-      </TouchableOpacity>
+      {(review.author === "Manuel" && before24hours(review.date)) &&
+        <>
+          <TouchableOpacity
+            onPress={() => console.info("Delete pressed")}
+          >
+            <HStack
+              alignItems="center"
+              pr={2}
+            >
+              <AntDesign
+                name="delete"
+                size={14}
+                color={colors.primary}
+              />
+            </HStack>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => console.info("Edit pressed")}
+          >
+            <HStack
+              alignItems="center"
+              pr={2}
+            >
+              <Feather
+                name="edit"
+                size={14}
+                color={colors.primary}
+              />
+            </HStack>
+          </TouchableOpacity>
+        </>
+      }
 
       <TouchableOpacity
-        onPress={() => console.info("Edit pressed")}
+        onPress={handleBookmarked}
       >
         <HStack
           alignItems="center"
+          space={1}
           pr={2}
         >
-          <Feather
-            name="edit"
-            size={14}
-            color={colors.primary}
-          />
-        </HStack>
-      </TouchableOpacity>
+          <Animated.View
+            style={[StyleSheet.absoluteFill, outlineStyle(bookmarked)]}
+          >
+            <Ionicons
+              name="ios-bookmark-outline"
+              size={14}
+              color={colors.primary}
+            />
+          </Animated.View>
 
-      <TouchableOpacity
-        onPress={() => {
-          showSuccessToast(!bookmark ? "Añadido a favoritos" : "Eliminado de favoritos");
-          setBookmark(value => !value);
-        }}
-      >
-        <HStack
-          alignItems="center"
-          mr={2}
-        >
-          <Ionicons
-            name={bookmark ? "ios-bookmark" : "ios-bookmark-outline"}
-            size={14}
-            color={colors.primary}
-          />
+          <Animated.View
+            style={[StyleSheet.absoluteFill, fillStyle(bookmarked)]}
+          >
+            <Ionicons
+              name="ios-bookmark"
+              size={14}
+              color={colors.tertiary}
+            />
+          </Animated.View>
+
+          <Text>
+            {" "}
+          </Text>
         </HStack>
       </TouchableOpacity>
 
@@ -91,20 +147,35 @@ const ButtonsUp = ({ review }: IReviewCard) => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => {
-          setLike(value => !value)
-        }}
+        onPress={handleLiked}
       >
         <HStack
           alignItems="center"
           space={1}
         >
-          <AntDesign
-            name={like ? "like1" : "like2"}
-            size={13}
-            color={colors.primary}
-          />
+
+          <Animated.View
+            style={[StyleSheet.absoluteFill, outlineStyle(liked)]}
+          >
+            <AntDesign
+              name="like2"
+              size={13}
+              color={colors.primary}
+            />
+          </Animated.View>
+
+          <Animated.View
+            style={[StyleSheet.absoluteFill, fillStyle(liked)]}
+          >
+            <AntDesign
+              name="like1"
+              size={13}
+              color={colors.primary}
+            />
+          </Animated.View>
+
           <Text
+            pl={2}
             fontSize={10}
             color={colors.primary}
           >

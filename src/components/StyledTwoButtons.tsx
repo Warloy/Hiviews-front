@@ -1,7 +1,7 @@
 
 
 import { TouchableOpacity } from "react-native";
-import { Stack, Text } from "native-base";
+import { Stack } from "native-base";
 import { Fontisto, Ionicons } from "@expo/vector-icons";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"
 
