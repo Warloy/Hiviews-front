@@ -56,133 +56,174 @@ const ButtonsUp = ({ review }: IReviewCard) => {
 
   return (
     <>
-      {(review.author === "Manuel" && before24hours(review.date)) &&
-        <>
+      <HStack
+        w={'100%'}
+      >
+        {(review.author === "Manuel" && before24hours(review.date)) &&
+          <>
+            <HStack
+              w={'20%'}
+              justifyContent={'center'}
+            >
+              <TouchableOpacity
+                onPress={() => console.info("Delete pressed")}
+              >
+                <HStack
+                  alignItems="center"
+                  pr={2}
+                >
+                  <AntDesign
+                    name="delete"
+                    size={14}
+                    color={colors.primary}
+                  />
+                </HStack>
+              </TouchableOpacity>
+            </HStack>
+            <HStack
+              w={'20%'}  
+              justifyContent={'center'}
+            >
+              <TouchableOpacity
+                onPress={() => console.info("Edit pressed")}
+              >
+                <HStack
+                  alignItems="center"
+                  pr={2}
+                >
+                  <Feather
+                    name="edit"
+                    size={14}
+                    color={colors.primary}
+                  />
+                </HStack>
+              </TouchableOpacity>
+            </HStack>
+          </>
+        }
+        
+        {!(review.author === "Manuel" && before24hours(review.date)) &&
+          <>
+            <HStack
+              w={'20%'}
+              justifyContent={'center'}
+            />
+            <HStack
+              w={'20%'}
+              justifyContent={'center'}
+            />
+          </>
+        }
+
+        <HStack
+          w={'20%'}  
+          justifyContent={'center'}
+        >
           <TouchableOpacity
-            onPress={() => console.info("Delete pressed")}
+            onPress={handleBookmarked}
           >
             <HStack
               alignItems="center"
+              space={1}
               pr={2}
             >
-              <AntDesign
-                name="delete"
-                size={14}
-                color={colors.primary}
-              />
+              <Animated.View
+                style={[StyleSheet.absoluteFill, outlineStyle(bookmarked)]}
+              >
+                <Ionicons
+                  name="ios-bookmark-outline"
+                  size={14}
+                  color={colors.primary}
+                />
+              </Animated.View>
+
+              <Animated.View
+                style={[StyleSheet.absoluteFill, fillStyle(bookmarked)]}
+              >
+                <Ionicons
+                  name="ios-bookmark"
+                  size={14}
+                  color={colors.tertiary}
+                />
+              </Animated.View>
+
+              <Text>
+                {" "}
+              </Text>
             </HStack>
           </TouchableOpacity>
+        </HStack>
 
+        <HStack
+          w={'20%'}  
+          justifyContent={'center'}
+        >
           <TouchableOpacity
-            onPress={() => console.info("Edit pressed")}
+            onPress={() => console.info("Comment pressed")}
           >
             <HStack
               alignItems="center"
-              pr={2}
+              space={1}
+              mr={1}
             >
-              <Feather
-                name="edit"
-                size={14}
+              <FontAwesome5
+                name="comment-alt"
+                size={12}
                 color={colors.primary}
               />
+              <Text
+                fontSize={10}
+                color={colors.primary}
+              >
+                {review.comments}
+              </Text>
             </HStack>
           </TouchableOpacity>
-        </>
-      }
-
-      <TouchableOpacity
-        onPress={handleBookmarked}
-      >
-        <HStack
-          alignItems="center"
-          space={1}
-          pr={2}
-        >
-          <Animated.View
-            style={[StyleSheet.absoluteFill, outlineStyle(bookmarked)]}
-          >
-            <Ionicons
-              name="ios-bookmark-outline"
-              size={14}
-              color={colors.primary}
-            />
-          </Animated.View>
-
-          <Animated.View
-            style={[StyleSheet.absoluteFill, fillStyle(bookmarked)]}
-          >
-            <Ionicons
-              name="ios-bookmark"
-              size={14}
-              color={colors.tertiary}
-            />
-          </Animated.View>
-
-          <Text>
-            {" "}
-          </Text>
         </HStack>
-      </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => console.info("Comment pressed")}
-      >
         <HStack
-          alignItems="center"
-          space={1}
-          mr={1}
+          w={'20%'}  
+          justifyContent={'center'}
         >
-          <FontAwesome5
-            name="comment-alt"
-            size={12}
-            color={colors.primary}
-          />
-          <Text
-            fontSize={10}
-            color={colors.primary}
+          <TouchableOpacity
+            onPress={handleLiked}
           >
-            {review.comments}
-          </Text>
+            <HStack
+              alignItems="center"
+              space={1}
+            >
+
+              <Animated.View
+                style={[StyleSheet.absoluteFill, outlineStyle(liked)]}
+              >
+                <AntDesign
+                  name="like2"
+                  size={13}
+                  color={colors.primary}
+                />
+              </Animated.View>
+
+              <Animated.View
+                style={[StyleSheet.absoluteFill, fillStyle(liked)]}
+              >
+                <AntDesign
+                  name="like1"
+                  size={13}
+                  color={colors.primary}
+                />
+              </Animated.View>
+
+              <Text
+                pl={2}
+                fontSize={10}
+                color={colors.primary}
+              >
+                {like ? review.likes + 1 : review.likes}
+              </Text>
+            </HStack>
+          </TouchableOpacity>
         </HStack>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={handleLiked}
-      >
-        <HStack
-          alignItems="center"
-          space={1}
-        >
-
-          <Animated.View
-            style={[StyleSheet.absoluteFill, outlineStyle(liked)]}
-          >
-            <AntDesign
-              name="like2"
-              size={13}
-              color={colors.primary}
-            />
-          </Animated.View>
-
-          <Animated.View
-            style={[StyleSheet.absoluteFill, fillStyle(liked)]}
-          >
-            <AntDesign
-              name="like1"
-              size={13}
-              color={colors.primary}
-            />
-          </Animated.View>
-
-          <Text
-            pl={2}
-            fontSize={10}
-            color={colors.primary}
-          >
-            {like ? review.likes + 1 : review.likes}
-          </Text>
-        </HStack>
-      </TouchableOpacity>
+      </HStack>
     </>
   );
 };
