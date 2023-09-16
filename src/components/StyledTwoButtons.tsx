@@ -1,15 +1,18 @@
 
 
-import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { Stack } from "native-base";
 import { Fontisto, Ionicons } from "@expo/vector-icons";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"
 
 import { colors } from "@/constants/Colors";
+import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
+import { changeTimelineView } from "@/features/config/configSlice";
 
 const StyledTwoButtons = () => {
-  const [state, setState] = useState(false);
+
+  const { timelineView } = useAppSelector(state => state.config);
+  const dispatch = useAppDispatch();
 
   const worldScale = useSharedValue(1);
   const worldTranslateX = useSharedValue(0);
@@ -37,7 +40,7 @@ const StyledTwoButtons = () => {
 
   const handlePress = () => {
 
-    if (state) {
+    if (timelineView) {
       worldTranslateX.value += 35;
       worldTranslateY.value -= 10;
       worldScale.value -= 0.4;
@@ -56,7 +59,8 @@ const StyledTwoButtons = () => {
       peopleScale.value -= 0.4;
     }
 
-    setState(value => !value);
+    dispatch(changeTimelineView());
+
   };
 
   return (
@@ -77,7 +81,7 @@ const StyledTwoButtons = () => {
             style={animatedWorldStyle}
           >
             <Fontisto
-              name={state ? "world" : "world-o"}
+              name={timelineView ? "world" : "world-o"}
               color={colors.secondary}
               size={20}
             />
@@ -86,11 +90,12 @@ const StyledTwoButtons = () => {
             style={animatedPeopleStyle}
           >
             <Ionicons
-              name={!state ? "people" : "people-outline"}
+              name={!timelineView ? "people" : "people-outline"}
               color={colors.secondary}
               size={24}
             />
           </Animated.View>
+
         </Stack>
       </Stack>
     </TouchableOpacity>

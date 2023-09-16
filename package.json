@@ -18,9 +18,12 @@
     "@hookform/resolvers": "^3.3.1",
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-community/datetimepicker": "7.2.0",
+    "@react-native-community/netinfo": "^9.4.1",
     "@react-navigation/native": "^6.0.2",
+    "@reduxjs/toolkit": "^1.9.5",
     "@rneui/base": "^4.0.0-rc.7",
     "@rneui/themed": "^4.0.0-rc.8",
+    "@types/react-redux": "^7.1.26",
     "axios": "^1.5.0",
     "expo": "~49.0.8",
     "expo-blur": "~12.4.1",
@@ -54,7 +57,6 @@
     "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.19.6",
     "react-redux": "^8.1.2",
-    "redux": "^4.2.1",
     "yup": "^1.2.0"
   },
   "devDependencies": {

@@ -8,17 +8,20 @@ import { SafeAreaView, useColorScheme } from "react-native";
 import { AuthProvider } from "@/context/AuthContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from "expo-router";
 
-/*
+
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(auth)/login",
+  initialRouteName: "(tabs)",
 };
-*/
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -55,15 +58,17 @@ function RootLayoutNav() {
     <NativeBaseProvider>
       <SafeAreaProvider>
         <AuthProvider>
-          <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-            <SafeAreaView style={{ flex: 1 }}>
-              <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              </Stack>
-            </SafeAreaView>
-          </ThemeProvider>
+          <Provider store={store}>
+            <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+              <SafeAreaView style={{ flex: 1 }}>
+                <Stack>
+                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                </Stack>
+              </SafeAreaView>
+            </ThemeProvider>
+          </Provider>
         </AuthProvider>
       </SafeAreaProvider>
     </NativeBaseProvider>
   );
-}
+};

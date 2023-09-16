@@ -14,7 +14,7 @@ export type TReview = {
   description: string;
   movie: string;
   image: ImageSourcePropType;
-  date: Date;
+  date: string;
   rate: number;
   likes: number;
   comments: number;

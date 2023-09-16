@@ -3,12 +3,11 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '@/components/Themed';
 import useAuthContext from '@/hooks/useAuthContext';
-import { useEffect } from 'react';
 
 export default function NotFoundScreen() {
 
   const {
-    state: { isAuthenticated, user }
+    state: { isAuthenticated }
   } = useAuthContext();
 
   const router = useRouter();

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { TouchableOpacity, useWindowDimensions } from "react-native";
+import { useRouter } from "expo-router";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Avatar, Button, Divider, HStack, Stack, Text, VStack } from "native-base";
 
 import { INavBarProps } from "@/interfaces/NavBar.Interface";
@@ -8,16 +10,19 @@ import { setSession } from "@/services/jwt";
 
 import SVGImg from "@/assets/images/logo.svg";
 import { colors } from "@/constants/Colors";
-import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
 import StyledModal from "./StyledModal";
-import useCustomToast from "@/hooks/useCustomToast";
 import StyledTwoButtons from "./StyledTwoButtons";
 
+import useCustomToast from "@/hooks/useCustomToast";
+import useConnection from "@/hooks/useConnection";
+
 const NavBar = ({ hidden = false }: INavBarProps) => {
+
   const { width } = useWindowDimensions();
   const router = useRouter();
-  const { showSuccessToast } = useCustomToast()
+  const { showSuccessToast } = useCustomToast();
+
+  const { isConnected, recognizeConnection } = useConnection();
 
   const {
     dispatch
@@ -42,6 +47,8 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
           minW={width}
           alignItems="center"
           justifyContent="space-between"
+          borderBottomWidth={0.2}
+          borderColor={colors.gray0}
         >
           <Stack>
             <TouchableOpacity
@@ -70,9 +77,18 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
             alignItems="center"
             space={2}
           >
-            <StyledTwoButtons 
-            
-            />
+            {isConnected ?
+              <StyledTwoButtons /> :
+              <TouchableOpacity
+                onPress={recognizeConnection}
+              >
+                <MaterialCommunityIcons
+                  name="connection"
+                  color={colors.gray2}
+                  size={20}
+                />
+              </TouchableOpacity>
+            }
 
             <TouchableOpacity
               onPress={() => console.log("Search Nav Button is pressed...")}

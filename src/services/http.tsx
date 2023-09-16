@@ -10,6 +10,15 @@ export const http = axios.create({
   }
 });
 
+export const getConnection = async () => {
+  const { data, status } = await http.get("/", {
+    validateStatus: (status) => {
+      return status < 500;
+    }
+  });
+  return { data, status };
+};
+
 export type TResponseData = {
   message?: string;
   error?: string;
