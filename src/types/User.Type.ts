@@ -33,7 +33,7 @@ export type TPasswordRecovery = {
 export type TPasswordRestore = {
   newPassword: string;
   newPasswordConfirm: string;
-}
+};
 
 export type TUser = {
   id: number | string;
@@ -45,3 +45,11 @@ export type TUser = {
   birthday: Date;
   avatar: ImageSourcePropType;
 };
+
+export type TUserCard = {
+  id: string;
+  name: string;
+  surname: string;
+  username: string;
+  avatar: ImageSourcePropType;
+}

@@ -45,10 +45,10 @@ const TabsLayout = () => {
       }
     },
     {
-      name: "post",
+      name: "new",
       options: {
-        href: "/post",
-        title: "post",
+        href: "/new",
+        title: "new",
         tabBarShowLabel: true,
         tabBarLabel: "",
         tabBarIcon: ({ color, size }: { color: string, size: number }) => (

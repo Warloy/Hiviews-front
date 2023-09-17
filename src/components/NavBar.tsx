@@ -30,7 +30,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
 
   const logoutButton = () => {
     console.info("Logout Button on NavBar is pressed...");
-    showSuccessToast("Esperamos verte pronto,¡hasta luego!")
+    showSuccessToast("Esperamos verte pronto, ¡hasta luego!")
     dispatch({ type: "LOGOUT" });
     setSession(null);
   };
@@ -52,7 +52,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
         >
           <Stack>
             <TouchableOpacity
-              onPress={() => router.push("/")}
+              onPress={() => router.push("/(tabs)/feed")}
             >
               <HStack
                 alignItems="flex-end"
@@ -115,7 +115,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
               <Avatar
                 alignSelf="center"
                 size="sm"
-                source={require("../assets/example/avatar16.jpg")}
+                source={require("@/assets/example/avatar15.jpg")}
                 bg={colors.secondary}
               >
                 GR
@@ -133,19 +133,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
               >
                 <TouchableOpacity
                   onPress={() => {
-                    router.push({
-                      pathname: "/",
-                      params: {
-                        id: 1,
-                        email: 'Durandal@gmail.com',
-                        name: 'Durandal',
-                        surname: 'Rossweise',
-                        username: 'Dudu',
-                        bio: 'No me pagan lo suficiente para acomodar el perfil.',
-                        birthday: new Date().toString(),
-                        avatar: require('../assets/example/avatar16.jpg')
-                      }
-                    });
+                    router.push(`/profile/10`);
                     setViewModal(false);
                   }}
                 >
