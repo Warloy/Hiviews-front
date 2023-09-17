@@ -1,28 +1,25 @@
 
 import { useState } from "react";
-import { Share, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { AirbnbRating } from "react-native-elements";
 import { Box, HStack, Image, ScrollView, Text, VStack, Stack } from "native-base";
 
 import { colors } from "@/constants/Colors";
-import useCustomToast from "@/hooks/useCustomToast";
 import { IReviewCard } from "@/interfaces/ReviewCard.Interface";
 import { before24hours, formatDate, getHour } from "@/utils";
 import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import Animated, { Extrapolate, SharedValue, interpolate, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
-import { StyleSheet } from "react-native";
 
 const ButtonsUp = ({ review }: IReviewCard) => {
 
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
-  const { showSuccessToast } = useCustomToast();
 
   const bookmarked = useSharedValue(0);
   const liked = useSharedValue(0);
 
-  const outlineStyle = (style: SharedValue<number>) => useAnimatedStyle(() => {
+  const OutlineStyle = (style: SharedValue<number>) => useAnimatedStyle(() => {
     return {
       transform: [
         {
@@ -32,7 +29,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
     };
   });
 
-  const fillStyle = (style: SharedValue<number>) => useAnimatedStyle(() => {
+  const FillStyle = (style: SharedValue<number>) => useAnimatedStyle(() => {
     return {
       transform: [
         {
@@ -51,7 +48,6 @@ const ButtonsUp = ({ review }: IReviewCard) => {
   const handleBookmarked = () => {
     bookmarked.value = withSpring(bookmarked.value ? 0 : 1);
     setBookmark(!bookmark);
-    //showSuccessToast(!bookmark ? "Añadido a favoritos" : "Eliminado de favoritos");
   };
 
   return (
@@ -128,7 +124,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
               pr={2}
             >
               <Animated.View
-                style={[StyleSheet.absoluteFill, outlineStyle(bookmarked)]}
+                style={[StyleSheet.absoluteFill, OutlineStyle(bookmarked)]}
               >
                 <Ionicons
                   name="ios-bookmark-outline"
@@ -138,7 +134,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
               </Animated.View>
 
               <Animated.View
-                style={[StyleSheet.absoluteFill, fillStyle(bookmarked)]}
+                style={[StyleSheet.absoluteFill, FillStyle(bookmarked)]}
               >
                 <Ionicons
                   name="ios-bookmark"
@@ -194,7 +190,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
             >
 
               <Animated.View
-                style={[StyleSheet.absoluteFill, outlineStyle(liked)]}
+                style={[StyleSheet.absoluteFill, OutlineStyle(liked)]}
               >
                 <AntDesign
                   name="like2"
@@ -204,7 +200,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
               </Animated.View>
 
               <Animated.View
-                style={[StyleSheet.absoluteFill, fillStyle(liked)]}
+                style={[StyleSheet.absoluteFill, FillStyle(liked)]}
               >
                 <AntDesign
                   name="like1"

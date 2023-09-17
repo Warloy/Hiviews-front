@@ -87,4 +87,4 @@ const comments: TComment[] = [
   },
 ]
 
-export default comments
+export default comments;
