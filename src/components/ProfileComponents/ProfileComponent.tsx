@@ -7,7 +7,6 @@ import { colors } from "@/constants/Colors";
 import { TUser } from "@/types/User.Type";
 import ProfileCard from '@/components/MainComponents/Profile/ProfileCard';
 import useLoading from '@/hooks/useLoading';
-import useCustomToast from '@/hooks/useCustomToast';
 import reviews from '@/static/reviewsData';
 import threads from '@/static/threadsData';
 import users from '@/static/userData';
@@ -19,7 +18,6 @@ interface IProfileHeaderProps {
 
 const ProfileComponent = ({ user, children }: IProfileHeaderProps) => {
     const router = useRouter()
-    const { showSuccessToast, showErrorToast } = useCustomToast();
     const [isFollowing, setIsFollowing] = useState(false);
     const userFound = user ? true : false;
     const activeUser = user ? user : {
