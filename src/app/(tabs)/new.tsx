@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
 import { Stack } from "expo-router";
 
-const PostPage = () => {
+const NewPostPage = () => {
   return (
     <Container
       hiddenNavBar={true}
@@ -12,4 +12,4 @@ const PostPage = () => {
   );
 };
 
-export default PostPage;
+export default NewPostPage;
