@@ -355,7 +355,7 @@ const ReviewCard = ({ review }: IReviewCard) => {
                 <TouchableOpacity
                   onPress={() => {
                     console.info(`${review.id} - ${review.author} author pressed`);
-                    router.push("/(tabs)/feed");
+                    router.push(`/profile/${review.id}`);
                   }}
                 >
                   <Text

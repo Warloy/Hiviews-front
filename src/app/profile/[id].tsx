@@ -2,33 +2,26 @@ import { useLocalSearchParams, Stack } from "expo-router";
 import Container from "@/components/Container";
 import ProfileComponent from "@/components/ProfileComponents/ProfileComponent";
 import { colors } from "@/constants/Colors";
+import useAuthContext from "@/hooks/useAuthContext";
 
-const RestorePasswordPage = () => {
+const ProfilePage = () => {
+
   const { id } = useLocalSearchParams();
-
-  const user = id=='10' ? {
-    id: 1,
-    email: 'gatocuantico@gmail.com',
-    name: 'Gato',
-    surname: 'Cuántico',
-    username: 'quantacat',
-    bio: 'Gato muy cuántico del mar de Quanta.',
-    birthday: new Date(),
-    avatar: require('@/assets/example/avatar15.jpg'),
-  } : null
+  const { state: { user } } = useAuthContext();
 
   return (
     <Container
-      hiddenNavBar={true}
+      hiddenNavBar
+      statusBarColor={colors.white}
+      statusBarStyle="dark-content"
     >
       <Stack.Screen options={{ headerShown: true, headerTitle: 'Ver perfil' }} />
-      { user ? 
-        <ProfileComponent user={user} /> : 
-        <ProfileComponent/>  
+      {id === user?.id?.toString() ?
+        <ProfileComponent user={user.user} /> :
+        <ProfileComponent />
       }
-      
     </Container>
   );
 };
 
-export default RestorePasswordPage;
+export default ProfilePage;

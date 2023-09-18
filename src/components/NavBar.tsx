@@ -25,8 +25,11 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
   const { isConnected, recognizeConnection } = useConnection();
 
   const {
-    dispatch
+    dispatch,
+    state,
   } = useAuthContext();
+
+  const user = state.user?.user;
 
   const logoutButton = () => {
     console.info("Logout Button on NavBar is pressed...");
@@ -115,10 +118,10 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
               <Avatar
                 alignSelf="center"
                 size="sm"
-                source={require("@/assets/example/avatar15.jpg")}
+                source={user?.avatar}
                 bg={colors.secondary}
               >
-                GR
+                {user?.name.charAt(0)}{user?.surname.charAt(0)}
               </Avatar>
             </TouchableOpacity>
 
@@ -133,7 +136,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
               >
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/profile/10`);
+                    router.push(`/profile/${user?.id}`);
                     setViewModal(false);
                   }}
                 >

@@ -1,21 +1,20 @@
 import axios from "axios";
 
-export const baseURL = "/api/v1";
+export const baseURL = process.env.EXPO_PUBLIC_API_URL;
 
 export const http = axios.create({
   baseURL,
   headers: {
     "Content-Type": "application/json",
     "Accept": "application/json"
+  },
+  validateStatus: (status) => {
+    return status < 500;
   }
 });
 
 export const getConnection = async () => {
-  const { data, status } = await http.get("/", {
-    validateStatus: (status) => {
-      return status < 500;
-    }
-  });
+  const { data, status } = await http.get("/");
   return { data, status };
 };
 
