@@ -30,6 +30,7 @@ const RegisterForm = () => {
   const [username, setUsername] = useState("");
 
   const [show, setShow] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const { isLoading, startLoading, stopLoading } = useLoading();
@@ -488,10 +489,10 @@ const RegisterForm = () => {
                       alignItems="center"
                     >
                       <TouchableOpacity
-                        onPress={() => setShow(!show)}
+                        onPress={() => setShowConfirm(!showConfirm)}
                       >
                         <Ionicons
-                          name={show ? "eye-outline" : "eye-off-outline"}
+                          name={showConfirm ? "eye-outline" : "eye-off-outline"}
                           size={20}
                           color={passwordColor(value, errors.passwordConfirm)}
                         />
@@ -559,7 +560,7 @@ const RegisterForm = () => {
         </ScrollView>
 
         <Divider mb={2} />
-        
+
         <HStack
           w="100%"
           justifyContent="center"

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Avatar, Button, Divider, FormControl, HStack, Icon, KeyboardAvoidingView, Stack, Text, TextArea, VStack, WarningOutlineIcon } from "native-base";
+import { Avatar, Divider, FormControl, HStack, Icon, KeyboardAvoidingView, Stack, Text, TextArea, VStack, WarningOutlineIcon } from "native-base";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -8,19 +8,19 @@ import { colors } from "@/constants/Colors";
 import { newPostSchema, newPostDefaultValues } from "@/schemas/NewPostSchema";
 import { newPostAdapter } from "@/adapters/PostAdapter";
 
-import useAuthContext from "@/hooks/useAuthContext";
 import useLoading from "@/hooks/useLoading";
 import useCustomToast from "@/hooks/useCustomToast";
 import { TReview } from "@/types/Post.Type";
 import { ImageBackground, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { pickImage } from "@/utils/functions";
+import { useAppSelector } from "@/hooks/useRedux";
 
 const NewPostComponent = () => {
 
-  const { state } = useAuthContext();
   const ref = useRef();
-  const user = state.user?.user;
+
+  const { user } = useAppSelector(state => state.user);
 
   const [textAreaHeight, setTextAreaHeight] = useState(30);
   const [imagePost, setImagePost] = useState<string | null>(null);

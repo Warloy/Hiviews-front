@@ -12,6 +12,7 @@ import threads from "@/static/threadsData";
 import users from "@/static/userData";
 import useAuthContext from "@/hooks/useAuthContext";
 import { cutText } from "@/utils";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface IProfileHeaderProps {
   user?: TUser | null;
@@ -23,9 +24,7 @@ const ProfileComponent = ({ user, children }: IProfileHeaderProps) => {
   const router = useRouter();
   const [isFollowing, setIsFollowing] = useState(false);
 
-  const { state } = useAuthContext();
-
-  const authUser = state.user;
+  const authUser = useAppSelector(state => state.user.user);
 
   const handleFollowToggle = () => {
     setIsFollowing(!isFollowing)
