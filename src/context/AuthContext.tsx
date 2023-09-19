@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IAuthAction, IAuthContextType, IAuthState, IAuthProviderProps } from "@/interfaces/AuthContext.Interface";
 import { setSession } from "@/services/jwt";
 import { SESSION_KEY } from "@/constants/Session";
+import { TUser } from "@/types/User.Type";
 
 export const AuthContext = createContext<IAuthContextType>({} as IAuthContextType)
 
@@ -81,12 +82,13 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     const initialize = async () => {
       try {
 
-        const [ID_KEY, TOKEN_KEY] = SESSION_KEY;
+        const [ID_KEY, TOKEN_KEY, USER_KEY] = SESSION_KEY;
 
         const accessID: string | null = await AsyncStorage.getItem(ID_KEY);
         const accessToken: string | null = await AsyncStorage.getItem(TOKEN_KEY);
+        const accessUser: TUser | null = JSON.parse(String(await AsyncStorage.getItem(USER_KEY)));
 
-        if (!accessID || !accessToken) {
+        if (!accessID || !accessToken || !accessUser) {
           setSession(null);
           dispatch({
             type: "INITIALIZE",
@@ -99,7 +101,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
           return;
         }
 
-        await setSession({ id: accessID, token: accessToken });
+        await setSession({ id: accessID, token: accessToken, user: accessUser });
 
         dispatch({
           type: "INITIALIZE",
@@ -107,8 +109,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
             isInitialized: true,
             isAuthenticated: true,
             user: {
+              ...accessUser,
               id: accessID,
-              token: accessToken
+              token: accessToken,
             }
           }
         });

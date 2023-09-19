@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import NetInfo from "@react-native-community/netinfo";
+import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 import { getConnection } from "@/services/http";
 
@@ -8,31 +8,25 @@ const useConnection = () => {
 
   const recognizeConnection = () => {
     NetInfo.fetch()
-      .then(state => {
+      .then((state) => {
         if (state.isConnected) {
-/*
+
           getConnection()
             .then((result) => {
-              let { data } = result;
-*/
-              console.group("Connection Details:");
-              console.log(`Connection type: ${state.type}`);
-              console.log(`Is connected? ${state.isConnected}`);
-              console.groupEnd();
+              let { status } = result;
 
-              setIsConnected(true);
-/*
+              infoState(state, status);
+
+              setIsConnected(typeof status === "number");
+
             })
             .catch((error) => {
-              console.error(error);
+              console.error(`getConnection error: ${error}`);
             })
-*/
+
         } else {
 
-          console.group("Connection Details:");
-          console.log(`Connection type: ${state.type}`);
-          console.log(`Is connected? ${state.isConnected}`);
-          console.groupEnd();
+          infoState(state)
 
           setIsConnected(false);
 
@@ -52,3 +46,11 @@ const useConnection = () => {
 };
 
 export default useConnection;
+
+const infoState = (state: NetInfoState, status?: number) => {
+  console.group("Connection Details:");
+  console.log(`Connection type: ${state.type}`);
+  status && console.log(`Status: ${status}`);
+  console.log(`Is connected? ${state.isConnected}`);
+  console.groupEnd();
+}

@@ -3,6 +3,7 @@ import { ImageSourcePropType } from "react-native";
 export type TSession = {
   id: string | number | null;
   token: string | number | null;
+  user: TUser | null;
 } | null;
 
 export type TLogin = {

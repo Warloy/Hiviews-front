@@ -40,6 +40,7 @@ export default function NotFoundScreen() {
           alignItems="center"
           bgColor={colors.white}
           space={2}
+          pt={5}
         >
           <Text
             mx={5}

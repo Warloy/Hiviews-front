@@ -26,7 +26,7 @@ import { setSession } from "@/services/jwt";
 import CardContainer from "../CardContainer";
 import StyledField from "../StyledField";
 import { emailColor, passwordColor } from "@/utils/colorValidators";
-import { TLogin } from "@/types/User.Type";
+import { TLogin, TUser } from "@/types/User.Type";
 import { loginAdapter } from "@/adapters/UserAdapter";
 
 const BottomChildren = ({ router }: { router: Router }) => {
@@ -112,12 +112,24 @@ const LoginForm = () => {
 
         console.log("User data:", loginAdapter(values));
 
+        const user: TUser = {
+          id: "1",
+          email: 'gatocuantico@gmail.com',
+          name: 'Gato',
+          surname: 'Cuántico',
+          username: 'quantacat',
+          bio: 'Gato muy cuántico del mar de Quanta.',
+          birthday: new Date(1997, 11, 12),
+          avatar: require('@/assets/example/avatar15.jpg')
+        }
+
         const USER_ID = 1, USER_TOKEN = "token";
 
         dispatch(({
           type: "LOGIN",
           payload: {
             user: {
+              user,
               id: USER_ID,
               token: USER_TOKEN
             }
@@ -126,7 +138,8 @@ const LoginForm = () => {
         
         await setSession({
           id: USER_ID,
-          token: USER_TOKEN
+          token: USER_TOKEN,
+          user
         });
 
         router.replace("/(tabs)/feed");

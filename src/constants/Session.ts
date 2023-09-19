@@ -1,1 +1,1 @@
-export const SESSION_KEY = ["@id", "@token"];
+export const SESSION_KEY = ["@id", "@token", "@user"];
