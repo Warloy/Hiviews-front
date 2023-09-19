@@ -4,6 +4,7 @@ import ProfileComponent from "@/components/ProfileComponents/ProfileComponent";
 import { colors } from "@/constants/Colors";
 import { useAppSelector } from "@/hooks/useRedux";
 
+
 const ProfilePage = () => {
 
   const { id } = useLocalSearchParams();
