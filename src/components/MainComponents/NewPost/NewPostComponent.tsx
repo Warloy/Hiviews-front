@@ -56,7 +56,7 @@ const NewPostComponent = () => {
   return (
     <KeyboardAvoidingView>
       <VStack
-        h="100%"
+        h="95%"
         justifyContent="space-between"
       >
 
@@ -206,36 +206,48 @@ const NewPostComponent = () => {
 
         </HStack>
 
+
         <HStack
           justifyContent="space-between"
           alignItems="center"
           bgColor={colors.white}
-          mx={2}
-          mb={2}
+          px={2}
+          pb={2}
+          w="100%"
         >
-          <Text
-            color={colors.gray1}
+          <Stack
+            w="70%"
           >
-            Tu post será visible por todos
-          </Text>
-
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-          >
-            <Stack
-              m={3}
-              mx={5}
-              borderRadius={10}
+            <Text
+              color={colors.gray1}
             >
-              <Text
-                bold
-                color={colors.primary}
-                fontSize="lg"
+              Tu post será visible por todos
+            </Text>
+          </Stack>
+
+          <Stack
+            w="30%"
+          >
+            <TouchableOpacity
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Stack
+                p={3}
+                px={5}
+                justifyContent="center"
+                alignItems="center"
+                borderRadius={10}
               >
-                Post
-              </Text>
-            </Stack>
-          </TouchableOpacity>
+                <Text
+                  bold
+                  color={colors.primary}
+                  fontSize="lg"
+                >
+                  Post
+                </Text>
+              </Stack>
+            </TouchableOpacity>
+          </Stack>
         </HStack>
       </VStack>
     </KeyboardAvoidingView>

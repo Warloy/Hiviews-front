@@ -5,6 +5,8 @@ const StyledModal = ({
   size = "md",
   header = undefined,
   closeButton = false,
+  bodyM = 2,
+  bodyP = 2,
   children,
   ...rest
 }: IStyledModalProps) => {
@@ -16,8 +18,14 @@ const StyledModal = ({
       <Modal.Content>
         {header && <Modal.Header>{header}</Modal.Header>}
         {closeButton && <Modal.CloseButton />}
-        <Modal.Header>
-          <Modal.Body>
+        <Modal.Header
+          m={bodyM}
+          p={bodyP}
+        >
+          <Modal.Body
+          m={bodyM}
+          p={bodyP}
+          >
             <Stack>
               {children}
             </Stack>

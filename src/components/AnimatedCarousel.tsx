@@ -15,7 +15,7 @@ const CONTAINER_SPACE = (width - CONTAINER_WIDTH) / 2;
 const BACKDROP_HEIGHT = height * 0.5;
 const SPACE = 10;
 
-const movies = movieData;
+const movies = movieData.slice(0, 5);
 
 const Backdrop = ({ scrollX }: { scrollX: Animated.Value }) => {
   return (
