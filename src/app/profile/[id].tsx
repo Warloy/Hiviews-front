@@ -4,6 +4,7 @@ import ProfileComponent from "@/components/ProfileComponents/ProfileComponent";
 import { colors } from "@/constants/Colors";
 import useAuthContext from "@/hooks/useAuthContext";
 
+
 const ProfilePage = () => {
 
   const { id } = useLocalSearchParams();

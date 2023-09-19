@@ -3,6 +3,7 @@ import { TThread } from "@/types/Post.Type"
 const threads: TThread[] = [
   {
     id: 1,
+    authorid: 1,
     author: "Simón Bolívar",
     description: "No puede ser que a la mejor película del mundo le estén bajando puntos porque existe Shrek 2.",
     category: {
@@ -17,6 +18,7 @@ const threads: TThread[] = [
   },
   {
     id: 2,
+    authorid: 2,
     author: "Manuel",
     description: "Los planos son tremendos.",
     category: {
@@ -31,6 +33,7 @@ const threads: TThread[] = [
   },
   {
     id: 3,
+    authorid: 3,
     author: "Anon",
     description: "No tiene comparativa. No hay discusión. En serio, no puedes llamarte un ser pensante y no estar de acuerdo con esto. Si piensas de esa manera, considera verte con un psicólogo o algo por el estilo. En serio.",
     category: {
@@ -45,6 +48,7 @@ const threads: TThread[] = [
   },
   {
     id: 4,
+    authorid: 10,
     author: "Luis",
     description: "[ This thread has been closed by the mod team ].",
     category: {

@@ -3,6 +3,7 @@ import { TReview } from '@/types/Post.Type'
 const reviewsData: TReview[] = [
   {
     id: 1,
+    authorid: 1,
     author: 'Simón Bolívar',
     description: 'La mejor película del mundo. Es literalmente un tiburón tornado, como dice el título.',
     movie: 'Sharknado (2013)',
@@ -28,6 +29,7 @@ const reviewsData: TReview[] = [
   },
   {
     id: 2,
+    authorid: 2,
     author: 'Manuel',
     description: 'Es cine. Scorsese celebra que por primera vez se reúne tanto talento en un mismo lugar, y no es a practicar lavandería.',
     movie: 'Inglorious Basterds (2009)',
@@ -49,6 +51,7 @@ const reviewsData: TReview[] = [
   },
   {
     id: 3,
+    authorid: 3,
     author: 'Luis Álvarez',
     description: 'Esta sí es la mejor película de todos los tiempos. Simón [ comment removed by the mod team ].',
     movie: 'Shrek 2 (2004)',
@@ -82,6 +85,7 @@ const reviewsData: TReview[] = [
   },
   {
     id: 4,
+    authorid: 4,
     author: 'Jesús Manzano',
     description: 'Es un perfecto ejemplo del adulto que todo niño quiere ser. Spoilers (no de la película): Llegando a adulto te das cuenta de que no quieres que tu vida tenga las mismas decisiones que las de un papel de Adam Sandler. Por lo menos es cómica.',
     movie: 'Grown Ups (2010)',
@@ -99,6 +103,7 @@ const reviewsData: TReview[] = [
   },
   {
     id: 5,
+    authorid: 5,
     author: 'Carlos Forlan',
     description: 'La vi con mis padres y les gustó. Yo me quedé dormido como con un tercio de las películas de Ghibli.',
     movie: 'Princess Mononoke (1997)',
@@ -120,6 +125,7 @@ const reviewsData: TReview[] = [
   },
   {
     id: 6,
+    authorid: 10,
     author: 'Wilder',
     description: 'no la he visto, pero dicen que es madre pelicula',
     movie: 'Death Stranding',
