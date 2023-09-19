@@ -1,7 +1,6 @@
 import { useLocalSearchParams, Stack } from "expo-router";
 import Container from "@/components/Container";
 import ProfileComponent from "@/components/ProfileComponents/ProfileComponent";
-import { colors } from "@/constants/Colors";
 
 const RestorePasswordPage = () => {
   const { id } = useLocalSearchParams();

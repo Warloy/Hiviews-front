@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { AirbnbRating } from "react-native-elements";
@@ -6,13 +6,13 @@ import { Box, HStack, Image, ScrollView, Text, VStack, Stack } from "native-base
 
 import { colors } from "@/constants/Colors";
 import { IReviewCard } from "@/interfaces/ReviewCard.Interface";
+import { TReview } from "@/types/Post.Type";
 import { before24hours, formatDate, getHour } from "@/utils";
 import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import Animated, { Extrapolate, SharedValue, interpolate, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 
 const ButtonsUp = ({ review }: IReviewCard) => {
 
-  const router = useRouter()
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
 
@@ -155,9 +155,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
           justifyContent={'center'}
         >
           <TouchableOpacity
-            onPress={() => {console.info("Comment pressed")
-              router.push(`/review/${review.id}`);
-            }}
+            onPress={() => console.info("Comment pressed")}
           >
             <HStack
               alignItems="center"
@@ -226,20 +224,19 @@ const ButtonsUp = ({ review }: IReviewCard) => {
   );
 };
 
-const ReviewCard = ({ review }: IReviewCard) => {
+const ReviewPost = ({ review, children } : { review: TReview, children: ReactNode}) => {
 
   const router = useRouter();
 
   return (
     <Box
-      m={2}
-      minH={100}
+      h={"100%"}
       shadow={1}
-      borderRadius={5}
       bgColor={colors.white}
     >
       <VStack>
         <HStack
+          mt={3}
           space={5}
           px={3}
           h={60}
@@ -264,7 +261,7 @@ const ReviewCard = ({ review }: IReviewCard) => {
             <TouchableOpacity
               onPress={() => {
                 console.info(`${review.id} - ${review.movie} movie pressed`);
-                router.push(`/review/${review.id}`);
+                router.push("/(tabs)/feed");
               }}
             >
               <Text
@@ -357,7 +354,7 @@ const ReviewCard = ({ review }: IReviewCard) => {
                 <TouchableOpacity
                   onPress={() => {
                     console.info(`${review.id} - ${review.author} author pressed`);
-                    router.push(`/profile/${review.authorid}`);
+                    router.push("/(tabs)/feed");
                   }}
                 >
                   <Text
@@ -398,8 +395,9 @@ const ReviewCard = ({ review }: IReviewCard) => {
           </HStack>
         </HStack>
       </VStack>
+      {children}
     </Box>
   );
 };
 
-export default ReviewCard;
+export default ReviewPost;
