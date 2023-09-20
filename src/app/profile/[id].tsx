@@ -2,12 +2,12 @@ import { useLocalSearchParams, Stack } from "expo-router";
 import Container from "@/components/Container";
 import ProfileComponent from "@/components/ProfileComponents/ProfileComponent";
 import { colors } from "@/constants/Colors";
-import useAuthContext from "@/hooks/useAuthContext";
+import { useAppSelector } from "@/hooks/useRedux";
 
 
 const ProfilePage = () => {
   const { id } = useLocalSearchParams();
-  const { state: { user } } = useAuthContext();
+  const { user } = useAppSelector(state => state.user);
 
   return (
     <Container
@@ -15,9 +15,9 @@ const ProfilePage = () => {
       statusBarColor={colors.white}
       statusBarStyle="dark-content"
     >
-      <Stack.Screen options={{ headerShown: true, headerTitle: 'Ver perfil' }} />
+      <Stack.Screen options={{ headerShown: true, headerTitle: 'Ver perfil' }} />      
       {id === user?.id?.toString() ?
-        <ProfileComponent user={user.user} /> :
+        <ProfileComponent user={user} /> :
         <ProfileComponent />
       }
     </Container>

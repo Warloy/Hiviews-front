@@ -20,7 +20,8 @@ export const pickImage = async () => {
   });
 
   if (result.canceled) {
-    throw new Error("Lo lamento, pero la subida de imagen fue cancelada...");
+    console.error("Lo lamento, pero la subida de imagen fue cancelada...");
+    return null;
   }
 
   return result.assets[0].uri;

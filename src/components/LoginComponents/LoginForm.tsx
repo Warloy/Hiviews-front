@@ -21,6 +21,7 @@ import { colors } from "@/constants/Colors";
 import useAuthContext from "@/hooks/useAuthContext";
 import useLoading from "@/hooks/useLoading";
 import useCustomToast from "@/hooks/useCustomToast";
+
 import { loginDefaultValues, loginSchema } from "@/schemas/LoginSchema";
 import { setSession } from "@/services/jwt";
 import CardContainer from "../CardContainer";
@@ -28,6 +29,8 @@ import StyledField from "../StyledField";
 import { emailColor, passwordColor } from "@/utils/colorValidators";
 import { TLogin, TUser } from "@/types/User.Type";
 import { loginAdapter } from "@/adapters/UserAdapter";
+import { login } from "@/features/user/userSlice";
+import { useAppDispatch } from "@/hooks/useRedux";
 
 const BottomChildren = ({ router }: { router: Router }) => {
   return (
@@ -76,6 +79,8 @@ const LoginForm = () => {
 
   const [show, setShow] = useState(false);
 
+  const appDispatch = useAppDispatch();
+
   const {
     dispatch
   } = useAuthContext();
@@ -119,30 +124,30 @@ const LoginForm = () => {
           surname: 'Cuántico',
           username: 'quantacat',
           bio: 'Gato muy cuántico del mar de Quanta.',
-          birthday: new Date(1997, 11, 12),
+          birthday: new Date(1997, 11, 12).toISOString(),
           avatar: require('@/assets/example/avatar15.jpg')
         }
 
-        const USER_ID = 1, USER_TOKEN = "token";
+        const USER_ID = "1", USER_TOKEN = "token";
 
         dispatch(({
           type: "LOGIN",
           payload: {
             user: {
-              user,
               id: USER_ID,
               token: USER_TOKEN
             }
           }
         }));
-        
+
         await setSession({
           id: USER_ID,
-          token: USER_TOKEN,
-          user
+          token: USER_TOKEN
         });
 
-        router.replace("/(tabs)/feed");
+        appDispatch(login(user));
+
+        router.push("/(tabs)/feed");
 
       }
 

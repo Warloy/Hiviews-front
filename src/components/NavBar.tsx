@@ -15,6 +15,8 @@ import StyledTwoButtons from "./StyledTwoButtons";
 
 import useCustomToast from "@/hooks/useCustomToast";
 import useConnection from "@/hooks/useConnection";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import { logout } from "@/features/user/userSlice";
 
 const NavBar = ({ hidden = false }: INavBarProps) => {
 
@@ -22,18 +24,20 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
   const router = useRouter();
   const { showSuccessToast } = useCustomToast();
 
+  const appDispatch = useAppDispatch();
+
   const { isConnected, recognizeConnection } = useConnection();
 
   const {
-    dispatch,
-    state,
+    dispatch
   } = useAuthContext();
 
-  const user = state.user?.user;
+  const { user } = useAppSelector(state => state.user);
 
   const logoutButton = () => {
     console.info("Logout Button on NavBar is pressed...");
-    showSuccessToast("Esperamos verte pronto, ¡hasta luego!")
+    showSuccessToast("Esperamos verte pronto, ¡hasta luego!");
+    appDispatch(logout());
     dispatch({ type: "LOGOUT" });
     setSession(null);
   };

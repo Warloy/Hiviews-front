@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Avatar, Button, Divider, FormControl, HStack, Icon, KeyboardAvoidingView, Stack, Text, TextArea, VStack, WarningOutlineIcon } from "native-base";
+import { Avatar, Divider, FormControl, HStack, Icon, KeyboardAvoidingView, Stack, Text, TextArea, VStack, WarningOutlineIcon } from "native-base";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -8,19 +8,19 @@ import { colors } from "@/constants/Colors";
 import { newPostSchema, newPostDefaultValues } from "@/schemas/NewPostSchema";
 import { newPostAdapter } from "@/adapters/PostAdapter";
 
-import useAuthContext from "@/hooks/useAuthContext";
 import useLoading from "@/hooks/useLoading";
 import useCustomToast from "@/hooks/useCustomToast";
 import { TReview } from "@/types/Post.Type";
 import { ImageBackground, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { pickImage } from "@/utils/functions";
+import { useAppSelector } from "@/hooks/useRedux";
 
 const NewPostComponent = () => {
 
-  const { state } = useAuthContext();
   const ref = useRef();
-  const user = state.user?.user;
+
+  const { user } = useAppSelector(state => state.user);
 
   const [textAreaHeight, setTextAreaHeight] = useState(30);
   const [imagePost, setImagePost] = useState<string | null>(null);
@@ -56,7 +56,7 @@ const NewPostComponent = () => {
   return (
     <KeyboardAvoidingView>
       <VStack
-        h="100%"
+        h="95%"
         justifyContent="space-between"
       >
 
@@ -206,36 +206,48 @@ const NewPostComponent = () => {
 
         </HStack>
 
+
         <HStack
           justifyContent="space-between"
           alignItems="center"
           bgColor={colors.white}
-          mx={2}
-          mb={2}
+          px={2}
+          pb={2}
+          w="100%"
         >
-          <Text
-            color={colors.gray1}
+          <Stack
+            w="70%"
           >
-            Tu post será visible por todos
-          </Text>
-
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-          >
-            <Stack
-              m={3}
-              mx={5}
-              borderRadius={10}
+            <Text
+              color={colors.gray1}
             >
-              <Text
-                bold
-                color={colors.primary}
-                fontSize="lg"
+              Tu post será visible por todos
+            </Text>
+          </Stack>
+
+          <Stack
+            w="30%"
+          >
+            <TouchableOpacity
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Stack
+                p={3}
+                px={5}
+                justifyContent="center"
+                alignItems="center"
+                borderRadius={10}
               >
-                Post
-              </Text>
-            </Stack>
-          </TouchableOpacity>
+                <Text
+                  bold
+                  color={colors.primary}
+                  fontSize="lg"
+                >
+                  Post
+                </Text>
+              </Stack>
+            </TouchableOpacity>
+          </Stack>
         </HStack>
       </VStack>
     </KeyboardAvoidingView>
