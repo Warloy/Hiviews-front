@@ -1,9 +1,10 @@
 import React from "react"
 import { useRouter } from "expo-router"
 import { TouchableOpacity } from "react-native"
-import { Box, HStack, VStack, Image, Text, ScrollView, Stack, Divider } from "native-base"
+import { Box, HStack, VStack, Image, Text, Divider } from "native-base"
+import { AntDesign, Feather } from "@expo/vector-icons"
 
-import { AntDesign, Feather, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
+import useAuthContext from "@/hooks/useAuthContext";
 import { TComment } from "@/types/Post.Type"
 import { before24hours, formatDate, getHour } from "@/utils"
 import { colors } from "@/constants/Colors";
@@ -14,12 +15,12 @@ interface ICommentContainerProps {
 
 const CommentCard = ({ comment }: ICommentContainerProps) => {
   const router = useRouter()
+  const { state: { user } } = useAuthContext();
   return (
     <Box
       m={2}
       w={"95%"}
       bgColor={colors.white}
-      py={2}
     >     
       <VStack
         space={3}
@@ -39,7 +40,7 @@ const CommentCard = ({ comment }: ICommentContainerProps) => {
             <TouchableOpacity
                 onPress={() => {
                 console.log(`Press profile picture of ${comment.author}`)
-                router.push(`/profile/${comment.authorid}`)
+                router.push(`/profile/${comment.authorID}`)
               }}
             >
               <Image
@@ -57,23 +58,23 @@ const CommentCard = ({ comment }: ICommentContainerProps) => {
             justifyContent="flex-start"
             pr={2}
           >
-            <HStack
-              space={2}
-              alignItems={"flex-end"}
+            <VStack
+              alignItems={"flex-start"}
             >
               <TouchableOpacity
-                onPress={() => {
-                  console.log(`Press profile name of ${comment.author}`)
-                  router.push(`/profile/${comment.authorid}`)
-                }}
-              >
-                <Text
-                  fontSize={"md"}
-                  bold
-                  color={colors.text}
+                  onPress={() => {
+                    console.log(`Press profile name of ${comment.author}`)
+                    router.push(`/profile/${comment.authorID}`)
+                  }}
                 >
-                  {comment.author}
-                </Text>
+                  <Text
+                    fontSize={"md"}
+                    bold
+                    color={colors.text}
+                    flexWrap={"wrap"}
+                  >
+                    {comment.author}
+                  </Text>
               </TouchableOpacity>
               <Text
                 fontSize={10}
@@ -82,69 +83,50 @@ const CommentCard = ({ comment }: ICommentContainerProps) => {
               >
                 {getHour(comment.date)} {formatDate(comment.date)}
               </Text>
-            </HStack>
+            </VStack>
             <VStack
-              w={"95%"}
-              pr={1}
+              w={"100%"}
+              my={1}
+              pr={2}
             >
               <Text
                 fontSize="sm"
-                color={colors.text}
+                lineHeight={16}
+                color={colors.gray2}
               >
                 {comment.content}
               </Text>
             </VStack>
-            <HStack 
-              justifyContent="flex-end"
-              alignItems="flex-end"
-              w={"100%"}
-              space={3}
-              py={1}
-              px={5}
-            >
-              <TouchableOpacity
-                onPress={() => console.log("Edit comment pressed")}
-              >
-                <HStack
-                  alignItems="center"
-                  space={1}
-                >
-                  <Text
-                    fontSize="xs"
-                    color={colors.text}
-                  >
-                    {"editar"}
-                  </Text>
-                  <Feather
-                    name="edit"
-                    size={14}
-                    color={colors.primary}
-                  />
-                </HStack>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => console.log("Delete comment pressed")}
-              >
-                <HStack
-                  alignItems="center"
-                  space={1}
-                >
-                  <Text
-                    fontSize="xs"
-                    color={colors.text}
-                  >
-                    {"eliminar"}
-                  </Text>
-                  <AntDesign
-                    name="delete"
-                      size={14}
-                      color={colors.primary}
-                  />
-                </HStack>
-              </TouchableOpacity>
-            </HStack>
           </VStack>
-        </HStack>    
+        </HStack>
+        { user?.id == comment.authorID &&
+          <HStack 
+            justifyContent="space-between"
+            w={"35%"}
+            space={5}
+            px={7}
+            pb={1}
+          >
+            <TouchableOpacity
+              onPress={() => console.log("Delete comment pressed")}
+            >
+              <AntDesign
+                name="delete"
+                  size={14}
+                  color={colors.primary}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => console.log("Edit comment pressed")}
+            >
+              <Feather
+                name="edit"
+                size={14}
+                color={colors.primary}
+              />
+            </TouchableOpacity>
+          </HStack>
+        }
       </VStack>
       <Divider/>
     </Box>

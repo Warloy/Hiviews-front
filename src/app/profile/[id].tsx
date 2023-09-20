@@ -6,7 +6,6 @@ import useAuthContext from "@/hooks/useAuthContext";
 
 
 const ProfilePage = () => {
-
   const { id } = useLocalSearchParams();
   const { state: { user } } = useAuthContext();
 

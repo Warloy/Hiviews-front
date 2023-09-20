@@ -314,17 +314,23 @@ const ReviewPost = ({ review, children } : { review: TReview, children: ReactNod
             space={2}
           >
             <Stack
-              py={2}
+              pt={4}
               alignSelf="center"
-              w="85%"
+              w="90%"
+              h={"120px"}
             >
-              <Text
-                fontSize="xs"
-                lineHeight={13}
-                color={colors.gray5}
+              <ScrollView
+                showsVerticalScrollIndicator
+                persistentScrollbar
               >
-                {review.description}
-              </Text>
+                <Text
+                  fontSize="sm"
+                  lineHeight={14}
+                  color={colors.gray5}
+                >
+                  {review.description}
+                </Text>
+              </ScrollView>
             </Stack>
 
             <VStack
@@ -358,6 +364,7 @@ const ReviewPost = ({ review, children } : { review: TReview, children: ReactNod
                   }}
                 >
                   <Text
+                    bold
                     fontSize="xs"
                     color={colors.gray5}
                     textAlign="right"

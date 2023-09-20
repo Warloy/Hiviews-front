@@ -2,7 +2,7 @@ import { ImageSourcePropType } from "react-native";
 
 export type TComment = {
   id: string | number;
-  authorid: string | number;
+  authorID: string | number;
   author: string;
   authAvatar: ImageSourcePropType;
   content: string;
@@ -11,7 +11,7 @@ export type TComment = {
 
 export type TReview = {
   id: string | number;
-  authorid: string | number;
+  authorID: string | number;
   author: string;
   description: string;
   movie: string;
@@ -31,12 +31,12 @@ export type TMovie = {
 
 export type TThread = {
   id: string | number;
-  authorid: string | number;
+  authorID: string | number;
   author: string;
   description: string;
   category: TCategory;
   topic: string;
-  picture: ImageSourcePropType;
+  picture: ImageSourcePropType | null;
   date: Date;
   likes: number;
   comments: number;

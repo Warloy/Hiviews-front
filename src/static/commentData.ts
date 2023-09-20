@@ -3,7 +3,7 @@ import { TComment } from "@/types/Post.Type"
 const comments: TComment[] = [
   {
     id: 1,
-    authorid: 1,
+    authorID: 1,
     author: 'Gato Cuántico',
     authAvatar: require('../assets/example/avatar12.jpg'),
     content: 'Muy bueno el post pero que feo el autor.',
@@ -11,7 +11,7 @@ const comments: TComment[] = [
   },
   {
     id: 2,
-    authorid: 2,
+    authorID: 2,
     author: 'Hijoe Batman',
     authAvatar: require('../assets/example/avatar02.jpg'),
     content: 'La trilogía de Batman le gana.',
@@ -19,7 +19,7 @@ const comments: TComment[] = [
   },
   {
     id: 3,
-    authorid: 3,
+    authorID: 3,
     author: 'Programador Blanco99999',
     authAvatar: require('../assets/example/avatar03.jpg'),
     content: 'No se que vi pero en un punto de la peli se vuelven piedras.',
@@ -27,7 +27,7 @@ const comments: TComment[] = [
   },
   {
     id: 4,
-    authorid: 4,
+    authorID: 4,
     author: 'Wilburn',
     authAvatar: require('../assets/example/avatar01.jpg'),
     content: 'Oz noooOoO, porque una peli de iguanas.',
@@ -35,7 +35,7 @@ const comments: TComment[] = [
   },
   {
     id: 5,
-    authorid: 5,
+    authorID: 5,
     author: 'Personalidad Wachu',
     authAvatar: require('../assets/example/avatar08.jpg'),
     content: 'Flash no tiene buen cgi.',
@@ -43,7 +43,7 @@ const comments: TComment[] = [
   },
   {
     id: 6,
-    authorid: 6,
+    authorID: 6,
     author: 'Wakanda 4ever',
     authAvatar: require('../assets/example/avatar06.jpg'),
     content: 'Honestamente no me gusto, menos mal era pirata.',
@@ -51,7 +51,7 @@ const comments: TComment[] = [
   },
   {
     id: 7,
-    authorid: 7,
+    authorID: 7,
     author: 'Gwen Stacy64',
     authAvatar: require('../assets/example/avatar10.jpg'),
     content: 'Spider verse es mejor en ingles, en la otra version dicen mano.',
@@ -59,7 +59,7 @@ const comments: TComment[] = [
   },
   {
     id: 8,
-    authorid: 8,
+    authorID: 8,
     author: 'Goku 12',
     authAvatar: require('../assets/example/avatar02.jpg'),
     content: 'Los pinguinos de madagascar son GOD oyo.',
@@ -67,7 +67,7 @@ const comments: TComment[] = [
   },
   {
     id: 9,
-    authorid: 9,
+    authorID: 9,
     author: 'Camaron rosa',
     authAvatar: require('../assets/example/avatar11.jpg'),
     content: 'omg lmao.',
@@ -75,7 +75,7 @@ const comments: TComment[] = [
   },
   {
     id: 10,
-    authorid: 10,
+    authorID: 10,
     author: 'Batman Original',
     authAvatar: require('../assets/example/avatar02.jpg'),
     content: 'El batman de Pattison es muy edgy wtf, aunque esta chulita.',
@@ -83,7 +83,7 @@ const comments: TComment[] = [
   },
   {
     id: 11,
-    authorid: 11,
+    authorID: 11,
     author: 'Simon Bolivar',
     authAvatar: require('../assets/example/avatar09.jpg'),
     content: 'No me gusto no la vean.',
@@ -91,7 +91,7 @@ const comments: TComment[] = [
   },
   {
     id: 12,
-    authorid: 12,
+    authorID: 12,
     author: 'Programador Front',
     authAvatar: require('../assets/example/avatar02.jpg'),
     content: 'La pelicula era de hackers y salieron aliens al final ke.',
