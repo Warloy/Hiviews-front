@@ -241,6 +241,7 @@ const ReviewCard = ({ review }: IReviewCard) => {
       <VStack>
         <HStack
           space={5}
+          mt={2}
           px={3}
           h={60}
           alignItems="center"

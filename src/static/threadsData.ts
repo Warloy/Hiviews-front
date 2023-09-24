@@ -12,7 +12,7 @@ const threads: TThread[] = [
     },
     topic: "Es injusto para Sharknado",
     picture: require("../assets/example/movie06.jpg"),
-    date: new Date(),
+    date: new Date('2023-05-30T14:36:15.684Z').toISOString(),
     likes: 33,
     comments: 2
   },
@@ -27,7 +27,7 @@ const threads: TThread[] = [
     },
     topic: "Pero es que los planos",
     picture: require("../assets/example/movie07.jpg"),
-    date: new Date(),
+    date: new Date().toISOString(),
     likes: 99,
     comments: 1
   },
@@ -42,7 +42,7 @@ const threads: TThread[] = [
     },
     topic: "Definitivamente la mejor imagen de perfil de la app es esta.",
     picture: require("../assets/example/avatar06.jpg"),
-    date: new Date(),
+    date: new Date('2023-05-30T14:36:15.684Z').toISOString(),
     likes: 99,
     comments: 1
   },
@@ -57,7 +57,7 @@ const threads: TThread[] = [
     },
     topic: "[ Title removed by the mod team ]",
     picture: null,
-    date: new Date(),
+    date: new Date('2023-05-30T14:36:15.684Z').toISOString(),
     likes: 99,
     comments: 1
   },

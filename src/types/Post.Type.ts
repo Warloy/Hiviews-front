@@ -37,7 +37,7 @@ export type TThread = {
   category: TCategory;
   topic: string;
   picture: ImageSourcePropType | null;
-  date: Date;
+  date: string;
   likes: number;
   comments: number;
 }
