@@ -327,6 +327,7 @@ const ReviewPost = ({ review, children } : { review: TReview, children: ReactNod
                   fontSize="sm"
                   lineHeight={14}
                   color={colors.gray5}
+                  textAlign={"justify"}
                 >
                   {review.description}
                 </Text>

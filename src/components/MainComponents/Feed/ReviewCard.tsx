@@ -326,6 +326,7 @@ const ReviewCard = ({ review }: IReviewCard) => {
                 fontSize="xs"
                 lineHeight={13}
                 color={colors.gray5}
+                textAlign={"justify"}
               >
                 {review.description}
               </Text>

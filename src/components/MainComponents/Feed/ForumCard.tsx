@@ -150,7 +150,7 @@ const ButtonsUp = ({ thread }: IForumCard) => {
         >
           <TouchableOpacity
             onPress={() => {console.info("Comment pressed")
-              router.push(`/review/${thread.id}`);
+              router.push(`/thread/${thread.id}`);
             }}
           >
             <HStack
@@ -282,7 +282,7 @@ const ForumCard = ({ thread }: IForumCard) => {
             <TouchableOpacity
               onPress={() => {
                 console.info(`${thread.id} - ${thread.topic} topic pressed`);
-                router.push(`/review/${thread.id}`);
+                router.push(`/thread/${thread.id}`);
               }}
             >
               <Text
@@ -341,6 +341,7 @@ const ForumCard = ({ thread }: IForumCard) => {
                 fontSize="xs"
                 lineHeight={13}
                 color={colors.gray5}
+                textAlign={"justify"}
               >
                 {thread.description}
               </Text>

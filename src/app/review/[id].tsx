@@ -6,7 +6,7 @@ import CommentSection from "@/components/MainComponents/Comment/CommentSection";
 import comments from "@/static/commentData";
 
 
-const ProfilePage = () => {
+const ReviewPage = () => {
   const { id } = useLocalSearchParams();
   const review = id=="6" ? {id: 6,
     authorID: 10,
@@ -52,4 +52,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default ReviewPage;
