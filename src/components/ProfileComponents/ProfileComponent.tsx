@@ -13,6 +13,9 @@ import users from "@/static/userData";
 import useAuthContext from "@/hooks/useAuthContext";
 import { cutText } from "@/utils";
 import { useAppSelector } from "@/hooks/useRedux";
+import ThreadList from "../MainComponents/Generic/ThreadList";
+import ReviewList from "../MainComponents/Generic/ReviewList";
+import UserList from "../MainComponents/Generic/UserList";
 
 interface IProfileHeaderProps {
   user?: TUser | null;
@@ -125,9 +128,6 @@ const ProfileComponent = ({ user, children }: IProfileHeaderProps) => {
             <ProfileTabs
               user={user}
             />
-            <ProfileCard
-              user={user}
-            />
           </> :
           <>
             <Stack
@@ -168,33 +168,38 @@ const ProfileComponent = ({ user, children }: IProfileHeaderProps) => {
 const Tabs = ({ index }: { index: number }) => {
   if (index === 1) {
     return (
-      <Text>
-        Hilos
-      </Text>
+      <ReviewList
+        reviews={reviews}
+        listHeight="89%"
+      />
     );
   } else if (index === 2) {
     return (
-      <Text>
-        Reseñas
-      </Text>
+      <ThreadList 
+        threads={threads}
+        listHeight="89%"
+      />
     );
   } else if (index === 3) {
     return (
-      <Text>
-        Seguidores
-      </Text>
+      <UserList
+        users={users}
+        listHeight="89%"
+      />
     );
   } else if (index === 4) {
     return (
-      <Text>
-        Seguidos
-      </Text>
+      <UserList
+        users={users}
+        listHeight="89%"
+      />
     );
   } else {
     return (
-      <Text>
-        Favoritos
-      </Text>
+      <ReviewList
+        reviews={reviews}
+        listHeight="89%"
+      />
     );
   }
 };
@@ -235,7 +240,7 @@ const ProfileTabs = ({ user }: { user: TUser }) => {
                 color: colors.gray3
               }}
             >
-              Hilos
+              Reseñas
             </Text>
           </VStack>
         </TouchableOpacity>
@@ -261,7 +266,7 @@ const ProfileTabs = ({ user }: { user: TUser }) => {
                 color: colors.gray3
               }}
             >
-              Reseñas
+              Hilos
             </Text>
           </VStack>
         </TouchableOpacity>

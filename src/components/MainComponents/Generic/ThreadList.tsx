@@ -1,20 +1,17 @@
 import React, { useCallback, useState } from "react"
 import { ActivityIndicator, RefreshControl } from "react-native"
-import { FlatList, Stack, Divider, VStack } from "native-base"
+import { FlatList, Stack } from "native-base"
 
-import { Ionicons } from "@expo/vector-icons"
 import { colors } from "@/constants/Colors";
-import StyledField from "@/components/StyledField"
+import { TThread } from "@/types/Post.Type"
+import ForumCard from "@/components/MainComponents/Feed/ForumCard"
 
-import { TComment } from "@/types/Post.Type"
-import CommentCard from "./CommentCard"
-
-interface ICommentSectionProps {    
-  comments?: TComment[], 
+interface IThreadListProps {
+  threads?: TThread[], 
   listHeight?: string
 }
 
-const CommentSection = ({ comments, listHeight="78%" }: ICommentSectionProps) => {
+const ThreadList = ({ threads, listHeight="78%" }: IThreadListProps) => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [isNextPage, setIsNextPage] = useState(false)
@@ -31,10 +28,10 @@ const CommentSection = ({ comments, listHeight="78%" }: ICommentSectionProps) =>
     setIsNextPage(true)
   }, [])
 
-  const renderItem = ({ item }: { item: TComment }) => {
+  const renderItem = ({ item }: { item: TThread }) => {
     return (
-      <CommentCard
-        comment={item}
+      <ForumCard
+        thread={item}
       />
     )
   }
@@ -56,33 +53,9 @@ const CommentSection = ({ comments, listHeight="78%" }: ICommentSectionProps) =>
 
   return(
     <Stack
-      mb={2}
+      mb={7}
       alignItems='center'
     >
-      <VStack
-        w={'90%'}
-        pb={2}
-      >
-        <Divider />
-        <StyledField
-          placeholder='Publicar un comentario'
-          borderColor={colors.primary}
-          InputRightElement={
-            <Stack
-              pr={2}
-              h='full'
-              justifyContent='center'
-              alignItems='center'
-            >
-              <Ionicons
-              name='send'
-              size={20}
-              color={colors.primary}
-              />
-            </Stack>
-          }
-        />
-      </VStack>
       <FlatList
         refreshControl={
           <RefreshControl
@@ -91,7 +64,7 @@ const CommentSection = ({ comments, listHeight="78%" }: ICommentSectionProps) =>
           />
         }
         showsVerticalScrollIndicator={false}
-        data={comments}
+        data={threads}
         px={3}
         maxH={listHeight}
         keyExtractor={(item, key) => `${item?.id}${new Date().toISOString()}${key}`}
@@ -102,4 +75,4 @@ const CommentSection = ({ comments, listHeight="78%" }: ICommentSectionProps) =>
     </Stack>
   )
 }
-export default CommentSection
+export default ThreadList

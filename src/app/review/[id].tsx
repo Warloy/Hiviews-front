@@ -44,7 +44,7 @@ const ReviewPage = () => {
       <Stack.Screen options={{ headerShown: true, headerTitle: "Review" }} />
       { review ?
         <ReviewPost review={review}>
-          <CommentSection comments={comments} listHeight="55%"/>
+          <CommentSection comments={comments} listHeight="70%"/>
         </ReviewPost> :
         <></>
       }
