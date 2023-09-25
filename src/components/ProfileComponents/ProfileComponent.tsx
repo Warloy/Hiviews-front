@@ -5,7 +5,6 @@ import { Stack, Text, HStack, VStack, Divider, Avatar } from "native-base";
 
 import { colors } from "@/constants/Colors";
 import { TUser } from "@/types/User.Type";
-import ProfileCard from "@/components/MainComponents/Profile/ProfileCard";
 import useLoading from "@/hooks/useLoading";
 import reviews from "@/static/reviewsData";
 import threads from "@/static/threadsData";

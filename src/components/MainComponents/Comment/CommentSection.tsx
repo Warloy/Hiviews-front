@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react"
-import { ActivityIndicator, RefreshControl } from "react-native"
+import { ActivityIndicator, RefreshControl, TouchableOpacity } from "react-native"
 import { FlatList, Stack, Divider, VStack } from "native-base"
 
 import { Ionicons } from "@expo/vector-icons"
@@ -74,11 +74,17 @@ const CommentSection = ({ comments, listHeight="78%" }: ICommentSectionProps) =>
               justifyContent='center'
               alignItems='center'
             >
-              <Ionicons
-              name='send'
-              size={20}
-              color={colors.primary}
-              />
+              <TouchableOpacity
+                onPress={()=>{
+                  console.log("Post comment pressed")
+                }}
+              >
+                <Ionicons
+                  name='send'
+                  size={20}
+                  color={colors.primary}
+                />
+              </TouchableOpacity>
             </Stack>
           }
         />
