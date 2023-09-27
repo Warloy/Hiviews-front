@@ -41,7 +41,7 @@ const NewReviewComponent = () => {
   const [tagModal, setTagModal] = useState(false);
 
   const [searchTags, setSearchTags] = useState<TTag[]>(tagsData);
-  const [filteredTags, setFilteredTags] = useState("")
+  const [filteredTags, setFilteredTags] = useState("");
 
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { showErrorToast, showSuccessToast } = useCustomToast();
@@ -84,7 +84,7 @@ const NewReviewComponent = () => {
         }
       });
 
-      if (filteredMovies && filteredMovies !== "") {
+      if (filteredTags && filteredTags !== "") {
         setSearchTags(search);
       } else {
         setSearchTags(tagsData);
@@ -99,7 +99,6 @@ const NewReviewComponent = () => {
     } else {
       setTags([...tags, tag]);
     }
-
   };
 
   const {

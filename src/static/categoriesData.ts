@@ -20,7 +20,7 @@ const categoriesData: TCategory[] = [
   {
     id: 5,
     name: "Trending"
-  },
-]
+  }
+];
 
-export default categoriesData
+export default categoriesData;
