@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 import { Box, HStack, Image, Text, VStack, Stack, ScrollView } from "native-base";
 
@@ -13,10 +13,8 @@ import Animated, { Extrapolate, SharedValue, interpolate, useAnimatedStyle, useS
 import StyledModal from "../StyledModal";
 
 const ButtonsUp = ({ thread }: IForumCard) => {
-
   const router = useRouter()
   const [like, setLike] = useState(false);
-
   const liked = useSharedValue(0);
 
   const OutlineStyle = (style: SharedValue<number>) => useAnimatedStyle(() => {
@@ -221,7 +219,7 @@ const ButtonsUp = ({ thread }: IForumCard) => {
 };
 
 const ForumPost = ({ thread, children } : { thread: TThread, children: ReactNode}) => {
-
+  const windowDimensions = useWindowDimensions()
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
@@ -258,11 +256,16 @@ const ForumPost = ({ thread, children } : { thread: TThread, children: ReactNode
               isOpen={showModal}
               onClose={() => setShowModal(false)}
             >
-              <Stack maxH={"100%"}>
+              <Stack
+                maxH={windowDimensions.height*0.6}
+                maxW={windowDimensions.width*0.6}
+              >
                 <Image
                   source={thread.picture}
                   alt={"No se pudo mostrar la imagen"}
-                  resizeMode="contain"
+                  maxH={windowDimensions.height*0.6}
+                  maxW={windowDimensions.width*0.6}
+                  resizeMode="center"
                 />
               </Stack>
             </StyledModal>
@@ -334,7 +337,7 @@ const ForumPost = ({ thread, children } : { thread: TThread, children: ReactNode
               pt={4}
               alignSelf="center"
               w="90%"
-              h={"120px"}
+              h={windowDimensions.height*0.175}
             >
               <ScrollView
                 showsVerticalScrollIndicator

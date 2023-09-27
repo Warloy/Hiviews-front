@@ -11,7 +11,7 @@ const ReviewPage = () => {
   const review = id=="6" ? {id: 6,
     authorID: 10,
     author: 'Wilder',
-    description: 'no la he visto, pero dicen que es madre pelicula. Lorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnit amet quinn',
+    description: 'no la he visto, pero dicen que es madre pelicula. Lorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnit amet quinn',
     movie: 'Death Stranding',
     image: require('@/assets/example/movie11.jpg'),
     date: new Date('2023-05-30T14:36:15.684Z').toISOString(),
@@ -44,7 +44,7 @@ const ReviewPage = () => {
       <Stack.Screen options={{ headerShown: true, headerTitle: "Review" }} />
       { review ?
         <ReviewPost review={review}>
-          <CommentSection comments={comments} listHeight="70%"/>
+          <CommentSection comments={comments} listHeight="68%"/>
         </ReviewPost> :
         <></>
       }

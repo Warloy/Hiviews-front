@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 import { AirbnbRating } from "react-native-elements";
 import { Box, HStack, Image, ScrollView, Text, VStack, Stack } from "native-base";
@@ -225,7 +225,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
 };
 
 const ReviewPost = ({ review, children } : { review: TReview, children: ReactNode}) => {
-
+  const windowDimensions = useWindowDimensions()
   const router = useRouter();
 
   return (
@@ -317,7 +317,7 @@ const ReviewPost = ({ review, children } : { review: TReview, children: ReactNod
               pt={4}
               alignSelf="center"
               w="90%"
-              h={"120px"}
+              h={windowDimensions.height*0.175}
             >
               <ScrollView
                 showsVerticalScrollIndicator

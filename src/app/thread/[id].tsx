@@ -35,7 +35,7 @@ const ThreadPage = () => {
       <Stack.Screen options={{ headerShown: true, headerTitle: "Review" }} />
       { thread ?
         <ForumPost thread={thread}>
-          <CommentSection comments={comments} listHeight="68%"/>
+          <CommentSection comments={comments} listHeight="66%"/>
         </ForumPost> :
         <></>
       }

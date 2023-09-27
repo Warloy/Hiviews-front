@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 import { Box, HStack, Image, Text, VStack, Stack } from "native-base";
 
@@ -7,7 +7,7 @@ import SVGImg from "@/assets/images/logo.svg";
 import { colors } from "@/constants/Colors";
 import StyledModal from "@/components/StyledModal";
 import { IForumCard } from "@/interfaces/ForumCard.Interface";
-import { before24hours, formatDate, getHour } from "@/utils";
+import { before24hours, cutText, formatDate, getHour } from "@/utils";
 import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import Animated, { Extrapolate, SharedValue, interpolate, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 
@@ -221,7 +221,7 @@ const ButtonsUp = ({ thread }: IForumCard) => {
 };
 
 const ForumCard = ({ thread }: IForumCard) => {
-
+  const windowDimensions = useWindowDimensions()
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
@@ -260,11 +260,16 @@ const ForumCard = ({ thread }: IForumCard) => {
               isOpen={showModal}
               onClose={() => setShowModal(false)}
             >
-              <Stack maxH={"100%"}>
+              <Stack
+                maxH={windowDimensions.height*0.6}
+                maxW={windowDimensions.width*0.6}
+              >
                 <Image
                   source={thread.picture}
                   alt={"No se pudo mostrar la imagen"}
-                  resizeMode="contain"
+                  maxH={windowDimensions.height*0.6}
+                  maxW={windowDimensions.width*0.6}
+                  resizeMode="center"
                 />
               </Stack>
             </StyledModal>
@@ -343,7 +348,7 @@ const ForumCard = ({ thread }: IForumCard) => {
                 color={colors.gray5}
                 textAlign={"justify"}
               >
-                {thread.description}
+                {cutText(thread.description, 250)}
               </Text>
             </Stack>
 

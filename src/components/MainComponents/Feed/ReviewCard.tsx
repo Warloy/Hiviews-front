@@ -6,7 +6,7 @@ import { Box, HStack, Image, ScrollView, Text, VStack, Stack } from "native-base
 
 import { colors } from "@/constants/Colors";
 import { IReviewCard } from "@/interfaces/ReviewCard.Interface";
-import { before24hours, formatDate, getHour } from "@/utils";
+import { before24hours, cutText, formatDate, getHour } from "@/utils";
 import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import Animated, { Extrapolate, SharedValue, interpolate, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 
@@ -328,7 +328,7 @@ const ReviewCard = ({ review }: IReviewCard) => {
                 color={colors.gray5}
                 textAlign={"justify"}
               >
-                {review.description}
+                {cutText(review.description, 250)}
               </Text>
             </Stack>
 
