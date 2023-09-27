@@ -15,6 +15,7 @@ import { ImageBackground, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { pickImage } from "@/utils/functions";
 import { useAppSelector } from "@/hooks/useRedux";
+import categoriesData from "@/static/categoriesData";
 
 const NewPostComponent = () => {
 

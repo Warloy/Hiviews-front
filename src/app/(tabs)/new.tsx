@@ -80,18 +80,18 @@ const ChangeButton = ({ state, changeState }: { state: boolean, changeState: (pa
             style={animatedWorldStyle}
           >
             <MaterialCommunityIcons
-              name={state ? "movie" : "movie-open-outline"}
-              size={20}
+              name={state ? "message" : "message-outline"}
               color={state ? colors.secondary : colors.gray0}
+              size={24}
             />
           </Animated.View>
           <Animated.View
             style={animatedPeopleStyle}
           >
             <MaterialCommunityIcons
-              name={!state ? "message" : "message-outline"}
+              name={!state ? "movie" : "movie-open-outline"}
+              size={20}
               color={!state ? colors.secondary : colors.gray0}
-              size={24}
             />
           </Animated.View>
 
@@ -128,7 +128,7 @@ const NewPostPage = () => {
             bold
             fontSize="lg"
           >
-            {type ? "Nueva Review" : "Nuevo Thread"}
+            {!type ? "Nueva Review" : "Nuevo Thread"}
           </Text>
         </Stack>
         <Stack>
@@ -142,7 +142,7 @@ const NewPostPage = () => {
       <VStack
         minH="100%"
       >
-        {!type ?
+        {type ?
           <NewPostComponent /> :
           <NewReviewComponent />
         }
