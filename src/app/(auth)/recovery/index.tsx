@@ -7,7 +7,7 @@ const PasswordRecoveryPage = () => {
     <Container
       hiddenNavBar={true}
     >
-      <Stack.Screen options={{ headerShown: false }} />
+      <Stack.Screen options={{ headerShown: false, animation: "slide_from_left" }} />
       <PasswordRecoveryForm />
     </Container>
   );

@@ -30,7 +30,7 @@ export default function NotFoundScreen() {
       backgroundTopColor={colors.white}
     >
       <StatusBar hidden />
-      <StackRouter.Screen options={{ headerShown: false }} />
+      <StackRouter.Screen options={{ headerShown: false, animation: "fade" }} />
       <VStack
         h="100%"
       >

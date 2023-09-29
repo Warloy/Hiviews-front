@@ -114,7 +114,7 @@ const NewPostPage = () => {
       backgroundTopColor={colors.white}
       backgroundBottomColor={colors.white}
     >
-      <StackRouter.Screen options={{ headerShown: false }} />
+      <StackRouter.Screen options={{ headerShown: false, animation: "fade" }} />
       <HStack
         mt={5}
         px={3}

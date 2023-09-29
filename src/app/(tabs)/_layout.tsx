@@ -84,7 +84,7 @@ const TabsLayout = () => {
 
   return (
     <>
-      <Stack.Screen options={{ headerShown: false }} />
+      <Stack.Screen options={{ headerShown: false, animation: "fade" }} />
       <Tabs
         initialRouteName={routes[0].name}
         screenOptions={{

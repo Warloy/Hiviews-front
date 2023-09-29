@@ -189,16 +189,19 @@ const CommentCard = ({ comment }: ICommentContainerProps) => {
               <VStack
                 justifyContent="center"
                 alignItems="center"
-                space={2}
+                space={3}
                 w="100%"
               >
-                <Text>
+                <Text
+                  bold
+                  color={colors.primary}
+                >
                   ¿Eliminar comentario?
                 </Text>
 
-                <Button.Group space={2}>
+                <Button.Group space={4}>
                   <Button
-                    w="50%"
+                    w="20%"
                     borderRadius={50}
                     style={{
                       backgroundColor: colors.tertiary
@@ -209,7 +212,7 @@ const CommentCard = ({ comment }: ICommentContainerProps) => {
                     No
                   </Button>
                   <Button
-                    w="50%"
+                    w="20%"
                     borderRadius={50}
                     style={{
                       backgroundColor: colors.secondary

@@ -41,7 +41,7 @@ const ReviewPage = () => {
       statusBarColor={colors.white}
       statusBarStyle="dark-content"
     >
-      <Stack.Screen options={{ headerShown: true, headerTitle: "Review", animation: "slide_from_bottom" }} />
+      <Stack.Screen options={{ headerShown: true, headerTitle: "Review", animation: "fade_from_bottom" }} />
       { review ?
         <ReviewPost review={review}>
           <CommentSection comments={comments} listHeight="68%"/>

@@ -7,7 +7,7 @@ const LoginPage = () => {
     <Container
       hiddenNavBar={true}
     >
-      <Stack.Screen options={{ headerShown: false }} />
+      <Stack.Screen options={{ headerShown: false, animation: "fade" }} />
       <LoginForm />
     </Container>
   );

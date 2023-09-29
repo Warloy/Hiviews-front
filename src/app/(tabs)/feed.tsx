@@ -113,7 +113,7 @@ const FeedPage = () => {
       backgroundTopColor={colors.white}
       backgroundBottomColor={colors.white}
     >
-      <StackRouter.Screen options={{ headerShown: false }} />
+      <StackRouter.Screen options={{ headerShown: false, animation: "fade" }} />
       <VStack
         w="100%"
         maxH="100%"

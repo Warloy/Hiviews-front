@@ -7,7 +7,7 @@ import CommentSection from "@/components/MainComponents/Comment/CommentSection";
 import comments from "@/static/commentData";
 
 
-const ThreadPage = () => {
+const NotificationPage = () => {
   const { id } = useLocalSearchParams();
   const thread = id=="3" ? {
     id: 3,
@@ -32,7 +32,7 @@ const ThreadPage = () => {
       statusBarColor={colors.white}
       statusBarStyle="dark-content"
     >
-      <Stack.Screen options={{ headerShown: true, headerTitle: "Review", animation: "fade_from_bottom" }} />
+      <Stack.Screen options={{ headerShown: true, headerTitle: "Notificaciones", animation: "fade_from_bottom" }} />
       { thread ?
         <ForumPost thread={thread}>
           <CommentSection comments={comments} listHeight="66%"/>
@@ -43,4 +43,4 @@ const ThreadPage = () => {
   );
 };
 
-export default ThreadPage;
+export default NotificationPage;

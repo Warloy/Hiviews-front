@@ -7,7 +7,7 @@ import CommentSection from "@/components/MainComponents/Comment/CommentSection";
 import comments from "@/static/commentData";
 
 
-const ThreadPage = () => {
+const SearchPage = () => {
   const { id } = useLocalSearchParams();
   const thread = id=="3" ? {
     id: 3,
@@ -43,4 +43,4 @@ const ThreadPage = () => {
   );
 };
 
-export default ThreadPage;
+export default SearchPage;

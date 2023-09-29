@@ -110,7 +110,10 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => console.log("Notification Nav Button is pressed...")}
+              onPress={() => {
+                console.log("Notification Nav Button is pressed...")
+                router.push("/notifications/")
+              }}
             >
               <Ionicons
                 name="notifications-outline"
@@ -194,16 +197,19 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
               <VStack
                 justifyContent="center"
                 alignItems="center"
-                space={2}
+                space={3}
                 w="100%"
               >
-                <Text>
+                <Text
+                  bold
+                  color={colors.primary}
+                >
                   ¿Está seguro que desea cerrar sesión?
                 </Text>
 
-                <Button.Group space={2}>
+                <Button.Group space={3}>
                   <Button
-                    w="50%"
+                    w="20%"
                     borderRadius={50}
                     style={{
                       backgroundColor: colors.tertiary
@@ -214,7 +220,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
                     No
                   </Button>
                   <Button
-                    w="50%"
+                    w="20%"
                     borderRadius={50}
                     style={{
                       backgroundColor: colors.secondary
