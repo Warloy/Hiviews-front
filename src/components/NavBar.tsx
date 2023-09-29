@@ -98,7 +98,10 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
             }
 
             <TouchableOpacity
-              onPress={() => console.log("Search Nav Button is pressed...")}
+              onPress={() => {
+                console.log("Search Nav Button is pressed...")
+                router.push("/search/")
+              }}
             >
               <Ionicons
                 name="search"

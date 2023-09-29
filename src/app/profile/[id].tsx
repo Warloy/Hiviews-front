@@ -15,7 +15,7 @@ const ProfilePage = () => {
       statusBarColor={colors.white}
       statusBarStyle="dark-content"
     >
-      <Stack.Screen options={{ headerShown: true, headerTitle: 'Ver perfil' }} />      
+      <Stack.Screen options={{ headerShown: true, headerTitle: 'Ver perfil', animation: "fade" }} />      
       {id === user?.id?.toString() ?
         <ProfileComponent user={user} /> :
         <ProfileComponent />
