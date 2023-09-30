@@ -7,7 +7,7 @@ import SearchContainer from "@/components/SearchComponents/SearchContainer";
 
 const SearchPage = () => {
   const { value } = useLocalSearchParams<{ value: string }>();
-  const query = value.replace("_", "#")
+  const query = value.replace("_", "#").split(" ").join("")
   return (
     <Container
       hiddenNavBar

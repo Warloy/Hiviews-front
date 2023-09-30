@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import { Stack, Text, HStack, VStack, Divider, Avatar } from "native-base";
@@ -76,6 +76,10 @@ const ProfileTabs = ({ query="" }: { query?: string }) => {
   const [searchPlaceholder, setSearchPlaceholder] = useState("Buscar reseñas...")
   const [searchPrompt, setSearchPrompt] = useState(query)
   const [found, setFound] = useState(false)
+
+  useEffect (()=>{
+    triggerSearch()
+  },[])
 
   const switchTab = ( index: number ) => {
     if (activeTab!=index) {
