@@ -189,7 +189,7 @@ const CommentCard = ({ comment }: ICommentContainerProps) => {
               <VStack
                 justifyContent="center"
                 alignItems="center"
-                space={3}
+                space={2}
                 w="100%"
               >
                 <Text
@@ -198,13 +198,19 @@ const CommentCard = ({ comment }: ICommentContainerProps) => {
                 >
                   ¿Eliminar comentario?
                 </Text>
+                <Text
+                  italic
+                  color={colors.gray1}
+                >
+                  Esta acción no se puede deshacer.
+                </Text>
 
                 <Button.Group space={4}>
                   <Button
                     w="20%"
                     borderRadius={50}
                     style={{
-                      backgroundColor: colors.tertiary
+                      backgroundColor: colors.secondary
                     }}
                     shadow={1}
                     onPress={() => setDeleteModal(false)}
@@ -215,7 +221,7 @@ const CommentCard = ({ comment }: ICommentContainerProps) => {
                     w="20%"
                     borderRadius={50}
                     style={{
-                      backgroundColor: colors.secondary
+                      backgroundColor: colors.primary
                     }}
                     shadow={1}
                     onPress={() => setDeleteModal(false)}

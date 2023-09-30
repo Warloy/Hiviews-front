@@ -9,18 +9,18 @@ import comments from "@/static/commentData";
 
 const ThreadPage = () => {
   const { id } = useLocalSearchParams();
-  const thread = id=="3" ? {
-    id: 3,
-    authorID: 3,
-    author: "Anon",
-    description: "No tiene comparativa. No hay discusión. En serio, no puedes llamarte un ser pensante y no estar de acuerdo con esto. Si piensas de esa manera, considera verte con un psicólogo o algo por el estilo. En serio.",
+  const thread = id=="2" ? {
+    id: 2,
+    authorID: 2,
+    author: "Manuel",
+    description: "no la he visto, pero dicen que es madre pelicula. Lorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnit amet quinn",
     category: {
-      id: 3,
-      name: "Offtopic"
+      id: 2,
+      name: "Cinéfilo"
     },
-    topic: "Definitivamente la mejor imagen de perfil de la app es esta.",
-    picture: require("@/assets/example/avatar06.jpg"),
-    date: new Date('2023-05-30T14:36:15.684Z').toISOString(),
+    topic: "Pero es que los planos",
+    picture: require("@/assets/example/movie07.jpg"),
+    date: new Date().toISOString(),
     likes: 99,
     comments: 1
   } : null

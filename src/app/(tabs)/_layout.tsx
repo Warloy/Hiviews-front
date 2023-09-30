@@ -34,7 +34,7 @@ const TabsLayout = () => {
         href: "/feed",
         title: "feed",
         tabBarShowLabel: true,
-        tabBarLabel: "Feed",
+        tabBarLabel: "Reseñas",
         tabBarIcon: ({ color, size }: { color: string, size: number }) => (
           <MaterialCommunityIcons
             name={color === colors.secondary ? "movie-open" : "movie-open-outline"}
@@ -70,7 +70,7 @@ const TabsLayout = () => {
         href: "/forum",
         title: "forum",
         tabBarShowLabel: true,
-        tabBarLabel: "Foro",
+        tabBarLabel: "Hilos",
         tabBarIcon: ({ color, size }: { color: string, size: number }) => (
           <MaterialCommunityIcons
             name={color === colors.secondary ? "forum" : "forum-outline"}

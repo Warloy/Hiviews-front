@@ -197,7 +197,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
               <VStack
                 justifyContent="center"
                 alignItems="center"
-                space={3}
+                space={2}
                 w="100%"
               >
                 <Text
@@ -212,7 +212,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
                     w="20%"
                     borderRadius={50}
                     style={{
-                      backgroundColor: colors.tertiary
+                      backgroundColor: colors.secondary
                     }}
                     shadow={1}
                     onPress={() => setLogoutModal(false)}
@@ -223,7 +223,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
                     w="20%"
                     borderRadius={50}
                     style={{
-                      backgroundColor: colors.secondary
+                      backgroundColor: colors.primary
                     }}
                     shadow={1}
                     onPress={logoutButton}

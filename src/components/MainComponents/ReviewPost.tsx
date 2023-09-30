@@ -2,7 +2,7 @@ import { ReactNode, useState } from "react";
 import { StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 import { AirbnbRating } from "react-native-elements";
-import { Box, HStack, Image, ScrollView, Text, VStack, Stack } from "native-base";
+import { Box, HStack, Image, ScrollView, Text, VStack, Stack, Button } from "native-base";
 
 import { colors } from "@/constants/Colors";
 import { IReviewCard } from "@/interfaces/ReviewCard.Interface";
@@ -10,11 +10,15 @@ import { TReview } from "@/types/Post.Type";
 import { before24hours, formatDate, getHour } from "@/utils";
 import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import Animated, { Extrapolate, SharedValue, interpolate, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import StyledModal from "../StyledModal";
+import EditReview from "./EditPost/EditReview";
 
 const ButtonsUp = ({ review }: IReviewCard) => {
 
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const bookmarked = useSharedValue(0);
   const liked = useSharedValue(0);
@@ -55,14 +59,17 @@ const ButtonsUp = ({ review }: IReviewCard) => {
       <HStack
         w={'100%'}
       >
-        {(review.author === "Manuel" && before24hours(review.date)) &&
+        {(review.author === "Manuel" && before24hours(review.date)) ?
           <>
             <HStack
               w={'20%'}
               justifyContent={'center'}
             >
               <TouchableOpacity
-                onPress={() => console.info("Delete pressed")}
+                onPress={() => {
+                  console.info("Delete pressed")
+                  setDeleteModal(true)
+                }}
               >
                 <HStack
                   alignItems="center"
@@ -81,7 +88,10 @@ const ButtonsUp = ({ review }: IReviewCard) => {
               justifyContent={'center'}
             >
               <TouchableOpacity
-                onPress={() => console.info("Edit pressed")}
+                onPress={() => {
+                  console.info("Edit pressed")
+                  setEditModal(true)
+                }}
               >
                 <HStack
                   alignItems="center"
@@ -94,11 +104,67 @@ const ButtonsUp = ({ review }: IReviewCard) => {
                   />
                 </HStack>
               </TouchableOpacity>
-            </HStack>
-          </>
-        }
-        
-        {!(review.author === "Manuel" && before24hours(review.date)) &&
+            </HStack>  
+            <StyledModal
+              isOpen={editModal}
+              onClose={() => setEditModal(false)}
+              size="xl"
+            >
+              <EditReview
+                review={review}
+              />
+            </StyledModal>
+            <StyledModal
+              isOpen={deleteModal}
+              onClose={() => setDeleteModal(false)}
+              size="xl"
+            >
+              <VStack
+                justifyContent="center"
+                alignItems="center"
+                space={2}
+                w="100%"
+              >
+                <Text
+                  bold
+                  color={colors.primary}
+                >
+                  ¿Eliminar reseña?
+                </Text>
+                <Text
+                  italic
+                  color={colors.gray1}
+                >
+                  Esta acción no se puede deshacer.
+                </Text>
+
+                <Button.Group space={4}>
+                  <Button
+                    w="20%"
+                    borderRadius={50}
+                    style={{
+                      backgroundColor: colors.secondary
+                    }}
+                    shadow={1}
+                    onPress={() => setDeleteModal(false)}
+                  >
+                    No
+                  </Button>
+                  <Button
+                    w="20%"
+                    borderRadius={50}
+                    style={{
+                      backgroundColor: colors.primary
+                    }}
+                    shadow={1}
+                    onPress={() => setDeleteModal(false)}
+                  >
+                    Sí
+                  </Button>
+                </Button.Group>
+              </VStack>
+            </StyledModal>
+          </> : 
           <>
             <HStack
               w={'20%'}

@@ -8,29 +8,26 @@ import comments from "@/static/commentData";
 
 const ReviewPage = () => {
   const { id } = useLocalSearchParams();
-  const review = id=="6" ? {id: 6,
-    authorID: 10,
-    author: 'Wilder',
-    description: 'no la he visto, pero dicen que es madre pelicula. Lorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnit amet quinn',
-    movie: 'Death Stranding',
-    image: require('@/assets/example/movie11.jpg'),
-    date: new Date('2023-05-30T14:36:15.684Z').toISOString(),
-    rate: 1,
-    likes: 0,
-    comments: 0,
+  const review = id=="2" ? {
+    id: 2,
+    authorID: 2,
+    author: 'Manuel',
+    description: 'Es cine. Scorsese celebra que por primera vez se reúne tanto talento en un mismo lugar, y no es a practicar lavandería.',
+    movie: 'Inglorious Basterds (2009)',
+    image: require('@/assets/example/movie07.jpg'),
+    date: new Date().toISOString(),
+    rate: 5,
+    likes: 99,
+    comments: 1,
     tags: [
       {
-        id: 11,
-        name: 'Videojuegos'
+        id: 4,
+        name: 'Inglorious'
       },
       {
-        id: 12,
-        name: 'Kojimamadas'
-      },
-      {
-        id: 13,
-        name: 'No tiene nada que ver con cine'
-      },
+        id: 2,
+        name: 'Acción'
+      }
     ]
   } : null
 

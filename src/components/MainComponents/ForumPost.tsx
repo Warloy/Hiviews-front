@@ -1,7 +1,7 @@
 import { ReactNode, useState } from "react";
 import { StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
-import { Box, HStack, Image, Text, VStack, Stack, ScrollView } from "native-base";
+import { Box, HStack, Image, Text, VStack, Stack, ScrollView, Button } from "native-base";
 
 import SVGImg from "@/assets/images/logo.svg";
 import { colors } from "@/constants/Colors";
@@ -11,10 +11,14 @@ import { before24hours, formatDate, getHour } from "@/utils";
 import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import Animated, { Extrapolate, SharedValue, interpolate, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import StyledModal from "../StyledModal";
+import EditThread from "./EditPost/EditThread";
 
 const ButtonsUp = ({ thread }: IForumCard) => {
   const router = useRouter()
   const [like, setLike] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+
   const liked = useSharedValue(0);
 
   const OutlineStyle = (style: SharedValue<number>) => useAnimatedStyle(() => {
@@ -48,14 +52,17 @@ const ButtonsUp = ({ thread }: IForumCard) => {
       <HStack
         w={'100%'}
       >
-        {(thread.author === "Manuel" && before24hours(thread.date)) &&
+        {(thread.author === "Manuel" && before24hours(thread.date)) ?
           <>
             <HStack
               w={'20%'}
               justifyContent={'center'}
             >
               <TouchableOpacity
-                onPress={() => console.info("Delete pressed")}
+                onPress={() => {
+                  console.info("Delete pressed")
+                  setDeleteModal(true)
+                }}
               >
                 <HStack
                   alignItems="center"
@@ -74,7 +81,10 @@ const ButtonsUp = ({ thread }: IForumCard) => {
               justifyContent={'center'}
             >
               <TouchableOpacity
-                onPress={() => console.info("Edit pressed")}
+                onPress={() => {
+                  console.info("Edit pressed")
+                  setEditModal(true)
+                }}
               >
                 <HStack
                   alignItems="center"
@@ -88,20 +98,76 @@ const ButtonsUp = ({ thread }: IForumCard) => {
                 </HStack>
               </TouchableOpacity>
             </HStack>
-          </>
-        }
-        
-        {!(thread.author === "Manuel" && before24hours(thread.date)) &&
+            <StyledModal
+              isOpen={editModal}
+              onClose={() => setEditModal(false)}
+              size="xl"
+            >
+              <EditThread
+                thread={thread}
+              />
+            </StyledModal>
+            <StyledModal
+              isOpen={deleteModal}
+              onClose={() => setDeleteModal(false)}
+              size="xl"
+            >
+              <VStack
+                justifyContent="center"
+                alignItems="center"
+                space={2}
+                w="100%"
+              >
+                <Text
+                  bold
+                  color={colors.primary}
+                >
+                  ¿Eliminar hilo?
+                </Text>
+                <Text
+                  italic
+                  color={colors.gray1}
+                >
+                  Esta acción no se puede deshacer.
+                </Text>
+
+                <Button.Group space={4}>
+                  <Button
+                    w="20%"
+                    borderRadius={50}
+                    style={{
+                      backgroundColor: colors.secondary
+                    }}
+                    shadow={1}
+                    onPress={() => setDeleteModal(false)}
+                  >
+                    No
+                  </Button>
+                  <Button
+                    w="20%"
+                    borderRadius={50}
+                    style={{
+                      backgroundColor: colors.primary
+                    }}
+                    shadow={1}
+                    onPress={() => setDeleteModal(false)}
+                  >
+                    Sí
+                  </Button>
+                </Button.Group>
+              </VStack>
+            </StyledModal>
+          </> : 
           <>
-            <HStack
-              w={'20%'}
-              justifyContent={'center'}
-            />
-            <HStack
-              w={'20%'}
-              justifyContent={'center'}
-            />
-          </>
+          <HStack
+            w={'20%'}
+            justifyContent={'center'}
+          />
+          <HStack
+            w={'20%'}
+            justifyContent={'center'}
+          />
+        </>
         }
 
         <HStack
