@@ -49,21 +49,21 @@ const Tabs = ({ index }: { index: number }) => {
     return (
       <ReviewList
         reviews={reviews}
-        listHeight="89%"
+        listHeight="90%"
       />
     );
   } else if (index === 2) {
     return (
       <ThreadList 
         threads={threads}
-        listHeight="89%"
+        listHeight="90%"
       />
     );
   } else {
     return (
       <UserList 
         users={users}
-        listHeight="89%"
+        listHeight="90%"
       />
     );
   }
