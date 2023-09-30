@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { useLocalSearchParams, Stack } from "expo-router";
 import Container from "@/components/Container";
 import { colors } from "@/constants/Colors";
 
@@ -6,6 +6,7 @@ import SearchContainer from "@/components/SearchComponents/SearchContainer";
 
 
 const SearchPage = () => {
+  const { value } = useLocalSearchParams();
 
   return (
     <Container
