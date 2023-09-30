@@ -6,8 +6,8 @@ import SearchContainer from "@/components/SearchComponents/SearchContainer";
 
 
 const SearchPage = () => {
-  const { value } = useLocalSearchParams();
-
+  const { value } = useLocalSearchParams<{ value: string }>();
+  const query = value.replace("_", "#")
   return (
     <Container
       hiddenNavBar
@@ -15,7 +15,7 @@ const SearchPage = () => {
       statusBarStyle="dark-content"
     >
       <Stack.Screen options={{ headerShown: true, headerTitle: "Buscar", animation: "fade_from_bottom" }} />
-      <SearchContainer/>
+      <SearchContainer query={query}/>
     </Container>
   );
 };
