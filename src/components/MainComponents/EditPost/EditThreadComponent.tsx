@@ -27,6 +27,7 @@ const EditThreadComponent = ({ thread }: { thread: TThread }) => {
 
   const { user } = useAppSelector(state => state.user);
 
+  const [titleTextAreaHeight, setTitleTextAreaHeight] = useState(18);
   const [textAreaHeight, setTextAreaHeight] = useState(30);
   const [imagePost, setImagePost] = useState<string | null>(null);
 
@@ -150,7 +151,50 @@ const EditThreadComponent = ({ thread }: { thread: TThread }) => {
             >
               {user?.username}
             </Text>
-
+            <Controller
+              name="title"
+              control={control}
+              render={({ field: { onChange } }) => (
+                <FormControl
+                  isInvalid={Boolean(errors.description)}
+                >
+                  <TextArea
+                    defaultValue={thread.description}
+                    ref={ref}
+                    autoCompleteType={false}
+                    borderWidth={0}
+                    p={0}
+                    my={1}
+                    h={(titleTextAreaHeight < 37) ? titleTextAreaHeight : 36}
+                    maxH={36}
+                    borderRadius={5}
+                    alignItems="flex-start"
+                    justifyContent="flex-start"
+                    fontSize="md"
+                    color={colors.primary}
+                    placeholder="¿Qué quieres contar?"
+                    onChangeText={onChange}
+                    onContentSizeChange={(event) =>
+                      setTitleTextAreaHeight(event.nativeEvent.contentSize.height)
+                    }
+                    _focus={{
+                      backgroundColor: "white" //"transparent"
+                    }}
+                  />
+                  {errors.description && (
+                    <FormControl.ErrorMessage
+                      leftIcon={
+                        <WarningOutlineIcon
+                          size="xs"
+                        />
+                      }
+                    >
+                      {errors.description.message}
+                    </FormControl.ErrorMessage>
+                  )}
+                </FormControl>
+              )}
+            />
             <Stack>
               <ScrollView
                 horizontal
@@ -173,6 +217,9 @@ const EditThreadComponent = ({ thread }: { thread: TThread }) => {
               </ScrollView>
             </Stack>
 
+            <Divider 
+              my={1} 
+            />
             <Controller
               name="description"
               control={control}
@@ -187,14 +234,14 @@ const EditThreadComponent = ({ thread }: { thread: TThread }) => {
                     borderWidth={0}
                     p={0}
                     m={0}
-                    mt={1}
-                    h={textAreaHeight}
+                    mb={1}
+                    h={(textAreaHeight < 121) ? textAreaHeight : 120}
                     maxH={120}
                     borderRadius={10}
                     alignItems="flex-start"
                     justifyContent="flex-start"
                     fontSize="sm"
-                    placeholder="Cuéntanos..."
+                    placeholder="Danos más detalles al respecto..."
                     onChangeText={onChange}
                     onContentSizeChange={(event) =>
                       setTextAreaHeight(event.nativeEvent.contentSize.height)

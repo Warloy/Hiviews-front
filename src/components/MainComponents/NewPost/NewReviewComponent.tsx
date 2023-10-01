@@ -234,7 +234,7 @@ const NewReviewComponent = () => {
                     m={0}
                     my={2}
                     mt={1}
-                    h={textAreaHeight}
+                    h={(textAreaHeight < 121) ? textAreaHeight : 120}
                     maxH={120}
                     borderRadius={10}
                     alignItems="flex-start"

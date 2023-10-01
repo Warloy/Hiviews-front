@@ -90,6 +90,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
               <TouchableOpacity
                 onPress={() => {
                   console.info("Edit pressed");
+                  router.push(`/review/edit/${review.id}`)
                   //setEditModal(true)
                 }}
               >
