@@ -22,6 +22,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
 
   const bookmarked = useSharedValue(0);
   const liked = useSharedValue(0);
+  const router = useRouter();
 
   const OutlineStyle = (style: SharedValue<number>) => useAnimatedStyle(() => {
     return {
@@ -89,8 +90,9 @@ const ButtonsUp = ({ review }: IReviewCard) => {
             >
               <TouchableOpacity
                 onPress={() => {
-                  console.info("Edit pressed")
-                  setEditModal(true)
+                  console.info("Edit pressed");
+                  router.push(`/review/edit/${review.id}`);
+                  //setEditModal(true)
                 }}
               >
                 <HStack
@@ -327,7 +329,6 @@ const ReviewPost = ({ review, children } : { review: TReview, children: ReactNod
             <TouchableOpacity
               onPress={() => {
                 console.info(`${review.id} - ${review.movie} movie pressed`);
-                router.push("/(tabs)/feed");
               }}
             >
               <Text

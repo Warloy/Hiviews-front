@@ -34,7 +34,7 @@ const TabsLayout = () => {
         href: "/feed",
         title: "feed",
         tabBarShowLabel: true,
-        tabBarLabel: "Reseñas",
+        tabBarLabel: "Reviews",
         tabBarIcon: ({ color, size }: { color: string, size: number }) => (
           <MaterialCommunityIcons
             name={color === colors.secondary ? "movie-open" : "movie-open-outline"}

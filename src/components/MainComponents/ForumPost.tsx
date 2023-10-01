@@ -82,8 +82,9 @@ const ButtonsUp = ({ thread }: IForumCard) => {
             >
               <TouchableOpacity
                 onPress={() => {
-                  console.info("Edit pressed")
-                  setEditModal(true)
+                  console.info("Edit pressed");
+                  router.push(`/thread/edit/${thread.id}`);
+                  //setEditModal(true)
                 }}
               >
                 <HStack

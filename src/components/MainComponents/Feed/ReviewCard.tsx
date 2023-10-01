@@ -89,8 +89,8 @@ const ButtonsUp = ({ review }: IReviewCard) => {
             >
               <TouchableOpacity
                 onPress={() => {
-                  console.info("Edit pressed")
-                  setEditModal(true)
+                  console.info("Edit pressed");
+                  //setEditModal(true)
                 }}
               >
                 <HStack
