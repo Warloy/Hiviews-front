@@ -1,7 +1,7 @@
-import { ReactNode, useState } from "react";
-import { StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
+import {  useEffect, ReactNode, useState } from "react";
+import { StyleSheet, TouchableOpacity, useWindowDimensions, Image as ImageHelper } from "react-native";
 import { useRouter } from "expo-router";
-import { Box, HStack, Image, Text, VStack, Stack, ScrollView, Button } from "native-base";
+import { Box, HStack, Image, Text, VStack, Stack, ScrollView, Button, Modal } from "native-base";
 
 import SVGImg from "@/assets/images/logo.svg";
 import { colors } from "@/constants/Colors";
@@ -286,9 +286,39 @@ const ButtonsUp = ({ thread }: IForumCard) => {
 };
 
 const ForumPost = ({ thread, children } : { thread: TThread, children: ReactNode}) => {
-  const windowDimensions = useWindowDimensions()
+  const { height, width } = useWindowDimensions();
+  const [ modalH, setModalH ] = useState(height * 0.8);
+  const [ modalW, setModalW ] = useState(height * 0.8);
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
+
+  const solveModalDimensions = () => {
+    const pictureSize = (thread.picture ? ImageHelper.resolveAssetSource(thread.picture) : { height: height, width: width });
+    const aspectRatio = (pictureSize.height / pictureSize.width);
+    const MaxH = height * 0.8;
+    const MaxW = width * 0.8;
+    if (aspectRatio > 1) {
+      if ((MaxH) < pictureSize.height) {
+        setModalH(MaxH);
+        setModalW(MaxH*aspectRatio);
+      } else {
+        setModalH(pictureSize.height);
+        setModalW(pictureSize.height*aspectRatio);
+      }
+    } else {
+      if ((MaxW) < pictureSize.width) {
+        setModalW(MaxW);
+        setModalH(MaxW*aspectRatio);
+      } else {
+        setModalW(pictureSize.width);
+        setModalH(pictureSize.width*aspectRatio);
+      }
+    }
+  }
+
+  useEffect(() => {
+    solveModalDimensions()
+  }, []);
 
   return (
     <Box
@@ -319,24 +349,26 @@ const ForumPost = ({ thread, children } : { thread: TThread, children: ReactNode
                 alt={thread.topic}
               />
             </TouchableOpacity>
-            <StyledModal
+            <Modal
               isOpen={showModal}
               onClose={() => setShowModal(false)}
             >
-              <Stack
-                maxH={windowDimensions.height*0.6}
-                maxW={windowDimensions.width*0.6}
+              <Modal.Content
+                height={modalH}
+                width={modalW}
               >
                 <Image
                   source={thread.picture}
                   alt={"No se pudo mostrar la imagen"}
-                  maxH={windowDimensions.height*0.6}
-                  maxW={windowDimensions.width*0.6}
-                  resizeMode="center"
+                  style={{
+                    resizeMode: 'stretch',
+                    flex: 1,
+                    aspectRatio: 1
+                  }}
                 />
-              </Stack>
-            </StyledModal>
-          </>:<>
+              </Modal.Content>
+            </Modal>
+          </> : <>
             <SVGImg
               height={50}
               width={50}
@@ -404,7 +436,7 @@ const ForumPost = ({ thread, children } : { thread: TThread, children: ReactNode
               pt={4}
               alignSelf="center"
               w="90%"
-              h={windowDimensions.height*0.175}
+              h={height*0.175}
             >
               <ScrollView
                 showsVerticalScrollIndicator

@@ -294,7 +294,6 @@ const ButtonsUp = ({ review }: IReviewCard) => {
 };
 
 const ReviewCard = ({ review }: IReviewCard) => {
-
   const router = useRouter();
   const { width } = useWindowDimensions();
   const [showModal, setShowModal] = useState(false);
@@ -332,21 +331,22 @@ const ReviewCard = ({ review }: IReviewCard) => {
           h={60}
           alignItems="center"
         >
-          <TouchableOpacity
-            onPress={() => {
-              setShowModal(true);
-              console.info(`Press review of ${review.movie} movie from ${review.author}`)
-            }}
-          >
-            <Image
-              borderRadius={50}
-              h={50}
-              w={50}
-              src={image()}
-              alt={review.movie}
-            />
-          </TouchableOpacity>
-          <Modal
+          <Stack>
+            <TouchableOpacity
+              onPress={() => {
+                setShowModal(true);
+                console.info(`Press review of ${review.movie} movie from ${review.author}`)
+              }}
+            >
+              <Image
+                borderRadius={50}
+                h={50}
+                w={50}
+                src={image()}
+                alt={""}
+              />
+            </TouchableOpacity>
+            <Modal
               isOpen={showModal}
               onClose={() => setShowModal(false)}
             >
@@ -361,7 +361,7 @@ const ReviewCard = ({ review }: IReviewCard) => {
                 />
               </Modal.Content>
             </Modal>
-
+          </Stack>
           <VStack
             maxW="82%"
             justifyContent="center"
@@ -387,7 +387,7 @@ const ReviewCard = ({ review }: IReviewCard) => {
               h={10}
               pr={2}
             >
-              {review?.tags && review?.tags.map((item, index) => (
+              {review?.tags && review.tags.map((item, index) => (
                 <Stack
                   key={index}
                   px={1}

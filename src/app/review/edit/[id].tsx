@@ -13,7 +13,7 @@ import { TReview } from "@/types/Post.Type";
 const EditReviewPage = ( ) => {
   const { id } = useLocalSearchParams();
   const review = id=="2" ? {
-    id: 2,
+    _id: 2,
     authorID: 2,
     author: 'Manuel',
     description: 'Es cine. Scorsese celebra que por primera vez se reúne tanto talento en un mismo lugar, y no es a practicar lavandería.',
@@ -25,11 +25,11 @@ const EditReviewPage = ( ) => {
     comments: 1,
     tags: [
       {
-        id: 4,
+        _id: 4,
         name: 'Inglorious'
       },
       {
-        id: 2,
+        _id: 2,
         name: 'Acción'
       }
     ]

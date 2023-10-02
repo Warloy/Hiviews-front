@@ -13,6 +13,14 @@ class ReviewService {
     return await http.get(`${this.BASE}`);
   }
 
+  public async findOne( args: string ): Promise<AxiosResponse<any>> {
+    return await http.get(`${this.BASE}/${args}`)
+  }
+
+  public async search( args: string ): Promise<AxiosResponse<any>> {
+    return await http.get(`${this.BASE}/match/${args}`)
+  }
+
 };
 
 export default ReviewService;

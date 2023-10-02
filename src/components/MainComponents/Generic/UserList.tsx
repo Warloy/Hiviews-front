@@ -8,10 +8,11 @@ import ProfileCard from "../Profile/ProfileCard";
 
 interface IUserListProps {
   users?: TUser[], 
-  listHeight?: string
+  listHeight?: string,
+  disableLoadingIcon?: boolean
 }
 
-const UserList = ({ users, listHeight="78%" }: IUserListProps) => {
+const UserList = ({ users, listHeight="78%", disableLoadingIcon=false }: IUserListProps) => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [isNextPage, setIsNextPage] = useState(false)
@@ -38,7 +39,7 @@ const UserList = ({ users, listHeight="78%" }: IUserListProps) => {
 
   const renderLoader = () => {
     return (
-      isLoading ?
+      (isLoading && !disableLoadingIcon) ?
         <Stack my={2} alignItems='center' justifyContent='center' alignContent='center' alignSelf='center'>
           <ActivityIndicator size='large' color={colors.secondary} />
         </Stack> : <></>

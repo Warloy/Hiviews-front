@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
+import { useState, useEffect } from "react";
+import { StyleSheet, TouchableOpacity, useWindowDimensions, Image as ImageHelper } from "react-native";
 import { useRouter } from "expo-router";
 import { Box, HStack, Image, Text, VStack, Stack, Button, Modal } from "native-base";
 
@@ -288,9 +288,39 @@ const ButtonsUp = ({ thread }: IForumCard) => {
 };
 
 const ForumCard = ({ thread }: IForumCard) => {
-  const { height, width } = useWindowDimensions()
+  const { height, width } = useWindowDimensions();
+  const [ modalH, setModalH ] = useState(height * 0.8);
+  const [ modalW, setModalW ] = useState(height * 0.8);
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
+
+  const solveModalDimensions = () => {
+    const pictureSize = (thread.picture ? ImageHelper.resolveAssetSource(thread.picture) : { height: height, width: width });
+    const aspectRatio = (pictureSize.height / pictureSize.width);
+    const MaxH = height * 0.8;
+    const MaxW = width * 0.8;
+    if (aspectRatio > 1) {
+      if ((MaxH) < pictureSize.height) {
+        setModalH(MaxH);
+        setModalW(MaxH*aspectRatio);
+      } else {
+        setModalH(pictureSize.height);
+        setModalW(pictureSize.height*aspectRatio);
+      }
+    } else {
+      if ((MaxW) < pictureSize.width) {
+        setModalW(MaxW);
+        setModalH(MaxW*aspectRatio);
+      } else {
+        setModalW(pictureSize.width);
+        setModalH(pictureSize.width*aspectRatio);
+      }
+    }
+  }
+
+  useEffect(() => {
+    solveModalDimensions()
+  }, []);
 
   return (
     <Box
@@ -328,13 +358,17 @@ const ForumCard = ({ thread }: IForumCard) => {
               onClose={() => setShowModal(false)}
             >
               <Modal.Content
-                height={width * 0.8}
-                width={width * 0.8}
+                height={modalH}
+                width={modalH}
               >
                 <Image
                   source={thread.picture}
                   alt={"No se pudo mostrar la imagen"}
-                  height="100%"
+                  style={{
+                    resizeMode: 'stretch',
+                    flex: 1,
+                    aspectRatio: 1
+                  }}
                 />
               </Modal.Content>
             </Modal>

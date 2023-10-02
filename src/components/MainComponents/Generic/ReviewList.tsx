@@ -8,10 +8,11 @@ import ReviewCard from "@/components/MainComponents/Feed/ReviewCard"
 
 interface IReviewListProps {
   reviews?: TReview[], 
-  listHeight?: string
+  listHeight?: string,
+  disableLoadingIcon?: boolean
 }
 
-const ReviewList = ({ reviews, listHeight="78%" }: IReviewListProps) => {
+const ReviewList = ({ reviews, listHeight="78%", disableLoadingIcon=false }: IReviewListProps) => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [isNextPage, setIsNextPage] = useState(false)
@@ -38,7 +39,7 @@ const ReviewList = ({ reviews, listHeight="78%" }: IReviewListProps) => {
 
   const renderLoader = () => {
     return (
-      isLoading ?
+      (isLoading && !disableLoadingIcon) ?
         <Stack my={2} alignItems='center' justifyContent='center' alignContent='center' alignSelf='center'>
           <ActivityIndicator size='large' color={colors.secondary} />
         </Stack> : <></>
@@ -67,7 +68,7 @@ const ReviewList = ({ reviews, listHeight="78%" }: IReviewListProps) => {
         data={reviews}
         px={3}
         maxH={listHeight}
-        keyExtractor={(item, key) => `${item?.id}${new Date().toISOString()}${key}`}
+        keyExtractor={(item, key) => `${item?._id}${new Date().toISOString()}${key}`}
         renderItem={renderItem}
         ListFooterComponent={renderLoader}
         onEndReached={loadMoreItem}

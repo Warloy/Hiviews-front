@@ -8,10 +8,11 @@ import ForumCard from "@/components/MainComponents/Feed/ForumCard"
 
 interface IThreadListProps {
   threads?: TThread[], 
-  listHeight?: string
+  listHeight?: string,
+  disableLoadingIcon?: boolean
 }
 
-const ThreadList = ({ threads, listHeight="78%" }: IThreadListProps) => {
+const ThreadList = ({ threads, listHeight="78%", disableLoadingIcon=false }: IThreadListProps) => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [isNextPage, setIsNextPage] = useState(false)
@@ -38,7 +39,7 @@ const ThreadList = ({ threads, listHeight="78%" }: IThreadListProps) => {
 
   const renderLoader = () => {
     return (
-      isLoading ?
+      (isLoading && !disableLoadingIcon) ?
         <Stack my={2} alignItems='center' justifyContent='center' alignContent='center' alignSelf='center'>
           <ActivityIndicator size='large' color={colors.secondary} />
         </Stack> : <></>

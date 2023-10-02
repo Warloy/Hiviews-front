@@ -2,21 +2,26 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import { Stack, Text, HStack, VStack, Divider, Avatar } from "native-base";
-
-import { colors } from "@/constants/Colors";
-import { TUser } from "@/types/User.Type";
-import useLoading from "@/hooks/useLoading";
-import reviews from "@/static/reviewsData";
-import threads from "@/static/threadsData";
-import users from "@/static/userData";
-import useAuthContext from "@/hooks/useAuthContext";
-import { cutText } from "@/utils";
-import { useAppSelector } from "@/hooks/useRedux";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import ThreadList from "../MainComponents/Generic/ThreadList";
 import ReviewList from "../MainComponents/Generic/ReviewList";
 import UserList from "../MainComponents/Generic/UserList";
 import StyledField from "../StyledField";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+
+import { colors } from "@/constants/Colors";
+import { TUser } from "@/types/User.Type";
+import { TThread, TReview } from "@/types/Post.Type";
+import useLoading from "@/hooks/useLoading";
+import useAuthContext from "@/hooks/useAuthContext";
+import useCustomToast from "@/hooks/useCustomToast";
+import useConnection from "@/hooks/useConnection";
+import { useAppSelector } from "@/hooks/useRedux";
+import { cutText } from "@/utils";
+import ReviewService from "@/services/Review/Review.Service";
+//static
+//import reviews from "@/static/reviewsData";
+//import threads from "@/static/threadsData";
+//import users from "@/static/userData";
 
 interface ISearchContainerProps {
   query?: string;
@@ -35,7 +40,7 @@ const SearchContainer = ({ query, children }: ISearchContainerProps) => {
         my={5}
         w="100%"
       >
-        <ProfileTabs
+        <SearchTabs
           query={query}
         />
         {children}
@@ -44,12 +49,13 @@ const SearchContainer = ({ query, children }: ISearchContainerProps) => {
   );
 };
 
-const Tabs = ({ index }: { index: number }) => {
+const Tabs = ({ index, reviews, threads, users }: { index: number, reviews?: TReview[], threads?: TThread[], users?: TUser[] }) => {
   if (index === 1) {
     return (
       <ReviewList
         reviews={reviews}
         listHeight="97%"
+        disableLoadingIcon
       />
     );
   } else if (index === 2) {
@@ -57,6 +63,7 @@ const Tabs = ({ index }: { index: number }) => {
       <ThreadList 
         threads={threads}
         listHeight="97%"
+        disableLoadingIcon
       />
     );
   } else {
@@ -64,30 +71,38 @@ const Tabs = ({ index }: { index: number }) => {
       <UserList 
         users={users}
         listHeight="97%"
+        disableLoadingIcon
       />
     );
   }
 };
 
-const ProfileTabs = ({ query="" }: { query?: string }) => {
+const SearchTabs = ({ query="" }: { query?: string }) => {
   const [activeTab, setActiveTab] = useState(1)
   const [activeSearch, setActiveSearch] = useState(false)
-  const [searchType, setSearchType] = useState(1)
   const [searchPlaceholder, setSearchPlaceholder] = useState("Buscar reseñas...")
   const [searchPrompt, setSearchPrompt] = useState(query)
   const [found, setFound] = useState(false)
 
+  const [reviews, setReviews] = useState<TReview[]>([]);
+  const [threads, setThreads] = useState<TThread[]>([]);
+  const [users, setUsers] = useState<TUser[]>([]);  
+  const reviewAPI = new ReviewService();
+
+  const { isConnected } = useConnection();
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { showErrorToast, showSuccessToast } = useCustomToast();
+
   useEffect (()=>{
-    triggerSearch()
+    triggerSearch(1)
   },[])
 
   const switchTab = ( index: number ) => {
     if (activeTab!=index) {
+      console.log(`Switch to tab ${index}`)
       setActiveTab(index)
-      setSearchType(index)
       setActiveSearch(false)
-      setFound(false)
-      triggerSearch()
+      triggerSearch(index)
 
       if (index === 1) {
         setSearchPlaceholder("Buscar reseñas...")
@@ -99,10 +114,45 @@ const ProfileTabs = ({ query="" }: { query?: string }) => {
     }
   }
 
-  const triggerSearch = () => {
+  const triggerSearch = ( searchType: number ) => {
     if (searchPrompt!="") {
-      setActiveSearch(true)
-      setFound(true)
+      if (searchType===1){
+        getReviews()
+      }
+    }
+  }
+
+  const getReviews = async () => {
+    startLoading();
+    try {
+      setReviews([]);
+      if (isConnected) {
+
+        let newReviews: TReview[] = []
+
+        const { data }: { data: TReview[] } = await reviewAPI.search(searchPrompt);
+        setActiveSearch(true)
+        
+        if (data?.statusCode === 404 ) {
+          setFound(false)
+          console.log("Data not found")
+          return
+        }
+
+        { data && data?.forEach(value => {
+          return newReviews.push(value);
+        });
+        }
+        { newReviews.length===1 ? setFound(false) : setFound(true) }
+        setReviews(newReviews);
+        setFound(true)
+      } else {
+        setReviews([]);
+      }
+
+      stopLoading();
+    } catch (error: any) {
+      console.log(error);
     }
   }
 
@@ -122,7 +172,7 @@ const ProfileTabs = ({ query="" }: { query?: string }) => {
             placeholder={searchPlaceholder}
             value={searchPrompt}
             onChangeText={text => setSearchPrompt(text)}
-            onSubmitEditing={() => triggerSearch()}
+            onSubmitEditing={() => triggerSearch(activeTab)}
             w="90%"
             InputRightElement={
               <Stack
@@ -134,7 +184,7 @@ const ProfileTabs = ({ query="" }: { query?: string }) => {
                 <TouchableOpacity
                   onPress={()=>{
                     console.log("Search button pressed")
-                    triggerSearch()
+                    triggerSearch(activeTab)
                   }}
                 >
                   <Ionicons
@@ -190,7 +240,11 @@ const ProfileTabs = ({ query="" }: { query?: string }) => {
       <Stack>
         { activeSearch ? <>
             { found ? 
-              <Tabs index={activeTab} /> : 
+              <Tabs index={activeTab} 
+                    reviews={reviews}
+                    threads={threads}
+                    users={users}
+                    /> : 
               <>
                 <VStack
                   mt={5}

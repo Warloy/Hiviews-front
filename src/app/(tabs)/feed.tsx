@@ -87,7 +87,7 @@ const FeedPage = () => {
 
         const { data }: { data: TReview[] } = await reviewAPI.getAll();
 
-        data.forEach(value => {
+        { data && data?.forEach(value => {
           if (!timelineView) {
             if (value.author === "rinzdev") {
               return newReviews.push(value);
@@ -96,7 +96,8 @@ const FeedPage = () => {
             return newReviews.push(value);
           }
         });
-
+        }
+        
         setReviews(newReviews);
         dispatch(updateReviews(newReviews));
 
@@ -106,7 +107,8 @@ const FeedPage = () => {
 
       stopLoading();
     } catch (error: any) {
-      showErrorToast(error);
+      console.log(error)
+      showErrorToast("Ocurrió un error al cargar las reseñas");
     }
   }
 

@@ -2,7 +2,7 @@ import { ReactNode, useState } from "react";
 import { StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 import { AirbnbRating } from "react-native-elements";
-import { Box, HStack, Image, ScrollView, Text, VStack, Stack, Button } from "native-base";
+import { Box, HStack, Image, ScrollView, Text, VStack, Stack, Button, Modal } from "native-base";
 
 import { colors } from "@/constants/Colors";
 import { IReviewCard } from "@/interfaces/ReviewCard.Interface";
@@ -91,7 +91,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
               <TouchableOpacity
                 onPress={() => {
                   console.info("Edit pressed");
-                  router.push(`/review/edit/${review.id}`);
+                  router.push(`/review/edit/${review._id}`);
                   //setEditModal(true)
                 }}
               >
@@ -293,8 +293,26 @@ const ButtonsUp = ({ review }: IReviewCard) => {
 };
 
 const ReviewPost = ({ review, children } : { review: TReview, children: ReactNode}) => {
-  const windowDimensions = useWindowDimensions()
+  const { height, width } = useWindowDimensions()
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+
+  const image = () => {
+    if (!review?.image) {
+      return process.env.EXPO_PUBLIC_NO_IMAGE ?? "";
+    }
+
+    if (typeof review.image === "string" && review.image !== "example.com") {
+      return review.image;
+    }
+
+    if (typeof review.image === "string" && review.image === "example.com") {
+      return process.env.EXPO_PUBLIC_NO_IMAGE ?? "";
+    }
+
+    return review.image.toString();
+
+  }
 
   return (
     <Box
@@ -310,35 +328,49 @@ const ReviewPost = ({ review, children } : { review: TReview, children: ReactNod
           h={60}
           alignItems="center"
         >
-          <TouchableOpacity
-            onPress={() => console.info(`Press review of ${review.movie} movie from ${review.author}`)}
-          >
-            <Image
-              borderRadius={50}
-              h={50}
-              w={50}
-              source={review.image}
-              alt={review.movie}
-            />
-          </TouchableOpacity>
+          <Stack>
+            <TouchableOpacity
+              onPress={() => {
+                setShowModal(true);
+                console.info(`Press review of ${review.movie} movie from ${review.author}`)
+              }}
+            >
+              <Image
+                borderRadius={50}
+                h={50}
+                w={50}
+                src={image()}
+                alt={review.movie}
+              />
+            </TouchableOpacity>
+            <Modal
+              isOpen={showModal}
+              onClose={() => setShowModal(false)}
+            >
+              <Modal.Content
+                height={width * 0.8}
+                width={width * 0.8}
+              >
+                <Image
+                  src={image()}
+                  alt={review.movie}
+                  height="100%"
+                />
+              </Modal.Content>
+            </Modal>
+          </Stack>
 
           <VStack
             maxW="82%"
             justifyContent="center"
           >
-            <TouchableOpacity
-              onPress={() => {
-                console.info(`${review.id} - ${review.movie} movie pressed`);
-              }}
+            <Text
+              fontSize="lg"
+              bold
+              color={colors.text}
             >
-              <Text
-                fontSize="lg"
-                bold
-                color={colors.text}
-              >
-                {review.movie}
-              </Text>
-            </TouchableOpacity>
+              {review.movie}
+            </Text>
 
             <ScrollView
               horizontal
@@ -346,14 +378,14 @@ const ReviewPost = ({ review, children } : { review: TReview, children: ReactNod
               h={10}
               pr={2}
             >
-              {review.tags.map((item, index) => (
+              {review?.tags && review.tags.map((item, index) => (
                 <Stack
                   key={index}
                   px={1}
                 >
                   <TouchableOpacity
                     onPress={() => {
-                      console.info(`${item.id} - ${item.name} hashtag pressed`);
+                      console.info(`${item._id} - ${item.name} hashtag pressed`);
                       router.push(`/search/_${item.name}`);
                     }}
                   >
@@ -384,7 +416,7 @@ const ReviewPost = ({ review, children } : { review: TReview, children: ReactNod
               pt={4}
               alignSelf="center"
               w="90%"
-              h={windowDimensions.height*0.175}
+              h={height*0.175}
             >
               <ScrollView
                 showsVerticalScrollIndicator
@@ -427,7 +459,7 @@ const ReviewPost = ({ review, children } : { review: TReview, children: ReactNod
 
                 <TouchableOpacity
                   onPress={() => {
-                    console.info(`${review.id} - ${review.author} author pressed`);
+                    console.info(`${review._id} - ${review.author} author pressed`);
                     router.push("/(tabs)/feed");
                   }}
                 >

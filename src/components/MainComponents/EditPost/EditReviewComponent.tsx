@@ -27,7 +27,7 @@ const EditReviewComponent = ({ review }: { review: TReview }) => {
   const ref = useRef();
 
   const movieObjectAdapter: TMovie = {
-    id: review.id, 
+    id: review._id, 
     name: review.movie, 
     image: review.image
   }
@@ -43,7 +43,7 @@ const EditReviewComponent = ({ review }: { review: TReview }) => {
   const [searchMovies, setSearchMovies] = useState<TMovie[]>(movieData);
   const [filteredMovies, setFilteredMovies] = useState("");
 
-  const [tags, setTags] = useState<TTag[]>(review.tags);
+  const [tags, setTags] = useState<TTag[]>(review.tags ? review.tags : []);
   const [tagModal, setTagModal] = useState(false);
 
   const [searchTags, setSearchTags] = useState<TTag[]>(tagsData);
@@ -101,7 +101,7 @@ const EditReviewComponent = ({ review }: { review: TReview }) => {
 
   const handleTag = (tag: TTag) => {
     if (tags.includes(tag)) {
-      setTags(values => values.filter(item => item.id !== tag.id));
+      setTags(values => values.filter(item => item._id !== tag._id));
     } else {
       setTags([...tags, tag]);
     }
