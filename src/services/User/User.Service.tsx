@@ -10,8 +10,7 @@ class UserService {
   };
 
   public async get(): Promise<AxiosResponse<TResponseData>> {
-    const response = await http.post(`${this.BASE}`);
-    return response;
+    return await http.post(`${this.BASE}`);
   };
 
 };

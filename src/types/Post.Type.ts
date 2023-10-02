@@ -10,8 +10,8 @@ export type TComment = {
 };
 
 export type TReview = {
-  id: string | number;
-  authorID: string | number;
+  _id: string | number;
+  authorID?: string | number;
   author: string;
   description: string;
   movie: string;
@@ -20,7 +20,8 @@ export type TReview = {
   rate: number;
   likes: number;
   comments: number;
-  tags: TTag[]
+  tags?: TTag[],
+  status?: boolean;
 };
 
 export type TMovie = {
@@ -36,14 +37,14 @@ export type TThread = {
   description: string;
   category: TCategory;
   topic: string;
-  picture: ImageSourcePropType | null;
+  picture?: ImageSourcePropType | string;
   date: string;
   likes: number;
   comments: number;
 }
 
 export type TTag = {
-  id: string | number;
+  _id: string | number;
   name: string;
 };
 

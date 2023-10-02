@@ -10,16 +10,16 @@ export const loginAdapter = (values: TLogin) => {
 };
 
 export const registerAdapter = (values: TRegister) => {
-  const { email, username, name, lastName, birthday, password, passwordConfirm } = values;
+  const { email, username, name, lastName, birthday, password } = values;
 
   return {
     email,
-    username,
-    name,
-    lastName,
-    birthday,
+    userName: username,
     password,
-    passwordConfirm
+    name,
+    surName: lastName,
+    birthday,
+    bio: "Nuevo usuario"
   };
 };
 

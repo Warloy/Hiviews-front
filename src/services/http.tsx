@@ -14,7 +14,7 @@ export const http = axios.create({
 });
 
 export const getConnection = async () => {
-  const { data, status } = await http.get("/");
+  const { data, status } = await http.get("/connected");
   return { data, status };
 };
 
@@ -23,4 +23,5 @@ export type TResponseData = {
   error?: string;
   statusCode?: number
   data?: any;
+  token?: string;
 };

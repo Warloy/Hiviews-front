@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
-import { Box, HStack, Image, Text, VStack, Stack, Button } from "native-base";
+import { Box, HStack, Image, Text, VStack, Stack, Button, Modal } from "native-base";
 
 import SVGImg from "@/assets/images/logo.svg";
 import { colors } from "@/constants/Colors";
@@ -77,7 +77,7 @@ const ButtonsUp = ({ thread }: IForumCard) => {
               </TouchableOpacity>
             </HStack>
             <HStack
-              w={'20%'}  
+              w={'20%'}
               justifyContent={'center'}
             >
               <TouchableOpacity
@@ -158,21 +158,21 @@ const ButtonsUp = ({ thread }: IForumCard) => {
                 </Button.Group>
               </VStack>
             </StyledModal>
-          </> : 
+          </> :
           <>
-          <HStack
-            w={'20%'}
-            justifyContent={'center'}
-          />
-          <HStack
-            w={'20%'}
-            justifyContent={'center'}
-          />
-        </>
+            <HStack
+              w={'20%'}
+              justifyContent={'center'}
+            />
+            <HStack
+              w={'20%'}
+              justifyContent={'center'}
+            />
+          </>
         }
 
         <HStack
-          w={'20%'}  
+          w={'20%'}
           justifyContent={'center'}
         >
           <TouchableOpacity
@@ -211,11 +211,12 @@ const ButtonsUp = ({ thread }: IForumCard) => {
         </HStack>
 
         <HStack
-          w={'20%'}  
+          w={'20%'}
           justifyContent={'center'}
         >
           <TouchableOpacity
-            onPress={() => {console.info("Comment pressed")
+            onPress={() => {
+              console.info("Comment pressed")
               router.push(`/thread/${thread.id}`);
             }}
           >
@@ -240,7 +241,7 @@ const ButtonsUp = ({ thread }: IForumCard) => {
         </HStack>
 
         <HStack
-          w={'20%'}  
+          w={'20%'}
           justifyContent={'center'}
         >
           <TouchableOpacity
@@ -287,7 +288,7 @@ const ButtonsUp = ({ thread }: IForumCard) => {
 };
 
 const ForumCard = ({ thread }: IForumCard) => {
-  const windowDimensions = useWindowDimensions()
+  const { height, width } = useWindowDimensions()
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
@@ -322,24 +323,22 @@ const ForumCard = ({ thread }: IForumCard) => {
                 alt={thread.topic}
               />
             </TouchableOpacity>
-            <StyledModal
+            <Modal
               isOpen={showModal}
               onClose={() => setShowModal(false)}
             >
-              <Stack
-                maxH={windowDimensions.height*0.6}
-                maxW={windowDimensions.width*0.6}
+              <Modal.Content
+                height={width * 0.8}
+                width={width * 0.8}
               >
                 <Image
                   source={thread.picture}
                   alt={"No se pudo mostrar la imagen"}
-                  maxH={windowDimensions.height*0.6}
-                  maxW={windowDimensions.width*0.6}
-                  resizeMode="center"
+                  height="100%"
                 />
-              </Stack>
-            </StyledModal>
-          </>:<>
+              </Modal.Content>
+            </Modal>
+          </> : <>
             <SVGImg
               height={50}
               width={50}

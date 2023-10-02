@@ -31,6 +31,7 @@ import { TLogin, TUser } from "@/types/User.Type";
 import { loginAdapter } from "@/adapters/UserAdapter";
 import { login } from "@/features/user/userSlice";
 import { useAppDispatch } from "@/hooks/useRedux";
+import AuthService from "@/services/Auth/Auth.Service";
 
 const BottomChildren = ({ router }: { router: Router }) => {
   return (
@@ -81,6 +82,8 @@ const LoginForm = () => {
 
   const appDispatch = useAppDispatch();
 
+  const authAPI = new AuthService();
+
   const {
     dispatch
   } = useAuthContext();
@@ -113,13 +116,21 @@ const LoginForm = () => {
 
       } else {
 
-        showSuccessToast("¡Bienvenido a Hiviews!");
+        const { data } = await authAPI.login(loginAdapter(values));
 
-        console.log("User data:", loginAdapter(values));
+        console.log("User login:", data)
+
+        if (data?.error || !data?.data || !data?.token) {
+          showErrorToast(data?.message);
+          return;
+        }
+
+        const { _id, email } = data.data;
+        const token = data.token
 
         const user: TUser = {
-          id: "1",
-          email: 'gatocuantico@gmail.com',
+          id: _id,
+          email,
           name: 'Gato',
           surname: 'Cuántico',
           username: 'quantacat',
@@ -128,7 +139,7 @@ const LoginForm = () => {
           avatar: require('@/assets/example/avatar15.jpg')
         }
 
-        const USER_ID = "1", USER_TOKEN = "token";
+        const USER_ID = _id, USER_TOKEN = token;
 
         dispatch(({
           type: "LOGIN",
@@ -149,12 +160,15 @@ const LoginForm = () => {
 
         router.push("/(tabs)/feed");
 
+        reset(loginDefaultValues);
+
+        showSuccessToast("¡Bienvenido a Hiviews!");
+
       }
 
     } catch (error) {
       showErrorToast(`Error: ${error}`);
     } finally {
-      reset(loginDefaultValues);
       stopLoading();
     }
   }
