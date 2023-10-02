@@ -20,6 +20,8 @@ import { colors } from "@/constants/Colors";
 import StyledModal from "../StyledModal";
 
 import SignUpSVG from "@/assets/resources/SignUp-amico.svg";
+import AuthService from "@/services/Auth/Auth.Service";
+import { registerAdapter } from "@/adapters/UserAdapter";
 
 const RegisterForm = () => {
 
@@ -38,10 +40,12 @@ const RegisterForm = () => {
 
   const { width } = useWindowDimensions();
 
+  const authAPI = new AuthService();
+
   const {
     control,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { errors },
     reset
   } = useForm({
     mode: "onSubmit",
@@ -53,19 +57,16 @@ const RegisterForm = () => {
     startLoading();
     try {
 
-      if (!isValid) {
+      const { data } = await authAPI.register(registerAdapter(values));
 
-        errors.name && showErrorToast(errors.name.message);
-        errors.lastName && showErrorToast(errors.lastName.message);
-        errors.birthday && showErrorToast(errors.birthday.message);
-        errors.email && showErrorToast(errors.email.message)
-
-      } else {
-        setViewModal(true);
-        console.log("Register values: ", values);
-        showSuccessToast("¡Excelente! Tú registro fue exitoso.");
-        reset(registerDefaultValues);
+      if (data?.error) {
+        showErrorToast(data?.message);
+        return;
       }
+
+      setViewModal(true);
+      showSuccessToast("¡Excelente! Tú registro fue exitoso.");
+      reset(registerDefaultValues);
 
     } catch (error) {
       showErrorToast(`Error: ${error}`);

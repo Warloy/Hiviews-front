@@ -13,23 +13,16 @@ const useConnection = () => {
 
           getConnection()
             .then((result) => {
-              let { status } = result;
-
-              infoState(state, status);
-
-              setIsConnected(typeof status === "number");
-
+              let { data } = result;
+              setIsConnected(data.status === "Backend is running");
             })
             .catch((error) => {
               console.error(`getConnection error: ${error}`);
             })
 
         } else {
-
           infoState(state)
-
           setIsConnected(false);
-
         }
       });
   }

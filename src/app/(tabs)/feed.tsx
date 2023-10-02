@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import useConnection from "@/hooks/useConnection";
 
 import { updateReviews } from "@/features/reviews/reviewSlice";
+import ReviewService from "@/services/Review/Review.Service";
 
 const FeedPage = () => {
 
@@ -25,6 +26,7 @@ const FeedPage = () => {
   const { isConnected } = useConnection();
 
   const [reviews, setReviews] = useState<TReview[]>(cacheReviews);
+  const reviewAPI = new ReviewService();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isNextPage, setIsNextPage] = useState(false);
@@ -81,20 +83,22 @@ const FeedPage = () => {
       setReviews([]);
       if (isConnected) {
 
-        let data: TReview[] = []
+        let newReviews: TReview[] = []
 
-        await reviewsData.forEach(value => {
+        const { data }: { data: TReview[] } = await reviewAPI.getAll();
+
+        data.forEach(value => {
           if (!timelineView) {
-            if (value.author === "Wilder") {
-              return data.push(value);
+            if (value.author === "rinzdev") {
+              return newReviews.push(value);
             }
           } else {
-            return data.push(value);
+            return newReviews.push(value);
           }
         });
 
-        await setReviews(data);
-        dispatch(updateReviews(data));
+        setReviews(newReviews);
+        dispatch(updateReviews(newReviews));
 
       } else {
         setReviews(cacheReviews);
@@ -133,7 +137,7 @@ const FeedPage = () => {
             px={3}
             pb={7}
             maxH="90%"
-            keyExtractor={(item, key) => `${item.id}${new Date().toISOString()}${key}`}
+            keyExtractor={(item, key) => `${item._id}${new Date().toISOString()}${key}`}
             renderItem={renderItem}
             ListFooterComponent={renderLoader}
             onEndReached={loadMoreItem}

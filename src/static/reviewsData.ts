@@ -2,8 +2,8 @@ import { TReview } from '@/types/Post.Type'
 
 const reviewsData: TReview[] = [
   {
-    id: 1,
-    authorID: 1,
+    _id: "1",
+    authorID: "1",
     author: 'Simón Bolívar',
     description: 'La mejor película del mundo. Es literalmente un tiburón tornado, como dice el título.',
     movie: 'Sharknado (2013)',
@@ -14,22 +14,22 @@ const reviewsData: TReview[] = [
     comments: 2,
     tags: [
       {
-        id: 1,
+        _id: "1",
         name: 'Tiburones'
       },
       {
-        id: 2,
+        _id: "2",
         name: 'Acción'
       },
       {
-        id: 3,
+        _id: "3",
         name: 'Ciencia Ficción'
       },
     ]
   },
   {
-    id: 2,
-    authorID: 2,
+    _id: "2",
+    authorID: "2",
     author: 'Manuel',
     description: 'Es cine. Scorsese celebra que por primera vez se reúne tanto talento en un mismo lugar, y no es a practicar lavandería.',
     movie: 'Inglorious Basterds (2009)',
@@ -40,18 +40,18 @@ const reviewsData: TReview[] = [
     comments: 1,
     tags: [
       {
-        id: 4,
+        _id: "4",
         name: 'Inglorious'
       },
       {
-        id: 2,
+        _id: "2",
         name: 'Acción'
       }
     ]
   },
   {
-    id: 3,
-    authorID: 3,
+    _id: "3",
+    authorID: "3",
     author: 'Luis Álvarez',
     description: 'Esta sí es la mejor película de todos los tiempos. Simón [ comment removed by the mod team ].',
     movie: 'Shrek 2 (2004)',
@@ -62,32 +62,32 @@ const reviewsData: TReview[] = [
     comments: 15,
     tags: [
       {
-        id: 5,
+        _id: 5,
         name: 'Comedia'
       },
       {
-        id: 6,
+        _id: 6,
         name: 'Infantil'
       },
       {
-        id: 2,
+        _id: 2,
         name: 'Acción'
       },
       {
-        id: 7,
+        _id: 7,
         name: 'Aventura'
       },
       {
-        id: 10,
+        _id: 10,
         name: 'Competencia'
       },
     ]
   },
   {
-    id: 4,
+    _id: 4,
     authorID: 4,
     author: 'Jesús Manzano',
-    description: 'Es un perfecto ejemplo del adulto que todo niño quiere ser. Spoilers (no de la película): Llegando a adulto te das cuenta de que no quieres que tu vida tenga las mismas decisiones que las de un papel de Adam Sandler. Por lo menos es cómica.',
+    description: 'Es un perfecto ejemplo del adulto que todo niño quiere ser. Spoilers (no de la película): Llegando a adulto te das cuenta de que no quieres que tu v_ida tenga las mismas decisiones que las de un papel de Adam Sandler. Por lo menos es cómica.',
     movie: 'Grown Ups (2010)',
     image: require('../assets/example/movie09.jpg'),
     date: new Date('2023-06-30T14:36:15.684Z').toISOString(),
@@ -96,16 +96,16 @@ const reviewsData: TReview[] = [
     comments: 35,
     tags: [
       {
-        id: 5,
+        _id: 5,
         name: 'Comedia'
       },
     ]
   },
   {
-    id: 5,
+    _id: 5,
     authorID: 5,
     author: 'Carlos Forlan',
-    description: 'La vi con mis padres y les gustó. Yo me quedé dormido como con un tercio de las películas de Ghibli.',
+    description: 'La vi con mis padres y les gustó. Yo me quedé dorm_ido como con un tercio de las películas de Ghibli.',
     movie: 'Princess Mononoke (1997)',
     image: require('../assets/example/movie10.jpg'),
     date: new Date().toISOString(),
@@ -114,17 +114,17 @@ const reviewsData: TReview[] = [
     comments: 99,
     tags: [
       {
-        id: 8,
+        _id: 8,
         name: 'Anime'
       },
       {
-        id: 9,
+        _id: 9,
         name: 'Familiar'
       },
     ]
   },
   {
-    id: 6,
+    _id: 6,
     authorID: 10,
     author: 'Wilder',
     description: 'no la he visto, pero dicen que es madre pelicula',
@@ -136,15 +136,15 @@ const reviewsData: TReview[] = [
     comments: 0,
     tags: [
       {
-        id: 11,
-        name: 'Videojuegos'
+        _id: 11,
+        name: 'V_ideojuegos'
       },
       {
-        id: 12,
+        _id: 12,
         name: 'Kojimamadas'
       },
       {
-        id: 13,
+        _id: 13,
         name: 'No tiene nada que ver con cine'
       },
     ]
