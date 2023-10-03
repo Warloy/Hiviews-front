@@ -83,7 +83,7 @@ const ButtonsUp = ({ thread }: IForumCard) => {
               <TouchableOpacity
                 onPress={() => {
                   console.info("Edit pressed");
-                  router.push(`/thread/edit/${thread.id}`);
+                  router.push(`/thread/edit/${thread._id}`);
                   //setEditModal(true)
                 }}
               >
@@ -381,8 +381,8 @@ const ForumPost = ({ thread, children } : { thread: TThread, children: ReactNode
           >
             <TouchableOpacity
               onPress={() => {
-                console.info(`${thread.id} - ${thread.topic} topic pressed`);
-                router.push(`/thread/${thread.id}`);
+                console.info(`${thread._id} - ${thread.topic} topic pressed`);
+                router.push(`/thread/${thread._id}`);
               }}
             >
               <Text
@@ -479,7 +479,7 @@ const ForumPost = ({ thread, children } : { thread: TThread, children: ReactNode
 
                 <TouchableOpacity
                   onPress={() => {
-                    console.info(`${thread.id} - ${thread.author} author pressed`);
+                    console.info(`${thread._id} - ${thread.author} author pressed`);
                     router.push(`/profile/${thread.authorID}`);
                   }}
                 >

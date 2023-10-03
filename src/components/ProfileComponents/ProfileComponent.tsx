@@ -82,7 +82,7 @@ const ProfileComponent = ({ user, children }: IProfileHeaderProps) => {
           mt={3}
           alignItems="center"
         >
-          {user && user.id !== authUser?.id &&
+          {user && user._id !== authUser?._id &&
             <TouchableOpacity
               onPress={handleFollowToggle}
               style={{
@@ -170,6 +170,7 @@ const Tabs = ({ index }: { index: number }) => {
       <ReviewList
         reviews={reviews}
         listHeight="89%"
+        disableLoadingIcon
       />
     );
   } else if (index === 2) {
@@ -177,6 +178,7 @@ const Tabs = ({ index }: { index: number }) => {
       <ThreadList 
         threads={threads}
         listHeight="89%"
+        disableLoadingIcon
       />
     );
   } else if (index === 3) {
@@ -184,6 +186,7 @@ const Tabs = ({ index }: { index: number }) => {
       <UserList
         users={users}
         listHeight="89%"
+        disableLoadingIcon
       />
     );
   } else if (index === 4) {
@@ -191,6 +194,7 @@ const Tabs = ({ index }: { index: number }) => {
       <UserList
         users={users}
         listHeight="89%"
+        disableLoadingIcon
       />
     );
   } else {
@@ -198,6 +202,7 @@ const Tabs = ({ index }: { index: number }) => {
       <ReviewList
         reviews={reviews}
         listHeight="89%"
+        disableLoadingIcon
       />
     );
   }

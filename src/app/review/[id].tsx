@@ -42,8 +42,8 @@ const ReviewPage = () => {
 
         if (data?.statusCode === 404 ) {
           console.log("Data not found");
-          showErrorToast("Review no encontradaa.");
-          router.push(`/(tabs)/feed`);
+          showErrorToast("Review no encontrada.");
+          router.back();
           return
         }
         setReview(data);

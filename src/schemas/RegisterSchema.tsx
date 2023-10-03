@@ -20,7 +20,7 @@ export const registerSchema = object({
     .max(40, "El nombre debe contener máximo 40 caracteres.")
     .required("El nombre es requerido."),
 
-  lastName: string()
+  surname: string()
     .min(2, "El apellido debe contener al menos 2 caracteres.")
     .max(40, "El apellido debe contener máximo 40 caracteres.")
     .required("El apellido es requerido."),
@@ -47,7 +47,7 @@ export const registerDefaultValues = {
   email: "",
   username: "",
   name: "",
-  lastName: "",
+  surname: "",
   birthday: new Date(),
   password: "",
   passwordConfirm: ""

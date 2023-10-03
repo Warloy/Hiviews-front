@@ -45,8 +45,8 @@ const EditThreadComponent = ({ thread }: { thread: TThread }) => {
   };
 
   const tagColor = (tag: TCategory) => {
-    if (tag && Number(tag.id) <= arrayColor.length) {
-      return arrayColor[Number(tag.id) - 1];
+    if (tag && Number(tag._id) <= arrayColor.length) {
+      return arrayColor[Number(tag._id) - 1];
     } 
 
     return arrayColor[0];
@@ -394,7 +394,7 @@ const EditThreadComponent = ({ thread }: { thread: TThread }) => {
                     w="100%"
                   >
                     <Text
-                      bold={tags?.id === item.id}
+                      bold={tags?._id === item._id}
                       fontSize="xs"
                     >
                       {item.name}

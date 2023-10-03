@@ -129,7 +129,7 @@ const LoginForm = () => {
         const token = data.token
 
         const user: TUser = {
-          id: _id,
+          _id: _id,
           email,
           name: 'Gato',
           surname: 'Cuántico',

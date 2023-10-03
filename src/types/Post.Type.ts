@@ -15,7 +15,7 @@ export type TReview = {
   author: string;
   description: string;
   movie: string;
-  image: ImageSourcePropType;
+  image?: ImageSourcePropType;
   date: string;
   rate: number;
   likes: number;
@@ -26,13 +26,13 @@ export type TReview = {
 };
 
 export type TMovie = {
-  id: string | number;
+  _id: string | number;
   name: string;
-  image: ImageSourcePropType;
+  image: string | ImageSourcePropType;
 };
 
 export type TThread = {
-  id: string | number;
+  _id: string | number;
   authorID: string | number;
   author: string;
   description: string;
@@ -42,6 +42,8 @@ export type TThread = {
   date: string;
   likes: number;
   comments: number;
+  commentCollection?: TComment[];
+  status?: boolean;
 }
 
 export type TTag = {
@@ -50,7 +52,10 @@ export type TTag = {
 };
 
 export type TCategory = {
-  id: string | number;
+  _id: string | number;
   name: string;
 };
 
+export type TNewReview = {
+  description: string;
+}

@@ -372,7 +372,7 @@ const EditReviewComponent = ({ review }: { review: TReview }) => {
                                   alt={item.name}
                                 />
                                 <Text
-                                  bold={movie?.id === item.id}
+                                  bold={movie?._id === item._id}
                                   fontSize="xs"
                                 >
                                   {item.name}
@@ -409,7 +409,7 @@ const EditReviewComponent = ({ review }: { review: TReview }) => {
                             />
                             <Text
                               fontSize="xs"
-                              bold={movie?.id === item.id}
+                              bold={movie?._id === item._id}
                             >
                               {item.name}
                             </Text>

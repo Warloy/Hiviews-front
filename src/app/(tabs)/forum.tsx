@@ -133,7 +133,7 @@ const ForumPage = () => {
             px={3}
             pb={7}
             maxH="90%"
-            keyExtractor={(item, key) => `${item.id}${new Date().toISOString()}${key}`}
+            keyExtractor={(item, key) => `${item._id}${new Date().toISOString()}${key}`}
             renderItem={renderItem}
             ListFooterComponent={renderLoader}
             onEndReached={loadMoreItem}

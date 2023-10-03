@@ -147,18 +147,18 @@ const RegisterForm = () => {
           />
 
           <Controller
-            name="lastName"
+            name="surname"
             control={control}
             render={({ field: { onChange, value = "" } }) => (
               <FormControl
-                isInvalid={Boolean(errors.lastName)}
+                isInvalid={Boolean(errors.surname)}
                 h={75}
               >
                 <StyledField
                   ref={ref}
                   placeholder="Apellido"
                   onChangeText={onChange}
-                  borderColor={nameColor(value, errors.lastName)}
+                  borderColor={nameColor(value, errors.surname)}
                   InputLeftElement={
                     <Stack
                       pl={2}
@@ -169,12 +169,12 @@ const RegisterForm = () => {
                       <Ionicons
                         name="person"
                         size={20}
-                        color={nameColor(value, errors.lastName)}
+                        color={nameColor(value, errors.surname)}
                       />
                     </Stack>
                   }
                 />
-                {errors.lastName && (
+                {errors.surname && (
                   <FormControl.ErrorMessage
                     leftIcon={
                       <WarningOutlineIcon
@@ -182,7 +182,7 @@ const RegisterForm = () => {
                       />
                     }
                   >
-                    {errors.lastName.message}
+                    {errors.surname.message}
                   </FormControl.ErrorMessage>
                 )}
               </FormControl>

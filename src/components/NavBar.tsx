@@ -146,7 +146,7 @@ const NavBar = ({ hidden = false }: INavBarProps) => {
               >
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/profile/${user?.id}`);
+                    router.push(`/profile/${user?._id}`);
                     setViewModal(false);
                   }}
                 >

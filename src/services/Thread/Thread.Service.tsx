@@ -1,12 +1,12 @@
 import { AxiosResponse } from "axios";
-import { TResponseData, http } from "../http";
+import { http } from "../http";
 
-class ReviewService {
+class ThreadService {
 
   private BASE: string;
 
   constructor() {
-    this.BASE = "/review";
+    this.BASE = "/thread";
   };
 
   public async getAll(): Promise<AxiosResponse<any>> {
@@ -21,10 +21,6 @@ class ReviewService {
     return await http.get(`${this.BASE}/match/${args}`)
   }
 
-  public async new( data: any ): Promise<AxiosResponse<TResponseData>> {
-    return await http.post(`${this.BASE}`, data);
-  };
-
 };
 
-export default ReviewService;
+export default ThreadService;

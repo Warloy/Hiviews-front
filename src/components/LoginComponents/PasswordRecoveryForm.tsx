@@ -36,6 +36,7 @@ const PasswordRecoveryForm = () => {
 
   const ref = useRef();
   const router = useRouter();
+  const dummy = false;
 
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { showSuccessToast, showErrorToast } = useCustomToast();
@@ -154,7 +155,7 @@ const PasswordRecoveryForm = () => {
             )}
           />
         </ScrollView>
-        <Text
+        { dummy && <Text
           fontSize="xs"
           textAlign="center"
           color={colors.secondary}
@@ -163,7 +164,7 @@ const PasswordRecoveryForm = () => {
           }}
         >
           Dominio total del mundo
-        </Text>
+        </Text>}
         <HStack
           w="100%"
           justifyContent="center"

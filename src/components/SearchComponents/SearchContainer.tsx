@@ -1,5 +1,5 @@
-import React, { ReactNode, useEffect, useState } from "react";
-import { useRouter } from "expo-router";
+import React, { ReactNode, useCallback, useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import { Stack, Text, HStack, VStack, Divider, Avatar } from "native-base";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -18,6 +18,7 @@ import useConnection from "@/hooks/useConnection";
 import { useAppSelector } from "@/hooks/useRedux";
 import { cutText } from "@/utils";
 import ReviewService from "@/services/Review/Review.Service";
+import UserService from "@/services/User/User.Service";
 //static
 //import reviews from "@/static/reviewsData";
 //import threads from "@/static/threadsData";
@@ -88,14 +89,17 @@ const SearchTabs = ({ query="" }: { query?: string }) => {
   const [threads, setThreads] = useState<TThread[]>([]);
   const [users, setUsers] = useState<TUser[]>([]);  
   const reviewAPI = new ReviewService();
+  const userAPI = new UserService();
 
   const { isConnected } = useConnection();
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { showErrorToast, showSuccessToast } = useCustomToast();
 
-  useEffect (()=>{
-    triggerSearch(1)
-  },[])
+  useFocusEffect(
+    useCallback(() => {
+      triggerSearch(activeTab);
+    }, [])
+  );
 
   const switchTab = ( index: number ) => {
     if (activeTab!=index) {
@@ -118,6 +122,8 @@ const SearchTabs = ({ query="" }: { query?: string }) => {
     if (searchPrompt!="") {
       if (searchType===1){
         getReviews()
+      } else if (searchType===3){
+        getUsers()
       }
     }
   }
@@ -143,7 +149,6 @@ const SearchTabs = ({ query="" }: { query?: string }) => {
           return newReviews.push(value);
         });
         }
-        { newReviews.length===1 ? setFound(false) : setFound(true) }
         setReviews(newReviews);
         setFound(true)
       } else {
@@ -152,7 +157,41 @@ const SearchTabs = ({ query="" }: { query?: string }) => {
 
       stopLoading();
     } catch (error: any) {
-      console.log(error);
+      console.log(error)
+    }
+  }
+
+  const getUsers = async () => {
+    startLoading();
+    try {
+      setReviews([]);
+      if (isConnected) {
+
+        let newUsers: TUser[] = []
+
+        const { data }: { data: TUser[] } = await userAPI.search(searchPrompt);
+        console.log(data)
+        setActiveSearch(true)
+        
+        if (data?.statusCode === 404 ) {
+          setFound(false)
+          console.log("Data not found")
+          return
+        }
+
+        { data && data?.forEach(value => {
+          return newUsers.push(value);
+        });
+        }
+        setUsers(newUsers);
+        setFound(true)
+      } else {
+        setReviews([]);
+      }
+
+      stopLoading();
+    } catch (error: any) {
+      console.log(error)
     }
   }
 

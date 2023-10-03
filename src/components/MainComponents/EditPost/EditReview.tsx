@@ -62,7 +62,7 @@ const EditReview = ({ review }: { review: TReview }) => {
               h={10}
               pr={2}
             >
-              {review.tags.map((item, index) => (
+              {review?.tags && review.tags.map((item, index) => (
                 <Stack
                   key={index}
                   px={1}

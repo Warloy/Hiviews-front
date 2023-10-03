@@ -5,11 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { colors } from "@/constants/Colors";
 
-import { newPostSchema, newPostDefaultValues } from "@/schemas/NewPostSchema";
+import { newReviewSchema, newReviewDefaultValues } from "@/schemas/NewReviewSchema";
 
 import useLoading from "@/hooks/useLoading";
 import useCustomToast from "@/hooks/useCustomToast";
-import { TMovie, TReview, TTag } from "@/types/Post.Type";
+import { TMovie, TNewReview, TReview, TTag } from "@/types/Post.Type";
 import { ImageBackground, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { pickImage } from "@/utils/functions";
@@ -21,17 +21,20 @@ import movieData from "@/static/moviesData";
 import { cutText } from "@/utils";
 import tagsData from "@/static/tagsData";
 import StyledField from "@/components/StyledField";
+import ReviewService from "@/services/Review/Review.Service";
+import { reviewAdapter } from "@/adapters/ReviewAdapter";
 
 const NewReviewComponent = () => {
 
   const ref = useRef();
 
-  const { user } = useAppSelector(state => state.user);
+  const user = useAppSelector(state => state.user.user);
 
   const [textAreaHeight, setTextAreaHeight] = useState(30);
 
   const [movie, setMovie] = useState<TMovie | null>(null);
   const [movieModal, setMovieModal] = useState(false);
+  const [rating, setRating] = useState(0);
 
   const [recommendedMovies, setRecommendedMovies] = useState<TMovie[]>(movieData.slice(0, 5));
   const [searchMovies, setSearchMovies] = useState<TMovie[]>(movieData);
@@ -45,6 +48,8 @@ const NewReviewComponent = () => {
 
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { showErrorToast, showSuccessToast } = useCustomToast();
+
+  const reviewAPI = new ReviewService()
 
   useFocusEffect(
     useCallback(() => {
@@ -95,7 +100,7 @@ const NewReviewComponent = () => {
 
   const handleTag = (tag: TTag) => {
     if (tags.includes(tag)) {
-      setTags(values => values.filter(item => item.id !== tag.id));
+      setTags(values => values.filter(item => item._id !== tag._id));
     } else {
       setTags([...tags, tag]);
     }
@@ -108,21 +113,37 @@ const NewReviewComponent = () => {
     formState: { isValid, errors }
   } = useForm({
     mode: "onSubmit",
-    resolver: yupResolver(newPostSchema),
-    defaultValues: newPostDefaultValues
+    resolver: yupResolver(newReviewSchema),
+    defaultValues: newReviewDefaultValues
   });
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: TNewReview) => {
     startLoading();
-
     try {
-      console.log(values);
+
+      const { data } = await reviewAPI.new({
+        authorID: user?._id,
+        description: values.description,
+        movie: movie?.name, 
+        image: 'example.com', 
+        date: new Date(), 
+        rate: rating,
+        likes: 0,
+        comments: 0
+      });
+
+      if (data?.error) {
+        showErrorToast(data?.message);
+        return;
+      }
+
+      showSuccessToast("Tu review fue publicada satisfactoriamente.");
+      reset(newReviewDefaultValues);
+
     } catch (error) {
-      console.error(error);
-      showErrorToast(`Lo lamento, ha ocurrido un error... ${error}`);
+      showErrorToast(`Error: ${error}`);
     } finally {
       stopLoading();
-      reset();
     }
   };
 
@@ -307,8 +328,10 @@ const NewReviewComponent = () => {
                   <AirbnbRating
                     count={5}
                     showRating={false}
+                    defaultRating={rating}
                     size={12}
                     selectedColor={colors.tertiary}
+                    onFinishRating={(e) => setRating(e)}
                   />
                 }
               </Stack>
@@ -363,7 +386,7 @@ const NewReviewComponent = () => {
                                   alt={item.name}
                                 />
                                 <Text
-                                  bold={movie?.id === item.id}
+                                  bold={movie?._id === item._id}
                                   fontSize="xs"
                                 >
                                   {item.name}
@@ -400,7 +423,7 @@ const NewReviewComponent = () => {
                             />
                             <Text
                               fontSize="xs"
-                              bold={movie?.id === item.id}
+                              bold={movie?._id === item._id}
                             >
                               {item.name}
                             </Text>

@@ -2,23 +2,23 @@ import { TCategory } from "@/types/Post.Type";
 
 const categoriesData: TCategory[] = [
   {
-    id: 1,
+    _id: 1,
     name: "Cinéfilo"
   },
   {
-    id: 2,
+    _id: 2,
     name: "Discusión"
   },
   {
-    id: 3,
+    _id: 3,
     name: "Memes"
   },
   {
-    id: 4,
+    _id: 4,
     name: "Offtopic"
   },
   {
-    id: 5,
+    _id: 5,
     name: "Trending"
   }
 ];

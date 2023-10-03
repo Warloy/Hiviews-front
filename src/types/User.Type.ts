@@ -14,7 +14,7 @@ export type TRegister = {
   email: string;
   username: string;
   name: string;
-  lastName: string;
+  surname: string;
   birthday: Date;
   password: string;
   passwordConfirm: string;
@@ -36,14 +36,17 @@ export type TPasswordRestore = {
 };
 
 export type TUser = {
-  id: number | string;
+  _id: number | string;
   email: string;
   name: string;
   surname: string;
   username: string;
   bio: string;
   birthday: Date | string;
-  avatar: ImageSourcePropType;
+  avatar?: String | ImageSourcePropType;
+  roles?: any;
+  reviewCollection?: string[];
+  status?: boolean;
 };
 
 export type TUserCard = {
@@ -51,5 +54,10 @@ export type TUserCard = {
   name: string;
   surname: string;
   username: string;
-  avatar: ImageSourcePropType;
+  avatar?: String | ImageSourcePropType;
+}
+
+export type TAvatar = {
+  _id: string | number;
+  src: string | ImageSourcePropType;
 }

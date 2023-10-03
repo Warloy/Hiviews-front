@@ -29,7 +29,7 @@ const ProfileCard = ({ user }: IProfileCardProps) => {
         activeOpacity={0.5}
         onPress={() => {
           console.log(`Press profile card of ${user.username}`)
-          router.push(`/profile/${user.id}`)
+          router.push(`/profile/${user._id}`)
         }}
       >
         <Stack

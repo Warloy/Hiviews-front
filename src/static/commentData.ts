@@ -2,7 +2,7 @@ import { TComment } from "@/types/Post.Type"
 
 const comments: TComment[] = [
   {
-    id: 1,
+    _id: 1,
     authorID: 1,
     author: 'Gato Cuántico',
     authAvatar: require('../assets/example/avatar12.jpg'),
@@ -10,7 +10,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 2,
+    _id: 2,
     authorID: 2,
     author: 'Hijoe Batman',
     authAvatar: require('../assets/example/avatar02.jpg'),
@@ -18,7 +18,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 3,
+    _id: 3,
     authorID: 3,
     author: 'Programador Blanco99999',
     authAvatar: require('../assets/example/avatar03.jpg'),
@@ -26,7 +26,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 4,
+    _id: 4,
     authorID: 4,
     author: 'Wilburn',
     authAvatar: require('../assets/example/avatar01.jpg'),
@@ -34,7 +34,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 5,
+    _id: 5,
     authorID: 5,
     author: 'Personalidad Wachu',
     authAvatar: require('../assets/example/avatar08.jpg'),
@@ -42,7 +42,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 6,
+    _id: 6,
     authorID: 6,
     author: 'Wakanda 4ever',
     authAvatar: require('../assets/example/avatar06.jpg'),
@@ -50,7 +50,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 7,
+    _id: 7,
     authorID: 7,
     author: 'Gwen Stacy64',
     authAvatar: require('../assets/example/avatar10.jpg'),
@@ -58,7 +58,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 8,
+    _id: 8,
     authorID: 8,
     author: 'Goku 12',
     authAvatar: require('../assets/example/avatar02.jpg'),
@@ -66,7 +66,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 9,
+    _id: 9,
     authorID: 9,
     author: 'Camaron rosa',
     authAvatar: require('../assets/example/avatar11.jpg'),
@@ -74,7 +74,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 10,
+    _id: 10,
     authorID: 10,
     author: 'Batman Original',
     authAvatar: require('../assets/example/avatar02.jpg'),
@@ -82,7 +82,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 11,
+    _id: 11,
     authorID: 11,
     author: 'Simon Bolivar',
     authAvatar: require('../assets/example/avatar09.jpg'),
@@ -90,7 +90,7 @@ const comments: TComment[] = [
     date: new Date()
   },
   {
-    id: 12,
+    _id: 12,
     authorID: 12,
     author: 'Programador Front',
     authAvatar: require('../assets/example/avatar02.jpg'),

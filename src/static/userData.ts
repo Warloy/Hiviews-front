@@ -2,7 +2,7 @@ import { TUser } from "@/types/User.Type";
 
 const users: TUser[] = [
   {
-    id: 1,
+    _id: 1,
     email: "gatocuantico@gmail.com",
     name: "Gato",
     surname: "Cuántico",
@@ -12,7 +12,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar12.jpg"),
   },
   {
-    id: 2,
+    _id: 2,
     email: "sonofbatman99@gmail.com",
     name: "Hijoe",
     surname: "Batman",
@@ -22,7 +22,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar02.jpg"),
   },
   {
-    id: 3,
+    _id: 3,
     email: "whipro99999@gmail.com",
     name: "Programador",
     surname: "Blanco99999",
@@ -32,7 +32,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar03.jpg"),
   },
   {
-    id: 4,
+    _id: 4,
     email: "wilderyt@gmail.com",
     name: "Wilder",
     surname: "Perez",
@@ -42,7 +42,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar01.jpg"),
   },
   {
-    id: 5,
+    _id: 5,
     email: "huachimingo@gmail.com",
     name: "Personalidad",
     surname: "Wachu",
@@ -52,7 +52,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar08.jpg"),
   },
   {
-    id: 6,
+    _id: 6,
     email: "panteranegra@gmail.com",
     name: "Wakanda",
     surname: "4ever",
@@ -62,7 +62,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar06.jpg"),
   },
   {
-    id: 7,
+    _id: 7,
     email: "noviadepeter@gmail.com",
     name: "Gwen",
     surname: "Stacy64",
@@ -72,7 +72,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar10.jpg"),
   },
   {
-    id: 8,
+    _id: 8,
     email: "supersayayin@gmail.com",
     name: "Goku",
     surname: "12",
@@ -82,7 +82,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar02.jpg"),
   },
   {
-    id: 9,
+    _id: 9,
     email: "pinkshrimp@gmail.com",
     name: "Camaron",
     surname: "rosa",
@@ -92,7 +92,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar11.jpg"),
   },
   {
-    id: 10,
+    _id: 10,
     email: "RealBatman@gmail.com",
     name: "Batman",
     surname: "Original",
@@ -102,7 +102,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar02.jpg"),
   },
   {
-    id: 11,
+    _id: 11,
     email: "GreatColombia@gmail.com",
     name: "Simon",
     surname: "Bolivar",
@@ -112,7 +112,7 @@ const users: TUser[] = [
     avatar: require("../assets/example/avatar09.jpg"),
   },
   {
-    id: 12,
+    _id: 12,
     email: "sufferingu@gmail.com",
     name: "Programador",
     surname: "Front",

@@ -11,10 +11,12 @@ import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import Animated, { Extrapolate, SharedValue, interpolate, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import StyledModal from "@/components/StyledModal";
 import EditReview from "../EditPost/EditReview";
+import { useAppSelector } from "@/hooks/useRedux";
 
 const ButtonsUp = ({ review }: IReviewCard) => {
 
   const router = useRouter()
+  const authUser = useAppSelector(state => state.user.user)
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const [editModal, setEditModal] = useState(false);
@@ -59,7 +61,7 @@ const ButtonsUp = ({ review }: IReviewCard) => {
       <HStack
         w={'100%'}
       >
-        {(review.author === "Manuel" && before24hours(review.date)) ?
+        {((review.authorID == authUser?._id) && before24hours(review.date)) ?
           <>
             <HStack
               w={'20%'}
@@ -336,6 +338,7 @@ const ReviewCard = ({ review }: IReviewCard) => {
               onPress={() => {
                 setShowModal(true);
                 console.info(`Press review of ${review.movie} movie from ${review.author}`)
+                console.log(`${review.authorID}`)
               }}
             >
               <Image

@@ -11,12 +11,12 @@ import EditThreadComponent from "@/components/MainComponents/EditPost/EditThread
 const EditThreadPage = ( ) => {
   const { id } = useLocalSearchParams();
   const thread = id=="2" ? {
-    id: 2,
+    _id: 2,
     authorID: 2,
     author: "Manuel",
     description: "no la he visto, pero dicen que es madre pelicula. Lorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnLorem ipsum dolor sit amet quinnit amet quinn",
     category: {
-      id: 2,
+      _id: 2,
       name: "Cinéfilo"
     },
     topic: "Pero es que los planos",

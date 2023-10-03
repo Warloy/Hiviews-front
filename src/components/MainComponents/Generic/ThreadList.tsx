@@ -68,7 +68,7 @@ const ThreadList = ({ threads, listHeight="78%", disableLoadingIcon=false }: ITh
         data={threads}
         px={3}
         maxH={listHeight}
-        keyExtractor={(item, key) => `${item?.id}${new Date().toISOString()}${key}`}
+        keyExtractor={(item, key) => `${item?._id}${new Date().toISOString()}${key}`}
         renderItem={renderItem}
         ListFooterComponent={renderLoader}
         onEndReached={loadMoreItem}

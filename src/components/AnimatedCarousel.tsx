@@ -155,7 +155,7 @@ const AnimatedCarousel = () => {
         snapToInterval={CONTAINER_WIDTH}
         scrollEventThrottle={16}
         data={movies}
-        keyExtractor={(item) => String(item.id)}
+        keyExtractor={(item) => String(item._id)}
         renderItem={renderItem}
       />
     </View>
